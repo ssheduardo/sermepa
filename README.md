@@ -25,21 +25,22 @@ Como usar la clase
 Ejemplo:
 Primero asignamos los parámetros
 	try{
-		$pasarela = new Sermepa();
-	    $pasarela->importe(10.50);
-	    $pasarela->pedido(date('ymdHis'));	//generamos el número de recibo usando date por ejemplo
-	    $pasarela->clave('xxxxxxx');	//clave asignada por el banco.
-	    $pasarela->codigofuc('xxxxxxx');
-	    $pasarela->producto_descripcion('Demo');
-	    $pasarela->titular('Usuario');
-	    $pasarela->nombre_comercio('Ejemplo');
-	    //Si el comercio tiene notificación "on-line". URL del comercio que recibirá un post con los datos de la transacción .
-	    $pasarela->url_notificacion('http://www.example.com/notificacion.php');	
-	    $pasarela->url_ok('http://www.example.com/ok.php');	// Si le das aceptar finalizada la compra desde la pasarela de pagos
-	    $pasarela->url_ko('http://www.example.com/ko.php'); // Si le das cancelar desde la pasarela de pagos
-	    $pasarela->firma();
-	}catch(Exception $e){
-        echo $e->getMessage();   
+	$pasarela = new Sermepa();
+    $pasarela->importe(10.50);
+    $pasarela->pedido(date('ymdHis'));	//generamos el número de recibo usando date por ejemplo
+    $pasarela->clave('xxxxxxx');	//clave asignada por el banco.
+    $pasarela->codigofuc('xxxxxxx');
+    $pasarela->producto_descripcion('Demo');
+    $pasarela->titular('Usuario');
+    $pasarela->nombre_comercio('Ejemplo');
+    //Si el comercio tiene notificación "on-line". URL del comercio que recibirá un post con los datos de la transacción .
+    $pasarela->url_notificacion('http://www.example.com/notificacion.php');	
+    $pasarela->url_ok('http://www.example.com/ok.php');	// Si le das aceptar finalizada la compra desde la pasarela de pagos
+    $pasarela->url_ko('http://www.example.com/ko.php'); // Si le das cancelar desde la pasarela de pagos
+    $pasarela->firma();
+	}
+	catch(Exception $e){
+    echo $e->getMessage();   
     }
 
 Generamos el formulario
