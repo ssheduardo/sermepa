@@ -18,7 +18,8 @@ class Sermepa{
     private $_setNombreComercio;
     private $_setIdioma;
     private $_setMethods;
-    
+    private $_setNameForm;
+
     public function __construct(){
         
         $this->_setEntorno='https://sis-t.sermepa.es:25443/sis/realizarPago';
@@ -27,6 +28,7 @@ class Sermepa{
         $this->_setTransactionType=0;
         $this->_setIdioma = '001';
         $this->_setMethods='T';
+        $this->_setNameForm = 'servired_form';
     }
     
     #-#####################
@@ -226,12 +228,21 @@ class Sermepa{
             throw new Exception('Falta agregar la firma, Obligatorio');
         }
     }#-#firma()
+    /**
+     * Asignar el nombre del formulario
+     * @param string nombre Nombre y ID del formulario
+     */
     
+    public function set_nameform($nombre = 'servired_form')
+    {
+        $this->_setNameForm = $nombre;
+    }
+
     #-##########################
     #des: Generamos el form a incluir en nuestro html
     public function create_form(){
         $formulario='
-        <form action="'.$this->_setEntorno.'" method="post" id="servired_form" name="servired_form" >
+        <form action="'.$this->_setEntorno.'" method="post" id="'.$this->_setNameForm.'" name="'.$this->_setNameForm.'" >
             <input type="hidden" name="Ds_Merchant_Amount" value="'.$this->_setImporte.'" />
             <input type="hidden" name="Ds_Merchant_Currency" value="'.$this->_setMoneda.'" />
             <input type="hidden" name="Ds_Merchant_Order" value="'.$this->_setPedido.'" />
