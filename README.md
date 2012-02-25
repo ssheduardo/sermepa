@@ -46,6 +46,10 @@ Primero asignamos los parámetros
     	echo $e->getMessage();   
     }
 
+Opcional
+
+	$pasarela->set_nameform('nombre_formulario');
+	
 Generamos el formulario
 
 	$formulario = $pasarela->create_form();
@@ -58,6 +62,6 @@ Nota:
 
 
 TODO:
-	Agregar nombre dinámico del formulario.
+	
 	Input submit que actualmente no lo genero.
 	
