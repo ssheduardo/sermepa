@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Sermepa : Clase para utilizar la pasarela de pagos sermepa" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Sermepa</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/ssheduardo/sermepa">Fork Me on GitHub</a>
+
+          <h1 id="project_title">Sermepa</h1>
+          <h2 id="project_tagline">Clase para utilizar la pasarela de pagos sermepa</h2>
+
+          <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/ssheduardo/sermepa/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/ssheduardo/sermepa/tarball/master">Download this project as a tar.gz file</a>
+          </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>Sermepa</h3>
+
+<p>Clase para usar la pasarela de pago de Sermepa (lacaixa, sabadell, etc)
+Para descargar la librería es tan sencillo como hacer esto:</p>
+
+<pre><code>$ cd tu_ruta_descargar
+$ git clone git://github.com/ssheduardo/sermepa.git
+</code></pre>
+
+<p>Ya puedes empezar a usar la clase.</p>
+
+<h3>Como usarlo</h3>
+
+<p>Ejemplo Primero asignamos los parámetros</p>
+
+<pre><code>try{
+    $pasarela = new Sermepa();
+    $pasarela-&gt;importe(10.50);
+    $pasarela-&gt;pedido(date('ymdHis'));  //generamos el número de recibo usando date por ejemplo
+    $pasarela-&gt;clave('xxxxxxx');    //clave asignada por el banco.
+    $pasarela-&gt;codigofuc('xxxxxxx');
+    $pasarela-&gt;producto_descripcion('Demo');
+    $pasarela-&gt;titular('Usuario');
+    $pasarela-&gt;nombre_comercio('Ejemplo');
+    //Si el comercio tiene notificación "on-line". URL del comercio que recibirá un post con los datos de la transacción .
+    $pasarela-&gt;url_notificacion('<a href="http://www.example.com/notificacion.php'">http://www.example.com/notificacion.php'</a>); 
+    $pasarela-&gt;url_ok('<a href="http://www.example.com/ok.php'">http://www.example.com/ok.php'</a>); // Si le das aceptar finalizada la compra desde la pasarela de pagos
+    $pasarela-&gt;url_ko('<a href="http://www.example.com/ko.php'">http://www.example.com/ko.php'</a>); // Si le das cancelar desde la pasarela de pagos
+    $pasarela-&gt;firma();
+}
+catch(Exception $e){
+    echo $e-&gt;getMessage();   
+}
+</code></pre>
+
+<p>Opcional</p>
+
+<pre><code>$pasarela-&gt;set_nameform('nombre_formulario');
+</code></pre>
+
+<p>Generamos el formulario</p>
+
+<pre><code>$formulario = $pasarela-&gt;create_form();
+</code></pre>
+
+<p>Con esto generamos el form para la comunicación con la pasarela de pagos. Solo queda agregar un input submit personalizado o por medio de javascript realizar el submit.</p>
+
+<p>Nota: Por defecto se conecta por la pasarela de pruebas para cambiar a un entorno real usar el método: set_entorno('real')</p>
+
+<h3>Más información</h3>
+
+<p><a href="https://github.com/ssheduardo/sermepa">https://github.com/ssheduardo/sermepa</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Sermepa maintained by <a href="https://github.com/ssheduardo">ssheduardo</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-30551403-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
