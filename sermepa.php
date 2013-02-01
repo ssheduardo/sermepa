@@ -19,6 +19,7 @@ class Sermepa{
     private $_setIdioma;
     private $_setMethods;
     private $_setNameForm;
+    private $_setSubmit;
 
     public function __construct(){
         
@@ -29,6 +30,7 @@ class Sermepa{
         $this->_setIdioma = '001';
         $this->_setMethods='T';
         $this->_setNameForm = 'servired_form';
+        $this->_setSubmit = '';
     }
     
     #-#####################
@@ -228,14 +230,30 @@ class Sermepa{
             throw new Exception('Falta agregar la firma, Obligatorio');
         }
     }#-#firma()
+    
     /**
      * Asignar el nombre del formulario
      * @param string nombre Nombre y ID del formulario
      */
-    
+
     public function set_nameform($nombre = 'servired_form')
     {
         $this->_setNameForm = $nombre;
+    }
+
+    /**
+    * Generar boton submit
+    * @param string nombre Nombre y ID del botón submit
+    * @param string texto Texto que se mostrara en el botón
+    */
+
+    public function submit($nombre = 'submitsermepa',$texto='Enviar')
+    {
+        if(strlen(trim($nombre))==0)
+            throw new Exception('Asigne nombre al boton submit');
+
+        $btnsubmit = '<input type="submit" name="'.$nombre.'" id="'.$nombre.'" value="'.$texto.'" />';
+        $this->_setSubmit = $btnsubmit;
     }
 
     #-##########################
@@ -257,7 +275,10 @@ class Sermepa{
             <input type="hidden" name="Ds_Merchant_UrlOK" value="'.$this->_setUrlOk.'" />
             <input type="hidden" name="Ds_Merchant_UrlKO" value="'.$this->_setUrlKo.'" />
             <input type="hidden" name="Ds_Merchant_PayMethods" value="'.$this->_setMethods.'" />
-            <input type="hidden" name="Ds_Merchant_MerchantSignature" value="'.$this->_setFirma.'" />        
+            <input type="hidden" name="Ds_Merchant_MerchantSignature" value="'.$this->_setFirma.'" />       
+        ';
+        $formulario.=$this->_setSubmit;
+        $formulario.='
         </form>        
         ';
         return $formulario;

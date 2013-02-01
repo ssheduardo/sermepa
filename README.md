@@ -47,9 +47,13 @@ Primero asignamos los parámetros
     }
 
 Opcional
-
+	//Asigna nombre a id y name del formulario
 	$pasarela->set_nameform('nombre_formulario');
 	
+	//Generar el input submit (si en caso no se usa javascript u otro)
+	$pasarela->submit('nombre_submit','texto_del_boton');
+
+
 Generamos el formulario
 
 	$formulario = $pasarela->create_form();
@@ -63,5 +67,5 @@ Nota:
 
 TODO:
 	
-	Input submit que actualmente no lo genero.
+	
 	
