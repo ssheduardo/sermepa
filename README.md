@@ -47,9 +47,9 @@ Primero asignamos los parámetros
     }
 
 Opcional
+
 	//Asigna nombre a id y name del formulario
-	$pasarela->set_nameform('nombre_formulario');
-	
+	$pasarela->set_nameform('nombre_formulario');	
 	//Generar el input submit (si en caso no se usa javascript u otro)
 	$pasarela->submit('nombre_submit','texto_del_boton');
 
@@ -61,11 +61,8 @@ Generamos el formulario
 Con esto generamos el form para la comunicación con la pasarela de pagos.
 Solo queda agregar un input submit personalizado o por medio de javascript realizar el submit.
 
-Nota:
+>Nota:
 	Por defecto se conecta por la pasarela de pruebas para cambiar a un entorno real usar el método: set_entorno('real')
 
 
-TODO:
-	
-	
 	
