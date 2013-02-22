@@ -1,0 +1,20 @@
+{
+   "name": "sermepa/sermepa",
+   "description": "Pasarela de pago sermepa",
+   "keywords": ["sermepa", "payment", "pasarela","lacaixa","sabadell"],
+   "homepage": "https://github.com/ssheduardo/sermepa",
+   "license": "MIT",
+   "authors": [
+      {
+         "name": "Eduardo D",
+         "email": "ssh.eduardo@gmail.com",
+         "homepage": "http://ubublog.com/"
+      }
+   ],
+   "require": {
+      "php": ">=5.2.0"
+   },
+   "autoload": {
+      "files": ["sermepa.php"]
+   }
+}
