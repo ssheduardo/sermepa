@@ -255,6 +255,16 @@ class Sermepa{
         $btnsubmit = '<input type="submit" name="'.$nombre.'" id="'.$nombre.'" value="'.$texto.'" />';
         $this->_setSubmit = $btnsubmit;
     }
+    
+    /**
+    * Ejecutar la redirección hacia el tpv
+    */
+    
+    public function ejecutarRedireccion() {
+    	echo $this->create_form();
+	    echo "<script>document.forms[\"".$this->_setNameForm."\"].submit();</script>";
+    }
+
 
     #-##########################
     #des: Generamos el form a incluir en nuestro html
