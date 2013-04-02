@@ -262,7 +262,7 @@ class Sermepa{
     
     public function ejecutarRedireccion() {
     	echo $this->create_form();
-	    echo "<script>document.forms[\"".$this->_setNameForm."\"].submit();</script>";
+	    echo '<script>document.forms["'.$this->_setNameForm.'"].submit();</script>';
     }
 
 
