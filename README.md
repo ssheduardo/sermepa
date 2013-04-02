@@ -62,10 +62,13 @@ Con esto generamos el form para la comunicación con la pasarela de pagos.
 Solo queda agregar un input submit personalizado o por medio de javascript realizar el submit.
 
 Redirección automática
+
 	//Gracias por a la colaboración de jaumecornado (github)
 	Podemos forzar la redirección sin pasar por el método create_form()
 	$pasarela->ejecutarRedireccion(); 
-	>Esto método llamaría a create_form y lanzaría el submit por javacript
+	
+	[Esto método llamaría a create_form y lanzaría el submit por javacript]
+
 >Nota:
 	Por defecto se conecta por la pasarela de pruebas para cambiar a un entorno real usar el método: set_entorno('real')
 
