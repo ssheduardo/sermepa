@@ -23,7 +23,7 @@ class Sermepa{
 
     public function __construct(){
         
-        $this->_setEntorno='https://sis-t.sermepa.es:25443/sis/realizarPago';
+        $this->_setEntorno='https://sis-t.redsys.es:25443/sis/realizarPago';
         $this->_setMoneda ='978';
         $this->_setTerminal =1;
         $this->_setTransactionType=0;
@@ -51,7 +51,7 @@ class Sermepa{
         }
         else{
             //pruebas
-            $this->_setEntorno ='https://sis-t.sermepa.es:25443/sis/realizarPago';
+            $this->_setEntorno ='https://sis-t.redsys.es:25443/sis/realizarPago';
         }            
     }#-#set_entorno()
 
