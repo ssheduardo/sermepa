@@ -2,7 +2,8 @@ Historia
 --------
 Esta clase nace porque no te encontraba una clase de pasarela de pagos (TPV) que se pueda integrar directamente en una web, existen
 muchas pero para varios CMS y no me servian, solo quería montar algo fácil que pueda usar, los ejemplos que vienen en la documentación oficial era muy simple así que decidi realizar esta clase y ahora lo comparto con todos.
-Valido para Sermepa y Redsys.
+	
+	Valido para Sermepa y Redsys.
 
 Introducción
 ------------
