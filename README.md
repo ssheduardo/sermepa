@@ -72,7 +72,7 @@ Redirección automática
 	[Esto método llamaría a create_form y lanzaría el submit por javacript]
 
 >Nota:
-	Por defecto se conecta por la pasarela de pruebas para cambiar a un entorno real usar el método: set_entorno('real')
+	Por defecto se conecta por la pasarela de pruebas para cambiar a un entorno real usar el método: set_entorno('real'), con esto ya estará activo.
 
 
 	
