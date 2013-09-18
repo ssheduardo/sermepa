@@ -1,7 +1,8 @@
 {
    "name": "sermepa/sermepa",
+   "version": "1.0.0",
    "description": "Pasarela de pago sermepa",
-   "keywords": ["sermepa", "payment", "pasarela","lacaixa","sabadell"],
+   "keywords": ["sermepa", "payment", "pasarela","lacaixa","sabadell","redsys"],
    "homepage": "https://github.com/ssheduardo/sermepa",
    "license": "MIT",
    "authors": [
