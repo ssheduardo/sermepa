@@ -320,14 +320,14 @@ class Sermepa{
     	}
     	preg_match('#(([-]?[0-9]+(,[0-9])?)+(\.[0-9]+)?)#', $pString, $pregResultB);
     	if ((isset($pregResultA[0]) && (!isset($pregResultB[0])
-    	|| strstr($preResultA[0],$pregResultB[0]) == 0
+    	|| strstr($pregResultA[0],$pregResultB[0]) == 0
     	|| !$pointset))) {
     		$numberString = $pregResultA[0];
     		$numberString = str_replace('.','',$numberString);
     		$numberString = str_replace(',','.',$numberString);
     	}
     	elseif (isset($pregResultB[0]) && (!isset($pregResultA[0])
-    	|| strstr($pregResultB[0],$preResultA[0]) == 0
+    	|| strstr($pregResultB[0],$pregResultA[0]) == 0
     	|| !$commaset)) {
     		$numberString = $pregResultB[0];
     		$numberString = str_replace(',','',$numberString);
