@@ -71,6 +71,23 @@ Redirección automática
 	
 	[Esto método llamaría a create_form y lanzaría el submit por javacript]
 
+Comprobación de Pago
+
+	Podemos comprobar si se ha realizado el pago correctamente. Para ello necesitamos setear la clave del banco y pasar la variable $_POST que nos devuelve en la URL de notificación o de retorno. Por ejemplo, en el fichero que es llamado por la URL de retorno:
+
+	try{
+		$pasarela = new Sermepa();
+	    $pasarela->clave('xxxxxxx');	//clave asignada por el banco.
+	    if ($pasarela->comprobar($_POST['Ds_Signature'])) {
+	        //acciones a realizar si es correcto, por ejemplo validar una reserva, mandar un mail de OK o contactar con mensajería para preparar un pedido
+	    } else {
+	        //acciones a realizar si ha sido erroneo
+	    }
+	}
+	catch(Exception $e){
+    	echo $e->getMessage();
+    }
+
 >Nota:
 	Por defecto se conecta por la pasarela de pruebas para cambiar a un entorno real usar el método: set_entorno('real'), con esto ya estará activo.
 
