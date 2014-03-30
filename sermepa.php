@@ -341,13 +341,13 @@ class Sermepa{
     public function comprobar($postData)
     {
 
-        if ($this->_setClave == null) {
+        if ($this->_setClave === null) {
             throw new Exception('Debes asignar una clave');
         }
 
         try
         {
-            if (isset($_POST['Ds_Signature']))
+            if (isset($postData))
             {
                 // creamos las variables para usar
                 $Ds_Response = $postData['Ds_Response']; //codigo de respuesta
@@ -369,6 +369,8 @@ class Sermepa{
                 } else {
                     return false;
                 }
+            } else {
+                throw new Exception("Debes pasar la variable POST devuelta por el banco");
             }
 
         } catch (Exception $e) {
