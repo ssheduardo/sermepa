@@ -28,7 +28,8 @@ class Sermepa{
     /**
      * Constructor
      */
-    public function __construct(){
+    public function __construct()
+    {
 
         $this->_setEntorno='https://sis-t.redsys.es:25443/sis/realizarPago';
         $this->_setMoneda ='978';
@@ -116,7 +117,8 @@ class Sermepa{
      * @param string $pedido Numero de pedido alfanumérico
      * @throws Exception
      */
-    public function pedido($pedido=''){
+    public function pedido($pedido='')
+    {
         if(strlen(trim($pedido))> 0){
             $this->_setPedido = $pedido;
         }
@@ -239,7 +241,8 @@ class Sermepa{
      *
      * @param string $url Url donde mostrar un mensaje si se realizo correctamente el pago
      */
-    public function url_ok($url=''){
+    public function url_ok($url='')
+    {
         $this->_setUrlOk = $url;
     }#-#url_ok()
 
@@ -274,7 +277,8 @@ class Sermepa{
      *
      * @param string $metodo [T = Pago con Tarjeta, R = Pago por Transferencia, D = Domiciliacion] por defecto es T
      */
-    public function methods($metodo='T'){
+    public function methods($metodo='T')
+    {
         $this->_setMethods= $metodo;
     }
 
@@ -287,7 +291,7 @@ class Sermepa{
     {
         $mensaje = $this->_setImporte . $this->_setPedido . $this->_setFuc . $this->_setMoneda . $this->_setTransactionType . $this->_setUrlNotificacion . $this->_setClave;
         if(strlen(trim($mensaje)) > 0){
-            // Cálculo del SHA1		    		
+            // Cálculo del SHA1                 
             $this->_setFirma = strtoupper(sha1($mensaje));
         }
         else{
@@ -338,11 +342,11 @@ class Sermepa{
      * @return bool
      * @throws Exception
      */
-    public function comprobar($postData)
+    public function comprobar($postData='')
     {
 
         if ($this->_setClave === null) {
-            throw new Exception('Debes asignar una clave');
+            throw new Exception('Falta agregar la clave proporcionada por sermepa');
         }
 
         try
@@ -361,13 +365,19 @@ class Sermepa{
                 // creamos la firma para comparar
                 $firma = strtoupper(sha1($Ds_Amount . $Ds_Order . $Ds_MerchantCode . $Ds_Currency . $Ds_Response . $this->_setClave));
 
-                $Ds_Response += 0; //convertimos la respuenta en un numero concreto.
+                $Ds_Response =(int) $Ds_Response; //convertimos la respuesta en un numero concreto.
 
-                //comprueba la firma
-                if ($firma == $firmaBanco && $Ds_Response == 0) {
-                    return true;
+                //Comprueba la firma y respuesta
+                //Nota: solo en el caso de las preautenticaciones (preautorizaciones separadas), se devuelve un 0 si está autorizada y el titular se autentica y, un 1 si está autorizada y el titular no se autentica.
+                if ($firma == $firmaBanco) {
+                    if ($Ds_Response < 100) {
+                        return true;
+                    }
+                    else{
+                        throw new Exception("Error en la transacción, código ".$Ds_Response);
+                    }
                 } else {
-                    return false;
+                    throw new Exception("Las firmas no coinciden");
                 }
             } else {
                 throw new Exception("Debes pasar la variable POST devuelta por el banco");
