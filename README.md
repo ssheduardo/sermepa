@@ -79,7 +79,7 @@ Comprobación de Pago
     try{
         $pasarela = new Sermepa();
         $pasarela->clave('xxxxxxx');    //clave asignada por el banco.
-        if ($pasarela->comprobar($_POST['Ds_Signature'])) {
+        if ($pasarela->comprobar($_POST)) {
             //acciones a realizar si es correcto, por ejemplo validar una reserva, mandar un mail de OK, guardar en bbdd o contactar con mensajería para preparar un pedido
         } else {
             //acciones a realizar si ha sido erroneo
