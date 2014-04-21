@@ -16,35 +16,58 @@
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
         <header class="inner">
-          <a id="forkme_banner" href="https://github.com/ssheduardo/sermepa">Fork Me on GitHub</a>
+          <a id="forkme_banner" href="https://github.com/ssheduardo/sermepa">View on GitHub</a>
 
           <h1 id="project_title">Sermepa</h1>
           <h2 id="project_tagline">Clase para utilizar la pasarela de pagos sermepa</h2>
 
-          <section id="downloads">
-            <a class="zip_download_link" href="https://github.com/ssheduardo/sermepa/zipball/master">Download this project as a .zip file</a>
-            <a class="tar_download_link" href="https://github.com/ssheduardo/sermepa/tarball/master">Download this project as a tar.gz file</a>
-          </section>
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/ssheduardo/sermepa/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/ssheduardo/sermepa/tarball/master">Download this project as a tar.gz file</a>
+            </section>
         </header>
     </div>
 
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>Sermepa</h3>
+        <h2>
+<a name="historia" class="anchor" href="#historia"><span class="octicon octicon-link"></span></a>Historia</h2>
 
-<p>Clase para usar la pasarela de pago de Sermepa (lacaixa, sabadell, etc)
-Para descargar la librería es tan sencillo como hacer esto:</p>
+<p>Esta clase nace porque no te encontraba una clase de pasarela de pagos (TPV) que se pueda integrar directamente en una web, existen
+muchas pero para varios CMS y no me servian, solo quería montar algo fácil que pueda usar, los ejemplos que vienen en la documentación oficial era muy simple así que decidi realizar esta clase y ahora lo comparto con todos.</p>
 
-<pre><code>$ cd tu_ruta_descargar
-$ git clone git://github.com/ssheduardo/sermepa.git
+<pre><code>Valido para Sermepa y Redsys.
 </code></pre>
 
-<p>Ya puedes empezar a usar la clase.</p>
+<h2>
+<a name="introducci%C3%B3n" class="anchor" href="#introducci%C3%B3n"><span class="octicon octicon-link"></span></a>Introducción</h2>
 
-<h3>Como usarlo</h3>
+<p>La clase sermepa sirve para generar el formulario que se comunicará con la pasarela de pagos que usan muchos bancos como: Sabadell, Lacaixa, etc.</p>
 
-<p>Ejemplo Primero asignamos los parámetros</p>
+<p>Es una versión que ira creciendo y actualizandose poco a poco y mejorandolo.
+Si lo usas en algún proyecto y te ayudo en algo no dudas en decirmelo</p>
+
+<h2>
+<a name="requerimientos" class="anchor" href="#requerimientos"><span class="octicon octicon-link"></span></a>Requerimientos</h2>
+
+<p>PHP 5</p>
+
+<h2>
+<a name="creditos" class="anchor" href="#creditos"><span class="octicon octicon-link"></span></a>Creditos</h2>
+
+<pre><code>Clase creada por Eduardo Diaz, Madrid 2012
+Twitter: @eduardo_dx
+</code></pre>
+
+<h2>
+<a name="como-usar-la-clase" class="anchor" href="#como-usar-la-clase"><span class="octicon octicon-link"></span></a>Como usar la clase</h2>
+
+<p>Primeramente decargamos la clase
+git clone <a href="mailto:git@github.com">git@github.com</a>:ssheduardo/sermepa.git</p>
+
+<p>Ejemplo
+Primero asignamos los parámetros</p>
 
 <pre><code>try{
     $pasarela = new Sermepa();
@@ -56,9 +79,9 @@ $ git clone git://github.com/ssheduardo/sermepa.git
     $pasarela-&gt;titular('Usuario');
     $pasarela-&gt;nombre_comercio('Ejemplo');
     //Si el comercio tiene notificación "on-line". URL del comercio que recibirá un post con los datos de la transacción .
-    $pasarela-&gt;url_notificacion('<a href="http://www.example.com/notificacion.php'">http://www.example.com/notificacion.php'</a>); 
-    $pasarela-&gt;url_ok('<a href="http://www.example.com/ok.php'">http://www.example.com/ok.php'</a>); // Si le das aceptar finalizada la compra desde la pasarela de pagos
-    $pasarela-&gt;url_ko('<a href="http://www.example.com/ko.php'">http://www.example.com/ko.php'</a>); // Si le das cancelar desde la pasarela de pagos
+    $pasarela-&gt;url_notificacion('http://www.example.com/notificacion.php'); 
+    $pasarela-&gt;url_ok('http://www.example.com/ok.php'); // Si le das aceptar finalizada la compra desde la pasarela de pagos
+    $pasarela-&gt;url_ko('http://www.example.com/ko.php'); // Si le das cancelar desde la pasarela de pagos
     $pasarela-&gt;firma();
 }
 catch(Exception $e){
@@ -68,7 +91,10 @@ catch(Exception $e){
 
 <p>Opcional</p>
 
-<pre><code>$pasarela-&gt;set_nameform('nombre_formulario');
+<pre><code>//Asigna nombre a id y name del formulario
+$pasarela-&gt;set_nameform('nombre_formulario');   
+//Generar el input submit (si en caso no se usa javascript u otro)
+$pasarela-&gt;submit('nombre_submit','texto_del_boton');
 </code></pre>
 
 <p>Generamos el formulario</p>
@@ -76,13 +102,41 @@ catch(Exception $e){
 <pre><code>$formulario = $pasarela-&gt;create_form();
 </code></pre>
 
-<p>Con esto generamos el form para la comunicación con la pasarela de pagos. Solo queda agregar un input submit personalizado o por medio de javascript realizar el submit.</p>
+<p>Con esto generamos el form para la comunicación con la pasarela de pagos.
+Solo queda agregar un input submit personalizado o por medio de javascript realizar el submit.</p>
 
-<p>Nota: Por defecto se conecta por la pasarela de pruebas para cambiar a un entorno real usar el método: set_entorno('real')</p>
+<p>Redirección automática</p>
 
-<h3>Más información</h3>
+<pre><code>//Gracias por a la colaboración de jaumecornado (github)
+Podemos forzar la redirección sin pasar por el método create_form()
+$pasarela-&gt;ejecutarRedireccion(); 
 
-<p><a href="https://github.com/ssheduardo/sermepa">https://github.com/ssheduardo/sermepa</a></p>
+[Esto método llamaría a create_form y lanzaría el submit por javacript]
+</code></pre>
+
+<p>Comprobación de Pago</p>
+
+<pre><code>//Gracias por a la colaboración de markitosgv (github)
+Podemos comprobar si se ha realizado el pago correctamente. Para ello necesitamos setear la clave del banco y pasar la variable $_POST que nos devuelve en la URL de notificación o de retorno. Por ejemplo, en el fichero que es llamado por la URL de retorno:
+
+try{
+    $pasarela = new Sermepa();
+    $pasarela-&gt;clave('xxxxxxx');    //clave asignada por el banco.
+    if ($pasarela-&gt;comprobar($_POST)) {
+        //acciones a realizar si es correcto, por ejemplo validar una reserva, mandar un mail de OK, guardar en bbdd o contactar con mensajería para preparar un pedido
+    } else {
+        //acciones a realizar si ha sido erroneo
+    }
+}
+catch(Exception $e){
+    echo $e-&gt;getMessage();
+}
+</code></pre>
+
+<blockquote>
+<p>Nota:
+    Por defecto se conecta por la pasarela de pruebas para cambiar a un entorno real usar el método: set_entorno('real'), con esto ya estará activo.</p>
+</blockquote>
       </section>
     </div>
 
