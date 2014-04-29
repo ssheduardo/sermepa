@@ -9,6 +9,7 @@ class Sermepa{
     private $_setImporte;
     private $_setMoneda;
     private $_setPedido;
+    private $_setMerchantData;
     private $_setProductoDescripcion;
     private $_setTitular;
     private $_setFuc;
@@ -34,6 +35,7 @@ class Sermepa{
         $this->_setEntorno='https://sis-t.redsys.es:25443/sis/realizarPago';
         $this->_setMoneda ='978';
         $this->_setTerminal =1;
+        $this->_setMerchantData = '';
         $this->_setTransactionType=0;
         $this->_setIdioma = '001';
         $this->_setMethods='T';
@@ -127,6 +129,16 @@ class Sermepa{
         }
 
     }
+
+    /**
+     * Campo opcional para el comercio para ser incluidos en los datos enviados por la respuesta "on-line" al comercio si se ha elegido esta opción.
+     * @param string $datoscomercio Datos del comercio.
+     */
+    public function set_datoscomercio($datoscomercio)
+    {
+        $this->_setMerchantData = trim($datoscomercio);
+    } 
+
 
     /**
      * Asigmanos la descripción del producto (Obligatorio)
@@ -401,6 +413,7 @@ class Sermepa{
             <input type="hidden" name="Ds_Merchant_Amount" value="'.$this->_setImporte.'" />
             <input type="hidden" name="Ds_Merchant_Currency" value="'.$this->_setMoneda.'" />
             <input type="hidden" name="Ds_Merchant_Order" value="'.$this->_setPedido.'" />
+            <input type="hidden" name="Ds_Merchant_MerchantData" value="'.$this->_setMerchantData.'" />
             <input type="hidden" name="Ds_Merchant_MerchantCode" value="'.$this->_setFuc.'" />
             <input type="hidden" name="Ds_Merchant_Terminal" value="'.$this->_setTerminal.'" />
             <input type="hidden" name="Ds_Merchant_TransactionType" value="'.$this->_setTransactionType.'" />
