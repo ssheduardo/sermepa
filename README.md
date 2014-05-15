@@ -23,10 +23,23 @@ Creditos
 
 Como usar la clase
 ------------------
-Primeramente decargamos la clase
-git clone git@github.com:ssheduardo/sermepa.git
 
-Ejemplo
+**Primer paso clonar la clase**
+    
+    git clone git@github.com:ssheduardo/sermepa.git
+
+**Métodos útiles**
+
+    //Asignar nombre a id y name del formulario
+    $pasarela->set_nameform('nombre_formulario');   
+
+    //Generar el input submit (si en caso no se usa javascript u otro)
+    $pasarela->submit('nombre_submit','texto_del_boton');
+
+    //Generar formulario
+    $pasarela->create_form();
+
+**Ejemplos**
 Primero asignamos los parámetros
 
     try{
@@ -43,25 +56,18 @@ Primero asignamos los parámetros
         $pasarela->url_ok('http://www.example.com/ok.php'); // Si le das aceptar finalizada la compra desde la pasarela de pagos
         $pasarela->url_ko('http://www.example.com/ko.php'); // Si le das cancelar desde la pasarela de pagos
         $pasarela->firma();
+
+        //Generamos botón submit
+        $pasarela->submit('nombre_submit','Pagar');
     }
     catch(Exception $e){
         echo $e->getMessage();   
     }
-
-Opcional
-
-    //Asigna nombre a id y name del formulario
-    $pasarela->set_nameform('nombre_formulario');   
-    //Generar el input submit (si en caso no se usa javascript u otro)
-    $pasarela->submit('nombre_submit','texto_del_boton');
-
-
-Generamos el formulario
-
     $formulario = $pasarela->create_form();
+    echo $formulario;
 
 Con esto generamos el form para la comunicación con la pasarela de pagos.
-Solo queda agregar un input submit personalizado o por medio de javascript realizar el submit.
+
 
 Redirección automática
 
