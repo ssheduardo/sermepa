@@ -91,9 +91,8 @@ class Sermepa{
         $importe = $this->parseFloat($importe);
 
         // sermepa nos dice Para Euros las dos últimas posiciones se consideran decimales.
-        $importe = intval($importe*100);
+        $importe = intval(strval($importe*100));
         $this->_setImporte=$importe;
-        return $importe;
     }
 
     /**
