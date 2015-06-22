@@ -1,8 +1,7 @@
 {
-   "name": "sermepa/sermepa",
-   "version": "1.0.0",
-   "description": "Pasarela de pago sermepa",
-   "keywords": ["sermepa", "payment", "pasarela","lacaixa","sabadell","redsys"],
+   "name": "sermepa/tpv",   
+   "description": "Pasarela de pago Redsys, Sermepa",
+   "keywords": ["sermepa", "payment", "pasarela", "lacaixa", "sabadell", "redsys"],
    "homepage": "https://github.com/ssheduardo/sermepa",
    "license": "MIT",
    "authors": [
@@ -13,9 +12,12 @@
       }
    ],
    "require": {
-      "php": ">=5.2.0"
+      "php": ">=5.3"
    },
    "autoload": {
-      "files": ["sermepa.php"]
-   }
+        "psr-4": {
+            "Sermepa\\Tpv\\": "src/Sermepa/Tpv/"
+        }
+    },
+    "minimum-stability": "stable"   
 }

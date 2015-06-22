@@ -1,9 +1,12 @@
 <?php
+namespacce Sermepa\Tpv;
+
+use Exception;
 
 /**
  * Class Sermepa
  */
-class Sermepa{
+class Tpv{
 
     private $_setEntorno;
     private $_setImporte;
