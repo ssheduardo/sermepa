@@ -1,5 +1,5 @@
 <?php
-namespacce Sermepa\Tpv;
+namespace Sermepa\Tpv;
 
 use Exception;
 
