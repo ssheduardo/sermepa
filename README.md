@@ -26,11 +26,11 @@ Instalación
 -----------
 **Si usas composer tienes 2 opciones**
     
-1. Por linea de comandos
+1.- Por linea de comandos
 ```bash
     composer require sermepa/sermepa
 ```    
-2. Creas o agregas a tu archivo **composer.json** la siguiente dependencia:
+2.- Creas o agregas a tu archivo **composer.json** la siguiente dependencia:
 
 ```json
     {
