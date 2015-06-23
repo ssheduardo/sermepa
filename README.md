@@ -21,12 +21,37 @@ Creditos
     Clase creada por Eduardo Diaz, Madrid 2012
     Twitter: @eduardo_dx
 
+
+Instalación
+-----------
+**Si usas composer tienes 2 opciones**
+    
+1. Por linea de comandos
+```bash
+    composer require sermepa/sermepa
+```    
+2. Creas o agregas a tu archivo **composer.json** la siguiente dependencia:
+
+```json
+    {
+       "require": {
+          "sermepa/sermepa": "1.0.*"
+       }
+    }
+```
+    
+Luego ejecutas:
+    
+    composer update
+
+
+**Si en caso contrario no usas composer, bastará con clonar el repositorio**
+```
+git clone git@github.com:ssheduardo/sermepa.git
+```
+
 Como usar la clase
 ------------------
-
-**Primer paso clonar la clase**
-    
-    git clone git@github.com:ssheduardo/sermepa.git
 
 **Métodos útiles**
 
@@ -41,7 +66,7 @@ Como usar la clase
 
 **Ejemplos**
 Primero asignamos los parámetros
-
+```php
     try{
         $pasarela = new Sermepa();
         $pasarela->importe(10.50);
@@ -65,23 +90,31 @@ Primero asignamos los parámetros
     }
     $formulario = $pasarela->create_form();
     echo $formulario;
-
+```
 Con esto generamos el form para la comunicación con la pasarela de pagos.
 
 
 Redirección automática
 
+```php
     //Gracias por a la colaboración de jaumecornado (github)
-    Podemos forzar la redirección sin pasar por el método create_form()
+    //Podemos forzar la redirección sin pasar por el método create_form()
+
     $pasarela->ejecutarRedireccion(); 
-    
-    [Esto método llamaría a create_form y lanzaría el submit por javacript]
+```    
+
+[Esto método llamaría a **create_form** y lanzaría el submit por javacript]
+
+
 
 Comprobación de Pago
+--------------------
 
-    //Gracias por a la colaboración de markitosgv (github)
-    Podemos comprobar si se ha realizado el pago correctamente. Para ello necesitamos setear la clave del banco y pasar la variable $_POST que nos devuelve en la URL de notificación o de retorno. Por ejemplo, en el fichero que es llamado por la URL de retorno:
+**Gracias por a la colaboración de markitosgv (github)**
 
+Podemos comprobar si se ha realizado el pago correctamente. Para ello necesitamos setear la clave del banco y pasar la variable $_POST que nos devuelve en la URL de notificación o de retorno. Por ejemplo, en el fichero que es llamado por la URL de retorno:
+
+```php
     try{
         $pasarela = new Sermepa();
         $pasarela->clave('xxxxxxx');    //clave asignada por el banco.
@@ -94,9 +127,10 @@ Comprobación de Pago
     catch(Exception $e){
         echo $e->getMessage();
     }
+```
 
 >Nota:
-    Por defecto se conecta por la pasarela de pruebas para cambiar a un entorno real usar el método: set_entorno('real'), con esto ya estará activo.
+    Por defecto se conecta por la pasarela de pruebas para cambiar a un entorno real usar el método: **set_entorno('real')**, con esto ya estará activo.
 
 
     
