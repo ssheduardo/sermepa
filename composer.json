@@ -16,6 +16,5 @@
    },
    "autoload": {
       "files": ["sermepa.php"]
-   },
-   "minimum-stability": "stable"
+   }
 }
