@@ -12,9 +12,9 @@ La clase sermepa sirve para generar el formulario que se comunicará con la pasa
 Es una versión que ira creciendo y actualizandose poco a poco y mejorandolo.
 Si lo usas en algún proyecto y te ayudo en algo no dudas en decirmelo
 
-Requerimientos
---------------
-PHP 5
+Requerimientos mínimos
+----------------------
+PHP 5.2.0
 
 Creditos
 --------
