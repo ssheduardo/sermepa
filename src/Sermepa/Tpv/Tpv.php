@@ -398,6 +398,16 @@ class Tpv{
     }
 
     /**
+     * Set Id to form
+     *
+     * @param string $id Name for Id
+     */
+    public function setIdForm($id = 'servired_form')
+    {
+        $this->_setIdForm = $id;
+    }
+
+    /**
      * Set Attributes to submit
      * @param string $name Name submit
      * @param string $id Id submit
@@ -415,7 +425,7 @@ class Tpv{
      */
     public function executeRedirection()
     {
-        echo $this->create_form();
+        echo $this->createForm();
         echo '<script>document.forms["'.$this->_setNameForm.'"].submit();</script>';
     }
 
