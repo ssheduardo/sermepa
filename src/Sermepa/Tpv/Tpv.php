@@ -8,484 +8,574 @@ use Exception;
  */
 class Tpv{
 
-    private $_setEntorno;
-    private $_setImporte;
-    private $_setMoneda;
-    private $_setPedido;
+    private $_setEnviroment;
     private $_setMerchantData;
-    private $_setProductoDescripcion;
-    private $_setTitular;
-    private $_setFuc;
     private $_setTerminal;
     private $_setTransactionType;
-    private $_setUrlNotificacion;
-    private $_setClave;
-    private $_setUrlOk;
-    private $_setUrlKo;
-    private $_setFirma;
-    private $_setNombreComercio;
-    private $_setIdioma;
-    private $_setMethods;
+    private $_setMethod;
     private $_setNameForm;
+    private $_setIdForm;
     private $_setSubmit;
+    private $_setIdioma;
+    private $_setParameters;
+    private $_setVersion;
+    private $_setNameSubmit;
+    private $_setIdSubmit;
+    private $_setValueSubmit;
+    private $_setSignature;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-
-        $this->_setEntorno='https://sis-t.redsys.es:25443/sis/realizarPago';
-        $this->_setMoneda ='978';
+        $this->_setEnviroment='https://sis-t.redsys.es:25443/sis/realizarPago';
         $this->_setTerminal =1;
         $this->_setMerchantData = '';
         $this->_setTransactionType=0;
         $this->_setIdioma = '001';
-        $this->_setMethods='T';
-        $this->_setNameForm = 'servired_form';
+        $this->_setMethod='T';
         $this->_setSubmit = '';
+
+        $this->_setParameters = array();
+        $this->_setVersion = 'HMAC_SHA256_V1';
+        $this->_setNameForm = 'redsys_form';
+        $this->_setIdForm = 'redsys_form';
+        $this->_setNameSubmit = 'submit';
+        $this->_setIdSubmit = 'submit';
+        $this->_setValueSubmit = 'Send';
     }
 
+    /************* NEW METHODS ************* */
+
+
     /**
-     * Asignamos el idioma por defecto 001 = Español
-     *
-     * @param $codeidioma codigo de idioma [Castellano-001, Inglés-002, Catalán-003, Francés-004, Alemán-005, Holandés-006, Italiano-007, Sueco-008, Portugués-009, Valenciano-010, Polaco-011, Gallego-012 y Euskera-013.]
+     * Set amount (required)
+     * @param $amount
+     * @internal param $value
      */
-    public function set_idioma($codeidioma)
+    public function setAmount($amount)
     {
-        $this->_setIdioma = $codeidioma;
+        $amount = $this->priceToSQL($amount);
+        $amount = intval(strval($amount*100));
+
+        $this->_setParameters['DS_MERCHANT_AMOUNT'] = $amount;
     }
 
     /**
-     * Asignamos que tipo de entorno vamos a usar si Pruebas o Real (por defecto esta en pruebas)
-     *
-     * @param string $entorno (pruebas, real)
-     */
-    public function set_entorno($entorno='pruebas')
-    {
-        if(trim($entorno) == 'real'){
-            //real
-            $this->_setEntorno='https://sis.sermepa.es/sis/realizarPago';
-        }
-        else{
-            //pruebas
-            $this->_setEntorno ='https://sis-t.redsys.es:25443/sis/realizarPago';
-        }
-    }
-
-    /**
-     * Retornamos la URL que va en el form para los pagos ya sea en pruebas o real
-     *
-     * @return string URL sermepa (real o pruebas)
-     */
-    public function geturlentorno()
-    {
-        return $this->_setEntorno;
-    }
-
-    /**
-     * Asignamos el importe de la compra
-     *
-     * @param int $importe    total de la compra a pagar
-     * @return bool|float|int Retornamos el importe ya modificado
-     */
-    public function importe($importe=0)
-    {
-        $importe = $this->parseFloat($importe);
-
-        // sermepa nos dice Para Euros las dos últimas posiciones se consideran decimales.
-        $importe = intval(strval($importe*100));
-        $this->_setImporte=$importe;
-    }
-
-    /**
-     * Asignamos el tipo de moneda
-     *
-     * @param string $moneda 978 para Euros, 840 para Dólares, 826 para libras esterlinas y 392 para Yenes.
+     * Set Order number - [The firsts 4 digits must be numeric.] (required)
+     * @param $order
      * @throws Exception
      */
-    public function moneda($moneda='978')
+    public function setOrder($order)
     {
-        if($moneda == '978' || $moneda =='840' || $moneda =='826' || $moneda =='392' ){
-            $this->_setMoneda = $moneda;
+        if(strlen(trim($order)) > 0){
+            $this->_setParameters['DS_MERCHANT_ORDER'] = $order;
         }
         else{
-            throw new Exception('Moneda no valida');
-        }
-
-    }
-
-    /**
-     * Asignamos el número de pedido a nuestra compra (Los 4 primeros dígitos deben ser numéricos)
-     *
-     * @param string $pedido Numero de pedido alfanumérico
-     * @throws Exception
-     */
-    public function pedido($pedido='')
-    {
-        if(strlen(trim($pedido))> 0){
-            $this->_setPedido = $pedido;
-        }
-        else{
-            throw new Exception('Falta agregar el número de pedido');
-        }
-
-    }
-
-    /**
-     * Campo opcional para el comercio para ser incluidos en los datos enviados por la respuesta "on-line" al comercio si se ha elegido esta opción.
-     * @param string $datoscomercio Datos del comercio.
-     */
-    public function set_datoscomercio($datoscomercio)
-    {
-        $this->_setMerchantData = trim($datoscomercio);
-    } 
-
-
-    /**
-     * Asigmanos la descripción del producto (Obligatorio)
-     *
-     * @param string $producto Descripción del producto
-     * @throws Exception
-     */
-    public function producto_descripcion($producto='')
-    {
-        if(strlen(trim($producto)) > 0){
-            //asignamos el producto
-            $this->_setProductoDescripcion = $producto;
-        }
-        else{
-            throw new Exception('Falta agregar la descripción del producto');
+            throw new Exception('Please add Order');
         }
     }
 
     /**
-     * Asigmanos el nombre del usuario que realiza la compra (Obligatorio)
-     *
-     * @param string $titular Nombre del usuario (por ejemplo Juan Perez)
-     * @throws Exception
+     * Get order
+     * @return mixed
      */
-    public function titular($titular='')
+    public function getOrder()
     {
-        if(strlen(trim($titular)) > 0){
-            $this->_setTitular = $titular;
+        return $this->_setParameters['DS_MERCHANT_ORDER'];
+    }
+
+
+    /**
+     * Get Ds_Order of Notification
+     * @param $paraments Array with parameters
+     * @return string
+     */
+    function getOrderNotification($paraments){
+        $order = '';
+        foreach($paraments as $key => $value) {
+            if(strtolower($key) == 'ds_order' ){
+                $order = $value;
+            }
         }
-        else{
-            throw new Exception('Falta agregar el titular que realiza la compra');
-        }
+        return $order;
     }
 
     /**
-     * Asignamos el código FUC del comercio (Obligatorio)
-     *
-     * @param string $fuc Código fuc que nos envía sermepa
+     * Set code Fuc of trade (required)
+     * @param $fuc Fuc
      * @throws Exception
      */
-    public function codigofuc($fuc='')
+    public function setMerchantcode($fuc)
     {
         if(strlen(trim($fuc)) > 0){
-            $this->_setFuc = $fuc;
+            $this->_setParameters['DS_MERCHANT_MERCHANTCODE'] = $fuc;
         }
         else{
-            throw new Exception('Falta agregar el código FUC');
+            throw new Exception('Please add Fuc');
         }
     }
 
     /**
-     * Asignar el tipo de terminal por defecto 1 en Sadabell (Obligatorio)
-     *
-     * @param int $terminal Número de terminal que le asignará su banco.
+     * Set currency
+     * @param int $currency 978 para Euros, 840 para Dólares, 826 para libras esterlinas y 392 para Yenes.
      * @throws Exception
      */
-    public function terminal($terminal=1)
+    public function setCurrency($currency=978)
+    {
+        if($currency == '978' || $currency =='840' || $currency =='826' || $currency =='392' ){
+            $this->_setParameters['DS_MERCHANT_CURRENCY'] = $currency;
+        }
+        else{
+            throw new Exception('Currency is not valid');
+        }
+
+    }
+
+    /**
+     * Set Transaction type
+     * @param int $transaction
+     * @throws Exception
+     */
+    public function setTransactiontype($transaction=0)
+    {
+        if(strlen(trim($transaction)) > 0){
+            $this->_setParameters['DS_MERCHANT_TRANSACTIONTYPE'] = $transaction;
+        }
+        else{
+            throw new Exception('Please add transaction type');
+        }
+    }
+
+    /**
+     * Set terminal by default is 1 to  Sadabell(required)
+     * @param int $terminal
+     * @throws Exception
+     */
+    public function setTerminal($terminal=1)
     {
         if(intval($terminal) !=0){
-            $this->_setTerminal = $terminal;
+            $this->_setParameters['DS_MERCHANT_TERMINAL'] = $terminal;
         }
         else{
-            throw new Exception('El terminal no es valido');
+            throw new Exception('Terminal is not valid.');
         }
     }
 
     /**
-     * Asignar el tipo de transacción por defecto 0 que es autorización (Obligatorio)
-     *
-     * @param int $transactiontype tipo de transacción
-     * @throws Exception
+     * Set url notification
+     * @param string $url
      */
-    public function transaction_type($transactiontype=0)
+    public function setNotification($url='')
     {
-        if(strlen(trim($transactiontype)) > 0){
-            $this->_setTransactionType= $transactiontype;
+        $this->_setParameters['DS_MERCHANT_MERCHANTURL'] = $url;
+    }
+
+    /**
+     * Set url Ok
+     * @param string $url
+     */
+    public function setUrlOk($url='')
+    {
+        $this->_setParameters['DS_MERCHANT_URLOK'] = $url;
+    }
+
+    /**
+     * Set url Ko
+     * @param string $url
+     */
+    public function setUrlKo($url='')
+    {
+        $this->_setParameters['DS_MERCHANT_URLKO'] = $url;
+    }
+
+    /**
+     * @param string $version
+     */
+    public function setVersion($version='')
+    {
+        $this->_setVersion = $version;
+    }
+
+
+    /**
+     * Generate Merchant Parameters
+     * @return string
+     */
+    public function generateMerchantParameters()
+    {
+        //Convert Array to Json
+        $json = $this->arrayToJson($this->_setParameters);
+        //Return Json to Base64
+        return $this->encodeBase64($json);
+    }
+
+    /**
+     * Generate Merchant Signature
+     * @param $key
+     * @return string
+     */
+    public function generateMerchantSignature($key)
+    {
+        $key = $this->decodeBase64($key);
+        //Generate Merchant Parameters
+        $merchant_parameter = $this->generateMerchantParameters();
+        // Get key with Order and key
+        $key = $this->encrypt_3DES($this->getOrder(), $key);
+        // Generated Hmac256 of Merchant Parameter
+        $result = $this->hmac256($merchant_parameter, $key);
+        // Base64 encoding
+        return $this->encodeBase64($result);
+    }
+
+    /**
+     * Generate Merchant Signature Notification
+     * @param $key
+     * @param $data
+     * @return string
+     */
+    public function generateMerchantSignatureNotification($key, $data){
+        $key = $this->decodeBase64($key);
+        // Decode data base64
+        $decode = $this->base64_url_decode($data);
+        // Los datos decodificados se pasan al array de datos
+        $parameters = $this->JsonToArray($decode);
+        $order = $this->getOrderNotification($parameters);
+
+        $key = $this->encrypt_3DES($order, $key);
+        // Generated Hmac256 of Merchant Parameter
+        $result = $this->hmac256($data, $key);
+        return $this->base64_url_encode($result);
+    }
+
+
+    /**
+     * Set Merchant Signature
+     * @param $signature
+     * @internal param $value
+     */
+    public function setMerchantSignature($signature)
+    {
+        $this->_setSignature = $signature;
+    }
+
+    /**
+     * Set enviroment
+     *
+     * @param string $enviroment Enviroment
+     */
+    public function setEnviroment($enviroment='')
+    {
+        if(trim($enviroment) == 'live'){
+            //Live
+            $this->_setEnviroment='https://sis.redsys.es/sis/realizarPago';
+        }
+        elseif(trim($enviroment) == 'other'){
+            $this->_setEnviroment='http://sis-d.redsys.es/sis/realizarPago';
         }
         else{
-            throw new Exception('Falta agregar el tipo de transacción');
+            //Test
+            $this->_setEnviroment ='https://sis-t.redsys.es:25443/sis/realizarPago';
         }
     }
 
-    /**
-     * Nombre del comercio que será reflejado en el ticket del comercio (Opcional)
-     *
-     * @param string $nombrecomercio Nombre del comercio
-     */
-    public function nombre_comercio($nombrecomercio='')
-    {
-        $nombrecomercio = trim($nombrecomercio);
-        $this->_setNombreComercio = $nombrecomercio;
-    }
 
     /**
-     * Si el comercio tiene notificación "on-line". URL del comercio que recibirá un post con los datos de la transacción (Obligatorio).
+     * Set language code by default 001 = Spanish
      *
-     * @param string $url_notificacion Url para guardar los datos recibidos por el comercio.
+     * @param string $languagecode Language code [Castellano-001, Inglés-002, Catalán-003, Francés-004, Alemán-005, Holandés-006, Italiano-007, Sueco-008, Portugués-009, Valenciano-010, Polaco-011, Gallego-012 y Euskera-013.]
      * @throws Exception
      */
-    public function url_notificacion($url_notificacion='')
+    public function setLanguage($languagecode='001')
     {
-        if(strlen(trim($url_notificacion)) > 0){
-            $this->_setUrlNotificacion = $url_notificacion;
+        if(strlen(trim($languagecode)) > 0){
+            $this->_setParameters['DS_MERCHANT_CONSUMERLANGUAGE'] = trim($languagecode);
         }
         else{
-            throw new Exception('Falta agregar url de notificacion');
+            throw new Exception('Add language code');
         }
     }
 
     /**
-     * Si se envía será utilizado como URLOK ignorando el configurado en el módulo de administración en caso de tenerlo (Opcional).
+     * Return enviroment
      *
-     * @param string $url Url donde mostrar un mensaje si se realizo correctamente el pago
+     * @return string Url of enviroment
      */
-    public function url_ok($url='')
+    public function getEnviroment()
     {
-        $this->_setUrlOk = $url;
-    }#-#url_ok()
-
-    /**
-     * Si se envía será utilizado como URLKO ignorando el configurado en el módulo de administración en caso de tenerlo (Opcional).
-     *
-     * @param string $url Url donde mostrar un mensaje si se produjo un problema al realizar el
-     */
-    public function url_ko($url='')
-    {
-        $this->_setUrlKo = $url;
+        return $this->_setEnviroment;
     }
 
     /**
-     * Asignar la clave proporcionada por el banco (Obligatorio)
-     *
-     * @param string $clave Clave proporcionada por el Banco
+     * Optional field for the trade to be included in the data sent by the "on-line" response to trade if this option has been chosen.
+     * @param $merchantdata
      * @throws Exception
      */
-    public function clave($clave='')
+    public function setMerchantData($merchantdata)
     {
-        if(strlen(trim($clave)) > 0){
-            $this->_setClave = $clave;
+        if(strlen(trim($merchantdata)) > 0){
+            $this->_setParameters['DS_MERCHANT_MERCHANTDATA'] = trim($merchantdata);
         }
         else{
-            throw new Exception('Falta agregar la clave proporcionada por sermepa');
+            throw new Exception('Add merchant data');
         }
     }
 
     /**
-     * Tipo de Pago
+     * Set product description (optional)
      *
-     * @param string $metodo [T = Pago con Tarjeta, R = Pago por Transferencia, D = Domiciliacion] por defecto es T
-     */
-    public function methods($metodo='T')
-    {
-        $this->_setMethods= $metodo;
-    }
-
-    /**
-     * Firma que se envía a Sermepa (Obligatorio)
-     *
+     * @param string $description
      * @throws Exception
      */
-    public function firma()
+    public function setProductDescription($description='')
     {
-        $mensaje = $this->_setImporte . $this->_setPedido . $this->_setFuc . $this->_setMoneda . $this->_setTransactionType . $this->_setUrlNotificacion . $this->_setClave;
-        if(strlen(trim($mensaje)) > 0){
-            // Cálculo del SHA1                 
-            $this->_setFirma = strtoupper(sha1($mensaje));
+        if(strlen(trim($description)) > 0){
+            $this->_setParameters['DS_MERCHANT_PRODUCTDESCRIPTION'] = trim($description);
         }
         else{
-            throw new Exception('Falta agregar la firma, Obligatorio');
+            throw new Exception('Add product description');
         }
     }
 
-
     /**
-     * Asignar el nombre del formulario
+     * Set name of the user making the purchase (required)
      *
-     * @param string $nombre
-     */
-    public function set_nameform($nombre = 'servired_form')
-    {
-        $this->_setNameForm = $nombre;
-    }
-
-    /**
-     * Generamos el Boto Submit
-     *
-     * @param string $nombre Nombre y ID del botón submit
-     * @param string $texto  Texto que se mostrara en el botón
+     * @param string $titular name of the user (for example Alonso Cotos)
      * @throws Exception
      */
-    public function submit($nombre = 'submitsermepa',$texto='Enviar')
+    public function setTitular($titular='')
     {
-        if(strlen(trim($nombre))==0)
-            throw new Exception('Asigne nombre al boton submit');
+        if(strlen(trim($titular)) > 0){
+            $this->_setParameters['DS_MERCHANT_TITULAR'] = trim($titular);
+        }
+        else{
+            throw new Exception('Add name for the user');
+        }
 
-        $btnsubmit = '<input type="submit" name="'.$nombre.'" id="'.$nombre.'" value="'.$texto.'" />';
-        $this->_setSubmit = $btnsubmit;
     }
 
     /**
-     * Ejecutar la redirección automática al TPV
+     * Set Trade name Trade name will be reflected in the ticket trade (Optional)
+     *
+     * @param string $tradename trade name
+     * @throws Exception
      */
-    public function ejecutarRedireccion()
+    public function setTradeName($tradename='')
+    {
+        if(strlen(trim($tradename)) > 0){
+            $this->_setParameters['DS_MERCHANT_MERCHANTNAME'] = trim($tradename);
+        }
+        else{
+            throw new Exception('Add name for Trade name');
+        }
+    }
+
+    /**
+     * Payment type
+     *
+     * @param string $method [T = Pago con Tarjeta, R = Pago por Transferencia, D = Domiciliacion] por defecto es T
+     * @throws Exception
+     */
+    public function setMethod($method='T')
+    {
+        if(strlen(trim($method)) > 0){
+            $this->_setParameters['DS_MERCHANT_MERCHANTNAME'] = trim($method);
+        }
+        else{
+            throw new Exception('Add name for Trade name');
+        }
+    }
+
+    /**
+     * Set name to form
+     *
+     * @param string $name Name for form.
+     */
+    public function setNameForm($name = 'servired_form')
+    {
+        $this->_setNameForm = $name;
+    }
+
+    /**
+     * Set Attributes to submit
+     * @param string $name Name submit
+     * @param string $id Id submit
+     * @param string $value Value submit
+     */
+    public function setAttributesSubmit($name = 'submit', $id='submit', $value='Send')
+    {
+        $this->_setNameSubmit = $name;
+        $this->_setIdSubmit = $id;
+        $this->_setValueSubmit = $value;
+    }
+
+    /**
+     * Execute redirection to TPV
+     */
+    public function executeRedirection()
     {
         echo $this->create_form();
         echo '<script>document.forms["'.$this->_setNameForm.'"].submit();</script>';
     }
 
     /**
-     * Comprueba si la operación ha resultado satisfactoria
-     *
-     * @param array $postData Datos _$POST recibidos del TPV (url de notificación)
-     * @return bool
-     * @throws Exception
-     */
-    public function comprobar($postData='')
-    {
-
-        if ($this->_setClave === null) {
-            throw new Exception('Falta agregar la clave proporcionada por sermepa');
-        }
-
-        try
-        {
-            if (isset($postData))
-            {
-                // creamos las variables para usar
-                $Ds_Response = $postData['Ds_Response']; //codigo de respuesta
-                $Ds_Amount = $postData['Ds_Amount']; //monto de la orden
-                $Ds_Order = $postData['Ds_Order']; //numero de orden
-                $Ds_MerchantCode = $postData['Ds_MerchantCode']; //codigo de comercio
-                $Ds_Currency = $postData['Ds_Currency']; //moneda
-                $firmaBanco = $postData['Ds_Signature']; //firma hecha por el banco
-                $Ds_Date = $postData['Ds_Date']; //fecha
-
-                // creamos la firma para comparar
-                $firma = strtoupper(sha1($Ds_Amount . $Ds_Order . $Ds_MerchantCode . $Ds_Currency . $Ds_Response . $this->_setClave));
-
-                $Ds_Response =(int) $Ds_Response; //convertimos la respuesta en un numero concreto.
-
-                //Comprueba la firma y respuesta
-                //Nota: solo en el caso de las preautenticaciones (preautorizaciones separadas), se devuelve un 0 si está autorizada y el titular se autentica y, un 1 si está autorizada y el titular no se autentica.
-                if ($firma == $firmaBanco) {
-                    if ($Ds_Response < 100) {
-                        return true;
-                    }
-                    else{
-                        throw new Exception("Error en la transacción, código ".$Ds_Response);
-                    }
-                } else {
-                    throw new Exception("Las firmas no coinciden");
-                }
-            } else {
-                throw new Exception("Debes pasar la variable POST devuelta por el banco");
-            }
-
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-
-    }
-
-    /**
-     * Generamos el form a incluir en el HTML
+     * Generate form html
      *
      * @return string
      */
-    public function create_form()
+    public function createForm()
     {
-        $formulario='
-        <form action="'.$this->_setEntorno.'" method="post" id="'.$this->_setNameForm.'" name="'.$this->_setNameForm.'" >
-            <input type="hidden" name="Ds_Merchant_Amount" value="'.$this->_setImporte.'" />
-            <input type="hidden" name="Ds_Merchant_Currency" value="'.$this->_setMoneda.'" />
-            <input type="hidden" name="Ds_Merchant_Order" value="'.$this->_setPedido.'" />
-            <input type="hidden" name="Ds_Merchant_MerchantData" value="'.$this->_setMerchantData.'" />
-            <input type="hidden" name="Ds_Merchant_MerchantCode" value="'.$this->_setFuc.'" />
-            <input type="hidden" name="Ds_Merchant_Terminal" value="'.$this->_setTerminal.'" />
-            <input type="hidden" name="Ds_Merchant_TransactionType" value="'.$this->_setTransactionType.'" />
-            <input type="hidden" name="Ds_Merchant_Titular" value="'.$this->_setTitular.'" />
-            <input type="hidden" name="Ds_Merchant_MerchantName" value="'.$this->_setNombreComercio.'" />
-            <input type="hidden" name="Ds_Merchant_MerchantURL" value="'.$this->_setUrlNotificacion.'" />
-            <input type="hidden" name="Ds_Merchant_ProductDescription" value="'.$this->_setProductoDescripcion.'" />
-            <input type="hidden" name="Ds_Merchant_ConsumerLanguage " value="'.$this->_setIdioma.'" />
-            <input type="hidden" name="Ds_Merchant_UrlOK" value="'.$this->_setUrlOk.'" />
-            <input type="hidden" name="Ds_Merchant_UrlKO" value="'.$this->_setUrlKo.'" />
-            <input type="hidden" name="Ds_Merchant_PayMethods" value="'.$this->_setMethods.'" />
-            <input type="hidden" name="Ds_Merchant_MerchantSignature" value="'.$this->_setFirma.'" />       
+        $form='
+            <form action="'.$this->_setEnviroment.'" method="post" id="'.$this->_setIdForm.'" name="'.$this->_setNameForm.'" >
+                <input type="hidden" name="Ds_MerchantParameters" value="'.$this->generateMerchantParameters().'"/>
+                <input type="hidden" name="Ds_Signature" value="'.$this->_setSignature.'"/>
+                <input type="hidden" name="Ds_SignatureVersion" value="'.$this->_setVersion.'"/>
+                <input type="submit" name="'.$this->_setNameSubmit.'" id="'.$this->_setIdSubmit.'" value="'.$this->_setValueSubmit.'" >
+            </form>
         ';
-        $formulario.=$this->_setSubmit;
-        $formulario.='
-        </form>        
-        ';
-        return $formulario;
+
+        return $form;
     }
 
     /**
-     * Parseo a Float
+     * Check if properly made ​​the purchase.
      *
-     * @param $ptString
-     * @return bool|float
+     * @param string $key Key
+     * @param array $postData Data received by the bank
+     * @return bool
+     * @throws Exception
      */
-    private function parseFloat($ptString)
+    public function check($key='', $postData)
     {
-        if (strlen($ptString) == 0) {
-            return false;
-        }
-        $pString = str_replace(" ", "", $ptString);
-        if (substr_count($pString, ",") > 1)
-            $pString = str_replace(",", "", $pString);
-        if (substr_count($pString, ".") > 1)
-            $pString = str_replace(".", "", $pString);
-        $pregResult = array();
-        $commaset = strpos($pString,',');
-        if ($commaset === false) {
-            $commaset = -1;
-        }
-        $pointset = strpos($pString,'.');
-        if ($pointset === false) {
-            $pointset = -1;
-        }
-        $pregResultA = array();
-        $pregResultB = array();
-        if ($pointset < $commaset) {
-            preg_match('#(([-]?[0-9]+(\.[0-9])?)+(,[0-9]+)?)#', $pString, $pregResultA);
-        }
-        preg_match('#(([-]?[0-9]+(,[0-9])?)+(\.[0-9]+)?)#', $pString, $pregResultB);
-        if ((isset($pregResultA[0]) && (!isset($pregResultB[0])
-                || strstr($pregResultA[0],$pregResultB[0]) == 0
-                || !$pointset))) {
-            $numberString = $pregResultA[0];
-            $numberString = str_replace('.','',$numberString);
-            $numberString = str_replace(',','.',$numberString);
-        }
-        elseif (isset($pregResultB[0]) && (!isset($pregResultA[0])
-                || strstr($pregResultB[0],$pregResultA[0]) == 0
-                || !$commaset)) {
-            $numberString = $pregResultB[0];
-            $numberString = str_replace(',','',$numberString);
-        }
-        else {
-            return false;
-        }
-        $result = (float)$numberString;
-        return $result;
-    }
-}
+        if (isset($postData))
+        {
+            $version = $postData["Ds_SignatureVersion"];
+            $parameters = $postData["Ds_MerchantParameters"];
+            $signatureReceived = $postData["Ds_Signature"];
 
-?>
+
+            $decodec = $this->decodeParameters($parameters);
+            $signature = $this->generateMerchantSignatureNotification($key,$parameters);
+
+            if ($signature === $signatureReceived){
+                return 1;
+            } else {
+                return 0;
+            }
+
+        } else {
+            throw new Exception("Add data return of bank");
+        }
+    }
+
+    // ******** UTILS ********
+
+    /**
+     * Convert Array to json
+     * @param $data Array
+     * @return string Json
+     */
+    private function arrayToJson($data)
+    {
+        return json_encode($data);
+    }
+
+    /**
+     * Convert Json to array
+     * @param $data
+     * @return mixed
+     */
+    private function JsonToArray($data)
+    {
+        return json_decode($data, true);
+    }
+
+    /**
+     * Generate sha256
+     * @param $data
+     * @param $key
+     * @return string
+     */
+    private function hmac256($data, $key)
+    {
+        $sha256 = hash_hmac('sha256', $data, $key, true);
+        return $sha256;
+    }
+
+    /**
+     * Encrypt to 3DES
+     * @param $data Data for encrypt
+     * @param $key Key
+     * @return string
+     */
+    private function encrypt_3DES($data, $key){
+        $iv = "\0\0\0\0\0\0\0\0";
+        $ciphertext = mcrypt_encrypt(MCRYPT_3DES, $key, $data, MCRYPT_MODE_CBC, $iv);
+        return $ciphertext;
+    }
+
+    private function decodeParameters($data){
+        $decode = base64_decode(strtr($data, '-_', '+/'));
+        return $decode;
+    }
+
+    //http://stackoverflow.com/a/9111049/444225
+    private function priceToSQL($price)
+    {
+        $price = preg_replace('/[^0-9\.,]*/i', '', $price);
+        $price = str_replace(',', '.', $price);
+        if(substr($price, -3, 1) == '.')
+        {
+            $price = explode('.', $price);
+            $last = array_pop($price);
+            $price = join($price, '').'.'.$last;
+        }
+        else
+        {
+            $price = str_replace('.', '', $price);
+        }
+        return $price;
+    }
+
+    /******  Base64 Functions  *****
+     * @param $input
+     * @return string
+     */
+    private function base64_url_encode($input)
+    {
+        return strtr(base64_encode($input), '+/', '-_');
+    }
+
+    /**
+     * @param $data
+     * @return string
+     */
+    private function encodeBase64($data)
+    {
+        $data = base64_encode($data);
+        return $data;
+    }
+
+    /**
+     * @param $input
+     * @return string
+     */
+    private function base64_url_decode($input)
+    {
+        return base64_decode(strtr($input, '-_', '+/'));
+    }
+
+    /**
+     * @param $data
+     * @return string
+     */
+    private function decodeBase64($data)
+    {
+        $data = base64_decode($data);
+        return $data;
+    }
+
+    // ******** END UTILS ********
+
+}
