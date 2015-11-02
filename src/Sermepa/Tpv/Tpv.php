@@ -22,6 +22,7 @@ class Tpv{
     private $_setNameSubmit;
     private $_setIdSubmit;
     private $_setValueSubmit;
+    private $_setStyleSubmit;
     private $_setSignature;
 
     /**
@@ -44,6 +45,7 @@ class Tpv{
         $this->_setNameSubmit = 'submit';
         $this->_setIdSubmit = 'submit';
         $this->_setValueSubmit = 'Send';
+        $this->_setStyleSubmit = '';
     }
 
     /************* NEW METHODS ************* */
@@ -412,12 +414,14 @@ class Tpv{
      * @param string $name Name submit
      * @param string $id Id submit
      * @param string $value Value submit
+     * @param string $style Set Style
      */
-    public function setAttributesSubmit($name = 'submit', $id='submit', $value='Send')
+    public function setAttributesSubmit($name = 'submit', $id='submit', $value='Send', $style='')
     {
         $this->_setNameSubmit = $name;
         $this->_setIdSubmit = $id;
         $this->_setValueSubmit = $value;
+        $this->_setStyleSubmit = $style;
     }
 
     /**
@@ -441,7 +445,7 @@ class Tpv{
                 <input type="hidden" name="Ds_MerchantParameters" value="'.$this->generateMerchantParameters().'"/>
                 <input type="hidden" name="Ds_Signature" value="'.$this->_setSignature.'"/>
                 <input type="hidden" name="Ds_SignatureVersion" value="'.$this->_setVersion.'"/>
-                <input type="submit" name="'.$this->_setNameSubmit.'" id="'.$this->_setIdSubmit.'" value="'.$this->_setValueSubmit.'" >
+                <input type="submit" name="'.$this->_setNameSubmit.'" id="'.$this->_setIdSubmit.'" value="'.$this->_setValueSubmit.'" style="'.$this->_setStyleSubmit.'" >
             </form>
         ';
 

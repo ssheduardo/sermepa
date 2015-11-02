@@ -71,8 +71,8 @@ Como usar la clase
     $redsys->setNameForm('nombre_formulario');
     $redsys->setIdForm('id_formulario');
 
-    //Generar el input submit (si en caso no se usa javascript u otro)
-    $redsys->submit('nombre_submit','texto_del_boton');
+    //Asignar nombre, id, value y style (css) al botón submit, si usáis redirección podéis ocultar el botón con display:none
+    $redsys->setAttributesSubmit('btn_submit','btn_id','Enviar','font-size:14px; color:#ff00c1');
 
     //Generar formulario
     $redsys->createForm();
