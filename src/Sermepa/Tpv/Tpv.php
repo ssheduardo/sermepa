@@ -58,10 +58,15 @@ class Tpv{
      */
     public function setAmount($amount)
     {
-        $amount = $this->priceToSQL($amount);
-        $amount = intval(strval($amount*100));
+        if($amount > 0) {
+            $amount = $this->priceToSQL($amount);
+            $amount = intval(strval($amount*100));
 
-        $this->_setParameters['DS_MERCHANT_AMOUNT'] = $amount;
+            $this->_setParameters['DS_MERCHANT_AMOUNT'] = $amount;
+        }
+        else {
+            throw new Exception('Amount must be greater than 0.');
+        }
     }
 
     /**
@@ -75,7 +80,7 @@ class Tpv{
             $this->_setParameters['DS_MERCHANT_ORDER'] = $order;
         }
         else{
-            throw new Exception('Please add Order');
+            throw new Exception('Add Order');
         }
     }
 
