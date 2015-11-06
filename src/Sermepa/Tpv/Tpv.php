@@ -42,8 +42,8 @@ class Tpv{
         $this->_setVersion = 'HMAC_SHA256_V1';
         $this->_setNameForm = 'redsys_form';
         $this->_setIdForm = 'redsys_form';
-        $this->_setNameSubmit = 'submit';
-        $this->_setIdSubmit = 'submit';
+        $this->_setNameSubmit = 'btn_submit';
+        $this->_setIdSubmit = 'btn_submit';
         $this->_setValueSubmit = 'Send';
         $this->_setStyleSubmit = '';
     }
@@ -416,7 +416,7 @@ class Tpv{
      * @param string $value Value submit
      * @param string $style Set Style
      */
-    public function setAttributesSubmit($name = 'submit', $id='submit', $value='Send', $style='')
+    public function setAttributesSubmit($name = 'btn_submit', $id='btn_submit', $value='Send', $style='')
     {
         $this->_setNameSubmit = $name;
         $this->_setIdSubmit = $id;
