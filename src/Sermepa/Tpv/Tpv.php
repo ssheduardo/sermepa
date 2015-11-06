@@ -387,10 +387,10 @@ class Tpv{
     public function setMethod($method='T')
     {
         if(strlen(trim($method)) > 0){
-            $this->_setParameters['DS_MERCHANT_MERCHANTNAME'] = trim($method);
+            $this->_setParameters['DS_MERCHANT_PAYMETHODS'] = trim($method);
         }
         else{
-            throw new Exception('Add name for Trade name');
+            throw new Exception('Add pay method');
         }
     }
 
