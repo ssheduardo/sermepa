@@ -135,7 +135,11 @@ Comprobación de Pago
     try{
         $redsys = new Sermepa\Tpv\Tpv();
         $key = 'Mk9m98IfEblmPfrpsawt7BmxObt98Jev';
-        if ($redsys->check($key, $_POST)) {
+        
+        $parameters = $this->tpv->getMerchantParameters($_POST["Ds_MerchantParameters"]);
+        $DsResponse = $parameters["Ds_Response"];
+        $DsResponse += 0;
+        if ($redsys->check($key, $_POST) && $DsResponse == 0) {
             //acciones a realizar si es correcto, por ejemplo validar una reserva, mandar un mail de OK, guardar en bbdd o contactar con mensajería para preparar un pedido
         } else {
             //acciones a realizar si ha sido erroneo
