@@ -488,6 +488,18 @@ class Tpv{
         }
     }
 
+
+    /**
+     *  Decode Ds_MerchantParameters, return array with the parameters
+     * @param $parameters
+     * @return array with parameters of bank
+     */
+    public function getMerchantParameters($parameters){
+        $decodec = $this->decodeParameters($parameters);
+        $decodec_array=$this->JsonToArray($decodec);
+        return $decodec_array;
+    }
+
     // ******** UTILS ********
 
     /**
