@@ -93,7 +93,7 @@ Primero asignamos los parámetros
         $redsys = new Sermepa\Tpv\Tpv();
         $redsys->setAmount(rand(10,600));
         $redsys->setOrder(time());
-        $redsys->setMerchantcode('999008881'); //FUC de pruebas
+        $redsys->setMerchantcode('999008881'); //Reemplazar por el código que proporciona el banco
         $redsys->setCurrency('978');
         $redsys->setTransactiontype('0');
         $redsys->setTerminal('871');
@@ -104,7 +104,7 @@ Primero asignamos los parámetros
         $redsys->setTradeName('Tienda S.L');
         $redsys->setTitular('Pedro Risco');
         $redsys->setProductDescription('Compras varias');
-        $redsys->setEnviroment('other'); //Usamos OTHER de momento hasta tener bien las URL de test
+        $redsys->setEnviroment('test'); //Entorno test
 
         $signature = $redsys->generateMerchantSignature($key);
         $redsys->setMerchantSignature($signature);

@@ -267,23 +267,24 @@ class Tpv{
         $this->_setSignature = $signature;
     }
 
+
     /**
      * Set enviroment
-     *
-     * @param string $enviroment Enviroment
+     * @param string $enviroment test or live
+     * @throws Exception
      */
-    public function setEnviroment($enviroment='')
+    public function setEnviroment($enviroment='test')
     {
         if(trim($enviroment) == 'live'){
             //Live
             $this->_setEnviroment='https://sis.redsys.es/sis/realizarPago';
         }
-        elseif(trim($enviroment) == 'other'){
-            $this->_setEnviroment='http://sis-d.redsys.es/sis/realizarPago';
-        }
-        else{
+        elseif(trim($enviroment) == 'test'){
             //Test
             $this->_setEnviroment ='https://sis-t.redsys.es:25443/sis/realizarPago';
+        }
+        else{
+            throw new Exception('Add test or live');
         }
     }
 
