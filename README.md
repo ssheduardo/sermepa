@@ -64,19 +64,6 @@ git clone -b develop https://github.com/ssheduardo/sermepa.git
 
 Como usar la clase
 ------------------
-
-**Métodos útiles**
-
-    //Asignar nombre a id y name del formulario
-    $redsys->setNameForm('nombre_formulario');
-    $redsys->setIdForm('id_formulario');
-
-    //Asignar nombre, id, value y style (css) al botón submit, si usáis redirección podéis ocultar el botón con display:none
-    $redsys->setAttributesSubmit('btn_submit','btn_id','Enviar','font-size:14px; color:#ff00c1');
-
-    //Generar formulario
-    $redsys->createForm();
-
 **Ejemplo**
 Primero asignamos los parámetros
 
@@ -88,7 +75,7 @@ Primero asignamos los parámetros
         //include_once('sermepa/src/Sermepa/Tpv/Tpv.php');
 
         //Key de ejemplo
-        $key = 'Mk9m98IfEblmPfrpsawt7BmxObt98Jev';
+        $key = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
 
         $redsys = new Sermepa\Tpv\Tpv();
         $redsys->setAmount(rand(10,600));
@@ -96,7 +83,7 @@ Primero asignamos los parámetros
         $redsys->setMerchantcode('999008881'); //Reemplazar por el código que proporciona el banco
         $redsys->setCurrency('978');
         $redsys->setTransactiontype('0');
-        $redsys->setTerminal('871');
+        $redsys->setTerminal('1');
         $redsys->setNotification('http://localhost/noti.php'); //Url de notificacion
         $redsys->setUrlOk('http://localhost/ok.php'); //Url OK
         $redsys->setUrlKo('http://localhost/ko.php'); //Url KO
@@ -134,12 +121,12 @@ Comprobación de Pago
 
     try{
         $redsys = new Sermepa\Tpv\Tpv();
-        $key = 'Mk9m98IfEblmPfrpsawt7BmxObt98Jev';
-        
-        $parameters = $this->tpv->getMerchantParameters($_POST["Ds_MerchantParameters"]);
+        $key = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
+
+        $parameters = $redsys->getMerchantParameters($_POST["Ds_MerchantParameters"]);
         $DsResponse = $parameters["Ds_Response"];
         $DsResponse += 0;
-        if ($redsys->check($key, $_POST) && $DsResponse == 0) {
+        if ($redsys->check($key, $_POST) && $DsResponse <= 99) {
             //acciones a realizar si es correcto, por ejemplo validar una reserva, mandar un mail de OK, guardar en bbdd o contactar con mensajería para preparar un pedido
         } else {
             //acciones a realizar si ha sido erroneo
@@ -152,5 +139,37 @@ Comprobación de Pago
 >Nota:
     Por defecto se conecta por la pasarela de pruebas para cambiar a un entorno real usar el método: setEnviroment('live'), con esto ya estará activo.
 
+**Métodos útiles**
+
+    //Asignar nombre a id y name del formulario
+        $redsys->setNameForm('nombre_formulario');
+        $redsys->setIdForm('id_formulario');
+
+    //Asignar nombre, id, value y style (css) al botón submit, si usáis 
+    //redirección podéis ocultar el botón con display:none    
+        $redsys->setAttributesSubmit('btn_submit','btn_id','Enviar','font-size:14px; color:#ff00c1');
+
+    //Generar formulario
+        $redsys->createForm();
+
+    //Obtener un array de los datos devueltos por Ds_MerchantParameters
+        $redsys->getMerchantParameters($_POST["Ds_MerchantParameters"]
+
+        Esto nos devuelve:
+            [Ds_Date] => 12/11/2015
+            [Ds_Hour] => 14:04
+            [Ds_SecurePayment] => 1
+            [Ds_Card_Number] => 454881******0004
+            [Ds_Card_Country] => 724
+            [Ds_Amount] => 7300
+            [Ds_Currency] => 978
+            [Ds_Order] => 1447333990
+            [Ds_MerchantCode] => 999008881
+            [Ds_Terminal] => 001
+            [Ds_Response] => 0000
+            [Ds_MerchantData] =>
+            [Ds_TransactionType] => 0
+            [Ds_ConsumerLanguage] => 1
+            [Ds_AuthorisationCode] => 906611
 
     
