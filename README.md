@@ -2,7 +2,7 @@ Historia
 --------
 Esta clase nace porque no te encontraba una clase de pasarela de pagos (TPV) que se pueda integrar directamente en una web, existen
 muchas pero para varios CMS y no me servian, solo quería montar algo fácil que pueda usar, los ejemplos que vienen en la documentación oficial era muy simple así que decidi realizar esta clase y ahora lo comparto con todos.
-    
+
     Valido para Sermepa y Redsys.
 
 Introducción
@@ -14,7 +14,7 @@ Si lo usas en algún proyecto y te ayudo en algo no dudas en decirmelo
 
 Requerimientos mínimos
 ----------------------
-PHP 5.2.0
+PHP 5.3.0
 
 Creditos
 --------
@@ -36,11 +36,11 @@ Actualización
 Instalación
 -----------
 **Si usas composer tienes 2 opciones**
-    
+
 1.- Por linea de comandos
 ```bash
     composer require sermepa/sermepa 1.1
-```    
+```
 2.- Creas o agregas a tu archivo **composer.json** la siguiente dependencia:
 
 ```json
@@ -50,15 +50,15 @@ Instalación
        }
     }
 ```
-    
+
 Luego ejecutas:
-    
+
     composer update
 
 
 **Si en caso contrario no usas composer, bastará con clonar el repositorio**
 ```
-git clone -b develop https://github.com/ssheduardo/sermepa.git
+git clone https://github.com/ssheduardo/sermepa.git
 ```
 
 
@@ -66,14 +66,13 @@ Como usar la clase
 ------------------
 **Ejemplo**
 Primero asignamos los parámetros
+ //Si usas composer
+//include_once('vendor/autoload.php');
+
+//Si clonaste la clase
+//include_once('sermepa/src/Sermepa/Tpv/Tpv.php');
 
     try{
-        //Si usas composer
-        //include_once(vendor/autoload.php);
-        
-        //Si clonaste la clase
-        //include_once('sermepa/src/Sermepa/Tpv/Tpv.php');
-
         //Key de ejemplo
         $key = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
 
@@ -99,7 +98,7 @@ Primero asignamos los parámetros
         $form = $redsys->createForm();
     }
     catch(Exception $e){
-        echo $e->getMessage();   
+        echo $e->getMessage();
     }
     echo $form;
 
@@ -111,7 +110,7 @@ Redirección automática
     //Gracias por a la colaboración de jaumecornado (github)
     Podemos forzar la redirección sin pasar por el método createForm()
     $redsys->executeRedirection();
-    
+
     [Esto método llamaría a createForm y lanzaría el submit por javacript]
 
 Comprobación de Pago
@@ -145,8 +144,8 @@ Comprobación de Pago
         $redsys->setNameForm('nombre_formulario');
         $redsys->setIdForm('id_formulario');
 
-    //Asignar nombre, id, value y style (css) al botón submit, si usáis 
-    //redirección podéis ocultar el botón con display:none    
+    //Asignar nombre, id, value y style (css) al botón submit, si usáis
+    //redirección podéis ocultar el botón con display:none
         $redsys->setAttributesSubmit('btn_submit','btn_id','Enviar','font-size:14px; color:#ff00c1');
 
     //Generar formulario
@@ -172,4 +171,3 @@ Comprobación de Pago
             [Ds_ConsumerLanguage] => 1
             [Ds_AuthorisationCode] => 906611
 
-    

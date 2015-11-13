@@ -1,23 +1,23 @@
 {
-   "name": "sermepa/sermepa",   
-   "description": "Pasarela de pago Redsys, Sermepa",
-   "keywords": ["sermepa", "payment", "pasarela", "lacaixa", "sabadell", "redsys"],
-   "homepage": "https://github.com/ssheduardo/sermepa",
-   "license": "MIT",
-   "authors": [
-      {
-         "name": "Eduardo D",
-         "email": "ssh.eduardo@gmail.com",
-         "homepage": "http://ubublog.com/"
-      }
-   ],
-   "require": {
-      "php": ">=5.3"
-   }, 
-   "autoload": {
-        "psr-4": {
-            "Sermepa\\Tpv\\": "src/Sermepa/Tpv/"
-        }
-    },
-    "minimum-stability": "stable"   
+  "name": "sermepa/sermepa",
+  "description": "Pasarela de pago Redsys, Sermepa",
+  "keywords": ["sermepa", "payment", "pasarela", "lacaixa", "sabadell", "redsys"],
+  "homepage": "https://github.com/ssheduardo/sermepa",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Eduardo D",
+      "email": "ssh.eduardo@gmail.com",
+      "homepage": "http://ubublog.com/"
+    }
+  ],
+  "require": {
+    "php": ">=5.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Sermepa\\Tpv\\": "src/Sermepa/Tpv/"
+    }
+  },
+  "minimum-stability": "stable"
 }
