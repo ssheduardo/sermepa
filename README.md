@@ -65,12 +65,12 @@ git clone https://github.com/ssheduardo/sermepa.git
 Como usar la clase
 ------------------
 **Ejemplo**
-Primero asignamos los parámetros
- //Si usas composer
-//include_once('vendor/autoload.php');
 
-//Si clonaste la clase
-//include_once('sermepa/src/Sermepa/Tpv/Tpv.php');
+    //Si usas composer
+    //include_once('vendor/autoload.php');
+
+    //Si clonaste la clase
+    //include_once('sermepa/src/Sermepa/Tpv/Tpv.php');
 
     try{
         //Key de ejemplo
