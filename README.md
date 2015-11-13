@@ -14,7 +14,7 @@ Si lo usas en algún proyecto y te ayudo en algo no dudas en decirmelo
 
 Requerimientos mínimos
 ----------------------
-PHP 5.2.0
+PHP 5.3.0
 
 Creditos
 --------
@@ -58,7 +58,7 @@ Luego ejecutas:
 
 **Si en caso contrario no usas composer, bastará con clonar el repositorio**
 ```
-git clone -b develop https://github.com/ssheduardo/sermepa.git
+git clone https://github.com/ssheduardo/sermepa.git
 ```
 
 
@@ -66,14 +66,13 @@ Como usar la clase
 ------------------
 **Ejemplo**
 Primero asignamos los parámetros
+ //Si usas composer
+//include_once('vendor/autoload.php');
+
+//Si clonaste la clase
+//include_once('sermepa/src/Sermepa/Tpv/Tpv.php');
 
     try{
-        //Si usas composer
-        //include_once(vendor/autoload.php);
-
-        //Si clonaste la clase
-        //include_once('sermepa/src/Sermepa/Tpv/Tpv.php');
-
         //Key de ejemplo
         $key = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
 
