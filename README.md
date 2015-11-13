@@ -23,7 +23,7 @@ Creditos
 
 TODO
 ----
-    - Corregir la URL de test (pendiente del banco)
+
 
 Actualización
 -------------
