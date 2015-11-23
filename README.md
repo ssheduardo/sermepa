@@ -1,3 +1,9 @@
+# Redys
+
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Software License][ico-license]](LICENSE.md)
+[![Total Downloads][ico-downloads]][link-downloads]
+
 Historia
 --------
 Esta clase nace porque no te encontraba una clase de pasarela de pagos (TPV) que se pueda integrar directamente en una web, existen
@@ -20,9 +26,6 @@ Creditos
 --------
     Clase creada por Eduardo Diaz, Madrid 2012
     Twitter: @eduardo_dx
-
-TODO
-----
 
 
 Actualización
@@ -171,3 +174,16 @@ Comprobación de Pago
             [Ds_ConsumerLanguage] => 1
             [Ds_AuthorisationCode] => 906611
 
+
+
+## Licencia
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+[ico-version]: https://img.shields.io/packagist/v/sermepa/sermepa.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/sermepa/sermepa.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/sermepa/sermepa
+[link-downloads]: https://packagist.org/packages/sermepa/sermepa
+[link-author]: https://github.com/ssheduardo
