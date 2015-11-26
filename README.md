@@ -1,3 +1,9 @@
+# Redys
+
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Software License][ico-license]](LICENSE.md)
+[![Total Downloads][ico-downloads]][link-downloads]
+
 Historia
 --------
 Esta clase nace porque no te encontraba una clase de pasarela de pagos (TPV) que se pueda integrar directamente en una web, existen
@@ -21,9 +27,6 @@ Creditos
     Clase creada por Eduardo Diaz, Madrid 2012
     Twitter: @eduardo_dx
 
-TODO
-----
-
 
 Actualización
 -------------
@@ -39,14 +42,14 @@ Instalación
 
 1.- Por linea de comandos
 ```bash
-    composer require sermepa/sermepa 1.1
+    composer require sermepa/sermepa
 ```
 2.- Creas o agregas a tu archivo **composer.json** la siguiente dependencia:
 
 ```json
     {
        "require": {
-          "sermepa/sermepa": "1.1"
+          "sermepa/sermepa": "^1.1"
        }
     }
 ```
@@ -105,7 +108,7 @@ Como usar la clase
 Con esto generamos el form para la comunicación con la pasarela de pagos.
 
 
-Redirección automática
+**Redirección automática**
 
     //Gracias por a la colaboración de jaumecornado (github)
     Podemos forzar la redirección sin pasar por el método createForm()
@@ -113,7 +116,7 @@ Redirección automática
 
     [Esto método llamaría a createForm y lanzaría el submit por javacript]
 
-Comprobación de Pago
+**Comprobación de Pago**
 
     //Gracias por a la colaboración de markitosgv (github)
     Podemos comprobar si se ha realizado el pago correctamente. Para ello necesitamos setear la clave del banco y pasar la variable $_POST que nos devuelve en la URL de notificación o de retorno. Por ejemplo, en el fichero que es llamado por la URL de retorno:
@@ -138,20 +141,24 @@ Comprobación de Pago
 >Nota:
     Por defecto se conecta por la pasarela de pruebas para cambiar a un entorno real usar el método: setEnviroment('live'), con esto ya estará activo.
 
-**Métodos útiles**
+Métodos útiles
+-----------
 
-    //Asignar nombre a id y name del formulario
+**Asignar nombre a id y name del formulario**
+
         $redsys->setNameForm('nombre_formulario');
         $redsys->setIdForm('id_formulario');
 
-    //Asignar nombre, id, value y style (css) al botón submit, si usáis
-    //redirección podéis ocultar el botón con display:none
+**Asignar nombre, id, value y style (css) al botón submit, si usáis redirección podéis ocultar el botón con display:none**
+
         $redsys->setAttributesSubmit('btn_submit','btn_id','Enviar','font-size:14px; color:#ff00c1');
 
-    //Generar formulario
+**Generar formulario**
+
         $redsys->createForm();
 
-    //Obtener un array de los datos devueltos por Ds_MerchantParameters
+**Obtener un array de los datos devueltos por Ds_MerchantParameters**
+
         $redsys->getMerchantParameters($_POST["Ds_MerchantParameters"]
 
         Esto nos devuelve:
@@ -171,3 +178,16 @@ Comprobación de Pago
             [Ds_ConsumerLanguage] => 1
             [Ds_AuthorisationCode] => 906611
 
+
+
+## Licencia
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+[ico-version]: https://img.shields.io/packagist/v/sermepa/sermepa.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/sermepa/sermepa.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/sermepa/sermepa
+[link-downloads]: https://packagist.org/packages/sermepa/sermepa
+[link-author]: https://github.com/ssheduardo

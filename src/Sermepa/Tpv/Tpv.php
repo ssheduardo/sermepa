@@ -54,12 +54,12 @@ class Tpv{
     /**
      * Set amount (required)
      * @param $amount
-     * @internal param $value
+     * @throws Exception
      */
     public function setAmount($amount)
     {
         if($amount > 0) {
-            $amount = $this->priceToSQL($amount);
+            $amount = $this->convertNumber($amount);
             $amount = intval(strval($amount*100));
 
             $this->_setParameters['DS_MERCHANT_AMOUNT'] = $amount;
@@ -570,6 +570,12 @@ class Tpv{
         return $price;
     }
 
+    private function convertNumber($price)
+    {
+        $number=number_format(str_replace(',', '.', $price), 2, '.', '');
+        return $number;
+
+    }
     /******  Base64 Functions  *****
      * @param $input
      * @return string
