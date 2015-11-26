@@ -42,14 +42,14 @@ Instalación
 
 1.- Por linea de comandos
 ```bash
-    composer require sermepa/sermepa 1.1
+    composer require sermepa/sermepa
 ```
 2.- Creas o agregas a tu archivo **composer.json** la siguiente dependencia:
 
 ```json
     {
        "require": {
-          "sermepa/sermepa": "1.1"
+          "sermepa/sermepa": "^1.1"
        }
     }
 ```
