@@ -86,7 +86,7 @@ Como usar la clase
         $redsys->setCurrency('978');
         $redsys->setTransactiontype('0');
         $redsys->setTerminal('1');
-        $redsys->setMethod('T'); //Solo pago con tarjeta, no mostramos iupay
+        $redsys->setMethod('C'); //Solo pago con tarjeta, no mostramos iupay
         $redsys->setNotification('http://localhost/noti.php'); //Url de notificacion
         $redsys->setUrlOk('http://localhost/ok.php'); //Url OK
         $redsys->setUrlKo('http://localhost/ko.php'); //Url KO
