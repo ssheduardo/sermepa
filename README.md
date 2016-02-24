@@ -157,6 +157,27 @@ Métodos útiles
 **Generar formulario**
 
         $redsys->createForm();
+**Obtener array con todos los datos asignados**
+
+        $redsys->getParameters();
+        
+        Por ejemplo esto nos devuelve:
+            Array
+            (
+                [DS_MERCHANT_AMOUNT] => 1700
+                [DS_MERCHANT_ORDER] => 160224230429
+                [DS_MERCHANT_MERCHANTCODE] => XXXXXX
+                [DS_MERCHANT_CURRENCY] => 978
+                [DS_MERCHANT_TRANSACTIONTYPE] => 0
+                [DS_MERCHANT_TERMINAL] => 1
+                [DS_MERCHANT_PAYMETHODS] => C
+                [DS_MERCHANT_MERCHANTURL] => http://demo.com/notificacion.php
+                [DS_MERCHANT_URLOK] => http://demo.com/accept
+                [DS_MERCHANT_URLKO] => http://demo.com/cancel
+                [DS_MERCHANT_MERCHANTNAME] => Tu empresa
+                [DS_MERCHANT_TITULAR] => Usuario
+                [DS_MERCHANT_PRODUCTDESCRIPTION] => Tu descripción
+            )
 
 **Obtener un array de los datos devueltos por Ds_MerchantParameters**
 
