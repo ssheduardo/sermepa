@@ -501,6 +501,16 @@ class Tpv{
         return $decodec_array;
     }
 
+
+    /**
+     * Return array with all parameters assigned.
+     * @return array
+     */
+    public function getParameters()
+    {
+        return $this->_setParameters;
+    }
+
     // ******** UTILS ********
 
     /**
