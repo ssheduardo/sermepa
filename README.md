@@ -120,7 +120,8 @@ Con esto generamos el form para la comunicación con la pasarela de pagos.
 **Comprobación de Pago**
 
     //Gracias por a la colaboración de markitosgv (github)
-    Podemos comprobar si se ha realizado el pago correctamente. Para ello necesitamos setear la clave del banco y pasar la variable $_POST que nos devuelve en la URL de notificación o de retorno. Por ejemplo, en el fichero que es llamado por la URL de retorno:
+    Podemos comprobar si se ha realizado el pago correctamente. Para ello necesitamos setear la clave del banco y pasar la variable $_POST que nos devuelve en la URL de notificación o de retorno. Tener en cuenta que debemos realizar esta comprobación en la url de notificación.
+    Por ejemplo, en el fichero que es llamado por la URL de retorno:
 
     try{
         $redsys = new Sermepa\Tpv\Tpv();
