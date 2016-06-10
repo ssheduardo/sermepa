@@ -23,7 +23,8 @@ class Tpv{
     private $_setIdSubmit;
     private $_setValueSubmit;
     private $_setStyleSubmit;
-    private $_setSignature;
+    private $_setClassSubmit;
+    private $_setSignature;    
 
     /**
      * Constructor
@@ -454,7 +455,7 @@ class Tpv{
                 <input type="hidden" name="Ds_MerchantParameters" value="'.$this->generateMerchantParameters().'"/>
                 <input type="hidden" name="Ds_Signature" value="'.$this->_setSignature.'"/>
                 <input type="hidden" name="Ds_SignatureVersion" value="'.$this->_setVersion.'"/>
-                <input type="submit" name="'.$this->_setNameSubmit.'" id="'.$this->_setIdSubmit.'" value="'.$this->_setValueSubmit.'" '.($this->_setStyleSubmit != '' ? ' style="' . $this->_setStyleSubmit . '"': '').'  '.($this->_setClassSubmit != '' ? ' class="' . $this->_setClassSubmit . '"': '').'>
+                <input type="submit" name="'.$this->_setNameSubmit.'" id="'.$this->_setIdSubmit.'" value="'.$this->_setValueSubmit.'" '.($this->_setStyleSubmit != '' ? ' style="' . $this->_setStyleSubmit . '"': '').' '.($this->_setClassSubmit != '' ? ' class="' . $this->_setClassSubmit . '"': '').'>
             </form>
         ';
 
