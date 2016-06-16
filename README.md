@@ -182,7 +182,7 @@ Métodos útiles
 
 **Obtener un array de los datos devueltos por Ds_MerchantParameters**
 
-        $redsys->getMerchantParameters($_POST["Ds_MerchantParameters"]
+        $redsys->getMerchantParameters($_POST["Ds_MerchantParameters"]);
 
         Esto nos devuelve:
             [Ds_Date] => 12/11/2015
