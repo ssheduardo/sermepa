@@ -60,7 +60,7 @@ Luego ejecutas:
 
 
 **Si en caso contrario no usas composer, bastará con clonar el repositorio**
-```
+```bash
 git clone https://github.com/ssheduardo/sermepa.git
 ```
 
@@ -68,7 +68,7 @@ git clone https://github.com/ssheduardo/sermepa.git
 Como usar la clase
 ------------------
 **Ejemplo**
-
+```php
     //Si usas composer
     //include_once('vendor/autoload.php');
 
@@ -105,20 +105,21 @@ Como usar la clase
         echo $e->getMessage();
     }
     echo $form;
-
+```
 Con esto generamos el form para la comunicación con la pasarela de pagos.
 
 
 **Redirección automática**
-
+```php
     //Gracias por a la colaboración de jaumecornado (github)
     Podemos forzar la redirección sin pasar por el método createForm()
     $redsys->executeRedirection();
 
     [Esto método llamaría a createForm y lanzaría el submit por javacript]
+```
 
 **Comprobación de Pago**
-
+```php
     //Gracias por a la colaboración de markitosgv (github)
     Podemos comprobar si se ha realizado el pago correctamente. Para ello necesitamos setear la clave del banco y pasar la variable $_POST que nos devuelve en la URL de notificación o de retorno. Tener en cuenta que debemos realizar esta comprobación en la url de notificación.
     Por ejemplo, en el fichero que es llamado por la URL de retorno:
@@ -139,6 +140,7 @@ Con esto generamos el form para la comunicación con la pasarela de pagos.
     catch(Exception $e){
         echo $e->getMessage();
     }
+```
 
 >Nota:
     Por defecto se conecta por la pasarela de pruebas para cambiar a un entorno real usar el método: setEnviroment('live'), con esto ya estará activo.
@@ -147,19 +149,23 @@ Métodos útiles
 -----------
 
 **Asignar nombre a id y name del formulario**
-
+```php
         $redsys->setNameForm('nombre_formulario');
         $redsys->setIdForm('id_formulario');
+```
 
 **Asignar nombre, id, value y style (css) al botón submit, si usáis redirección podéis ocultar el botón con display:none**
-
+```php
         $redsys->setAttributesSubmit('btn_submit','btn_id','Enviar','font-size:14px; color:#ff00c1');
+```
 
 **Generar formulario**
-
+```php
         $redsys->createForm();
-**Obtener array con todos los datos asignados**
+```     
 
+**Obtener array con todos los datos asignados**
+```php
         $redsys->getParameters();
         
         Por ejemplo esto nos devuelve:
@@ -179,9 +185,11 @@ Métodos útiles
                 [DS_MERCHANT_TITULAR] => Usuario
                 [DS_MERCHANT_PRODUCTDESCRIPTION] => Tu descripción
             )
+```
 
 **Obtener un array de los datos devueltos por Ds_MerchantParameters**
 
+```php
         $redsys->getMerchantParameters($_POST["Ds_MerchantParameters"]);
 
         Esto nos devuelve:
@@ -200,8 +208,26 @@ Métodos útiles
             [Ds_TransactionType] => 0
             [Ds_ConsumerLanguage] => 1
             [Ds_AuthorisationCode] => 906611
+```
 
+**Obtener Versión**
+```php
+        $redsys->getVersion()
 
+        //Devuelve el valor asignado en setVersion, por ejemplo: HMAC_SHA256_V1
+    
+```
+
+**Obtener MerchantSignature**
+```php
+        $redsys->getMerchantSignature()
+
+        //Devuelve el valor asignado en setMerchantSignature, por ejemplo: Cia90trhTPGxtJDmK6WDhqXzU+98LbuKZKAKYHMjtMs=
+```
+
+## Change log
+
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
 ## Licencia
 
