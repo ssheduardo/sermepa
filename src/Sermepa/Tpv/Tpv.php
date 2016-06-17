@@ -515,6 +515,24 @@ class Tpv{
         return $this->_setParameters;
     }
 
+    /**
+     * Return version
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->_setVersion;
+    }
+
+    /**
+     * Return MerchantSignature
+     * @return string
+     */
+    public function getMerchantSignature()
+    {
+        return $this->_setSignature;
+    }
+
     // ******** UTILS ********
 
     /**
