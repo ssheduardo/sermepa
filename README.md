@@ -106,10 +106,88 @@ Como usar la clase
     }
     echo $form;
 ```
-Con esto generamos el form para la comunicación con la pasarela de pagos.
+
+**Con esto generamos el form para la comunicación con la pasarela de pagos.**
+
+>Nota:
+    Con la integración del pago con referencia, ahora el importe **puede ser 0**. <br>
+    Según la documentación, si se quiere generar dicho identificador, se puede pasar el importe a 0 para obtener dicho valor, si en caso contrario no se utiliza el pago con referencia y se pasa el importe en 0, el banco nos mostrará un error.
 
 
-**Redirección automática**
+###Pago con referencia###
+
+Esta operativa nos permite guardar los datos de la tarjeta, SIS almacena la tarjeta y devuelve la referencia que deberá ser almacenada por el comercio.  
+Imaginemos que en el ejemplo anterior, queremos guardar los datos de la tarjeta, solo bastará agregar el método  setMerchantIdentifier. Cuando se haga el llamado a la url de notificación y este nos devolverá **Ds_Merchant_Identifier** y **Ds_ExpiryDate**
+
+```php
+    //Para una nueva referencia agregar este método al ejemplo anterior
+    $redsys->setMerchantIdentifier();
+
+    //En la url de notificación nos devolverá algo como esto
+    Array
+    (
+        [Ds_Date] => 20/10/2016
+        [Ds_Hour] => 13:06
+        [Ds_SecurePayment] => 1
+        [Ds_Card_Number] => 454881******0004
+        
+        [Ds_ExpiryDate] => 2012
+        [Ds_Merchant_Identifier] => cd8e4017c4c2f16bc9ccff87b0d07ad9c6cbd257
+
+        [Ds_Card_Country] => 724
+        [Ds_Amount] => 47700
+        [Ds_Currency] => 978
+        [Ds_Order] => 1476961526
+        [Ds_MerchantCode] => 999008881
+        [Ds_Terminal] => 001
+        [Ds_Response] => 0000
+        [Ds_MerchantData] => Descripcion_del_pedido_extra
+        [Ds_TransactionType] => 0
+        [Ds_ConsumerLanguage] => 1
+        [Ds_AuthorisationCode] => 024772
+    )
+
+```
+
+Ahora bien, si queremos realizar otro cobro sin que nos pidan los datos de la tarjeta para ese mismo usuario, bastará con pasar el **Ds_Merchant_Identifier** anterior en el método setMerchantIdentifier.  
+Cada banco tiene un sistema de seguridad a través de un código de SMS, tarjeta de coordenadas, etc que se mostrará para completar la transacción.
+
+
+```php
+    $redsys->setMerchantIdentifier(cd8e4017c4c2f16bc9ccff87b0d07ad9c6cbd257);
+
+    //En la url de notificación nos devolverá algo como esto
+    Array
+    (
+        [Ds_Date] => 20/10/2016
+        [Ds_Hour] => 15:19
+        [Ds_SecurePayment] => 1
+        [Ds_Card_Number] => 454881******0004
+        
+        [Ds_Merchant_Identifier] => cd8e4017c4c2f16bc9ccff87b0d07ad9c6cbd257
+
+        [Ds_Card_Country] => 724
+        [Ds_Amount] => 3200
+        [Ds_Currency] => 978
+        [Ds_Order] => 1476969550
+        [Ds_MerchantCode] => 999008881
+        [Ds_Terminal] => 001
+        [Ds_Response] => 0000
+        [Ds_MerchantData] => Descripcion_del_pedido_extra
+        [Ds_TransactionType] => 0
+        [Ds_ConsumerLanguage] => 1
+        [Ds_AuthorisationCode] => 025483
+    )
+
+```
+
+Si no queremos que nos muestre ninguna pantalla y directamente realice el pago debemos hacer uso del método **setMerchantDirectPayment**
+
+```php
+$redsys->setMerchantDirectPayment(true);
+```
+
+###Redirección automática###
 ```php
     //Gracias por a la colaboración de jaumecornado (github)
     Podemos forzar la redirección sin pasar por el método createForm()
@@ -118,7 +196,7 @@ Con esto generamos el form para la comunicación con la pasarela de pagos.
     [Esto método llamaría a createForm y lanzaría el submit por javacript]
 ```
 
-**Comprobación de Pago**
+###Comprobación de Pago###
 ```php
     //Gracias por a la colaboración de markitosgv (github)
     Podemos comprobar si se ha realizado el pago correctamente. Para ello necesitamos setear la clave del banco y pasar la variable $_POST que nos devuelve en la URL de notificación o de retorno. Tener en cuenta que debemos realizar esta comprobación en la url de notificación.
