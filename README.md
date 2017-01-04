@@ -232,6 +232,31 @@ Métodos útiles
         $redsys->setIdForm('id_formulario');
 ```
 
+**Cambiar el idioma de la pasarela de pago**
+
+
+```php
+        $redsys->setLanguage('002');
+        
+        //Esto mostraría la pasarela de pago en inglés
+        
+        /* Códigos de idiomas disponibles:
+        Castellano: 001
+        Inglés: 002
+        Catalán: 003
+        Francés:004
+        Alemán:005
+        Holandés:006
+        Italiano:007
+        Sueco:008
+        Portugués:009
+        Valenciano:010
+        Polaco:011
+        Gallego:012
+        Euskera:013
+        */
+```
+
 **Asignar nombre, id, value y style (css) al botón submit, si usáis redirección podéis ocultar el botón con display:none**
 ```php
         $redsys->setAttributesSubmit('btn_submit','btn_id','Enviar','font-size:14px; color:#ff00c1');
