@@ -16,7 +16,6 @@ class Tpv{
     private $_setNameForm;
     private $_setIdForm;
     private $_setSubmit;
-    private $_setIdioma;
     private $_setParameters;
     private $_setVersion;
     private $_setNameSubmit;
@@ -35,7 +34,6 @@ class Tpv{
         $this->_setTerminal =1;
         $this->_setMerchantData = '';
         $this->_setTransactionType=0;
-        $this->_setIdioma = '001';
         $this->_setMethod='T';
         $this->_setSubmit = '';
 
