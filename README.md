@@ -20,7 +20,7 @@ Si lo usas en algún proyecto y te ayudo en algo no dudas en decirmelo
 
 Requerimientos mínimos
 ----------------------
-PHP 5.3.0
+PHP 5 >= 5.3.0, PHP 7.1
 
 Creditos
 --------
@@ -49,7 +49,7 @@ Instalación
 ```json
     {
        "require": {
-          "sermepa/sermepa": "^1.1"
+          "sermepa/sermepa": "^1.2"
        }
     }
 ```

@@ -598,7 +598,13 @@ class Tpv{
      */
     private function encrypt_3DES($data, $key){
         $iv = "\0\0\0\0\0\0\0\0";
-        $ciphertext = mcrypt_encrypt(MCRYPT_3DES, $key, $data, MCRYPT_MODE_CBC, $iv);
+        $data_padded = $data;
+
+        if (strlen($data_padded) % 8) {
+            $data_padded = str_pad($data_padded,strlen($data_padded) + 8 - strlen($data_padded) % 8, "\0");
+        }
+
+        $ciphertext = openssl_encrypt($data_padded, "DES-EDE3-CBC", $key, OPENSSL_RAW_DATA | OPENSSL_NO_PADDING, $iv);
         return $ciphertext;
     }
 
