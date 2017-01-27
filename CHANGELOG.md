@@ -2,6 +2,17 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.2 (2017-01-27)
+
+### Added
+- Nothing
+
+### Deprecated
+- Nothing
+
+### Fixed
+- Changed the function mcrypt_encrypt to openssl_encrypt, with the new updated of PHP 7.1 the function mcrypt_encrypt is deprecated.
+
 ## Version 1.1.6 (2016-10-19)
 
 ### Added
