@@ -117,7 +117,7 @@ Como usar la clase
 ###Pago con referencia###
 
 Esta operativa nos permite guardar los datos de la tarjeta, SIS almacena la tarjeta y devuelve la referencia que deberá ser almacenada por el comercio.  
-Imaginemos que en el ejemplo anterior, queremos guardar los datos de la tarjeta, solo bastará agregar el método  setMerchantIdentifier. Cuando se haga el llamado a la url de notificación y este nos devolverá **Ds_Merchant_Identifier** y **Ds_ExpiryDate**
+Imaginemos que en el ejemplo anterior, queremos guardar los datos de la tarjeta, solo bastará agregar el método  setIdentifier. Cuando se haga el llamado a la url de notificación y este nos devolverá **Ds_Merchant_Identifier** y **Ds_ExpiryDate**
 
 ```php
     //Para una nueva referencia agregar este método al ejemplo anterior
@@ -149,7 +149,7 @@ Imaginemos que en el ejemplo anterior, queremos guardar los datos de la tarjeta,
 
 ```
 
-Ahora bien, si queremos realizar otro cobro sin que nos pidan los datos de la tarjeta para ese mismo usuario, bastará con pasar el **Ds_Merchant_Identifier** anterior en el método setMerchantIdentifier.  
+Ahora bien, si queremos realizar otro cobro sin que nos pidan los datos de la tarjeta para ese mismo usuario, bastará con pasar el **Ds_Merchant_Identifier** anterior en el método setIdentifier.  
 Cada banco tiene un sistema de seguridad a través de un código de SMS, tarjeta de coordenadas, etc que se mostrará para completar la transacción.
 
 
