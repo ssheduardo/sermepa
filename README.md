@@ -121,7 +121,7 @@ Imaginemos que en el ejemplo anterior, queremos guardar los datos de la tarjeta,
 
 ```php
     //Para una nueva referencia agregar este método al ejemplo anterior
-    $redsys->setMerchantIdentifier();
+    $redsys->setIdentifier();
 
     //En la url de notificación nos devolverá algo como esto
     Array
@@ -154,7 +154,7 @@ Cada banco tiene un sistema de seguridad a través de un código de SMS, tarjeta
 
 
 ```php
-    $redsys->setMerchantIdentifier(cd8e4017c4c2f16bc9ccff87b0d07ad9c6cbd257);
+    $redsys->setIdentifier(cd8e4017c4c2f16bc9ccff87b0d07ad9c6cbd257);
 
     //En la url de notificación nos devolverá algo como esto
     Array
