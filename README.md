@@ -4,6 +4,13 @@
 [![Software License][ico-license]](LICENSE.md)
 [![Total Downloads][ico-downloads]][link-downloads]
 
+---
+
+[![JetBrains & PhpStorm](https://ubublog.com/wp-content/uploads/logo-ps-jb.png)](https://jetbrains.com/phpstorm)  
+_This project is friendly supported by [JetBrains](https://jetbrains.com) & [PhpStorm](https://jetbrains.com/phpstorm)!_
+
+---
+
 Historia
 --------
 Esta clase nace porque no te encontraba una clase de pasarela de pagos (TPV) que se pueda integrar directamente en una web, existen
@@ -318,7 +325,7 @@ Métodos útiles
         $redsys->getVersion()
 
         //Devuelve el valor asignado en setVersion, por ejemplo: HMAC_SHA256_V1
-    
+
 ```
 
 **Obtener MerchantSignature**
@@ -343,3 +350,13 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-packagist]: https://packagist.org/packages/sermepa/sermepa
 [link-downloads]: https://packagist.org/packages/sermepa/sermepa
 [link-author]: https://github.com/ssheduardo
+
+## Donación
+
+
+¿Te gustaría apoyarme?  
+¿Aprecias mi trabajo?  
+¿Lo usas en proyectos comerciales?  
+
+
+¡Siéntete libre de hacer una pequeña [donación](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ssh%2eeduardo%40gmail%2ecom&lc=ES&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted)! :wink:
