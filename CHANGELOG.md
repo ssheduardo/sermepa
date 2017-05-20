@@ -1,6 +1,16 @@
 # Changelog
 
 All Notable changes to `Redsys` will be documented in this file
+## Version 1.2.1 (2017-05-20)
+
+### Added
+- Nothing
+
+### Deprecated
+- Nothing
+
+### Fixed
+- The method setOrder, now verified that the first 4 digits must be numeric and maximum 12 characters.
 
 ## Version 1.2 (2017-01-27)
 
