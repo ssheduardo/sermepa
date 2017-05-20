@@ -96,17 +96,18 @@ class Tpv{
     }
 
     /**
-     * Set Order number - [The firsts 4 digits must be numeric.] (required)
+     * Set Order number - [The first 4 digits must be numeric.] (required)
      * @param $order
      * @throws Exception
      */
     public function setOrder($order)
     {
-        if(strlen(trim($order)) > 0){
+        $order = trim($order);
+        if(strlen($order) > 0 && strlen($order) <= 12 && is_numeric(substr($order,0,4)) ){
             $this->_setParameters['DS_MERCHANT_ORDER'] = $order;
         }
         else{
-            throw new Exception('Add Order');
+            throw new Exception('Order id must be a 4 digit string at least, maximum 12 characters.');
         }
     }
 
