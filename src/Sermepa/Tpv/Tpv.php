@@ -56,7 +56,7 @@ class Tpv{
      * @param string $value Este parámetro se utilizará para manejar la referencia asociada a los datos de tarjeta. Es un campo alfanumérico de un máximo de 40 posiciones cuyo valor es generado por el TPV Virtual.
      * @throws Exception
      */
-    public function setIdentifier($value='REQUIRED')
+    public function setMerchantIdentifier($value='REQUIRED')
     {
         if(strlen(trim($value)) > 0){
             $this->_setParameters['DS_MERCHANT_IDENTIFIER'] = $value;
@@ -65,6 +65,14 @@ class Tpv{
             throw new Exception('Please add value');
         }
 
+    }
+    
+    /**
+     * @deprecated
+     */
+    public function setIdentifier($value='REQUIRED')
+    {
+        $this->setMerchantIdentifier($value)
     }
 
     public function setMerchantDirectPayment($flat=false)
