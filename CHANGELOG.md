@@ -1,6 +1,21 @@
 # Changelog
 
 All Notable changes to `Redsys` will be documented in this file
+
+## Version 1.2.2 (2017-06-14)
+
+### Added
+- Method setPan, Set card number.
+- Method setExpiryDate, Set expiry date of card number.
+- Method setCVV2, Set CVV2 of card number.
+
+### Deprecated
+- Nothing
+
+### Fixed
+- Nothing
+
+
 ## Version 1.2.1 (2017-05-20)
 
 ### Added
