@@ -423,6 +423,55 @@ class Tpv{
     }
 
     /**
+     * Card number
+     *
+     * @param $pan Tarjeta. Su longitud depende del tipo de tarjeta.
+     * @throws Exception
+     */
+    public function setPan($pan)
+    {
+        if (intval($pan) != 0){
+            $this->_setParameters['DS_MERCHANT_PAN'] = $pan;
+        }
+        else{
+            throw new Exception('Pan not valid');
+        }
+    }
+
+    /**
+     * Expire date
+     *
+     * @param $expirydate . Caducidad de la tarjeta. Su formato es AAMM, siendo AA los dos últimos dígitos del año y MM los dos dígitos del mes.
+     * @throws Exception
+     */
+    public function setExpiryDate($expirydate)
+    {
+        if (strlen(trim($expirydate)) == 4){
+            $this->_setParameters['DS_MERCHANT_EXPIRYDATE'] = $expirydate;
+        }
+        else{
+            throw new Exception('Expire date is not valid');
+        }
+    }
+
+    /**
+     * CVV2 card
+     *
+     * @param $cvv2 Código CVV2 de la tarjeta
+     * @throws Exception
+     */
+    public function setCVV2($cvv2)
+    {
+        if (intval($cvv2) != 0){
+            $this->_setParameters['DS_MERCHANT_CVV2'] = $cvv2;
+        }
+        else{
+            throw new Exception('CVV2 is not valid');
+        }
+    }
+
+
+    /**
      * Set name to form
      *
      * @param string $name Name for form.

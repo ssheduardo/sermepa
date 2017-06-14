@@ -121,6 +121,47 @@ Como usar la clase
     Según la documentación, si se quiere generar dicho identificador, se puede pasar el importe a 0 para obtener dicho valor, si en caso contrario no se utiliza el pago con referencia y se pasa el importe en 0, el banco nos mostrará un error.
 
 
+###Enviar datos de la tarjeta###
+
+Si queremos enviar los datos de la tarjeta para que no nos lo solicite la pasarela de pagos, podemos hacerlo de la siguiente forma.
+
+```php
+    try{
+       
+        $key = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
+
+        $redsys = new Sermepa\Tpv\Tpv();
+        $redsys->setAmount(rand(10,600));
+        $redsys->setOrder(time());
+        $redsys->setMerchantcode('999008881'); //Reemplazar por el código que proporciona el banco
+        $redsys->setCurrency('978');
+        $redsys->setTransactiontype('0');
+        $redsys->setTerminal('1');
+        $redsys->setMethod('C'); //Solo pago con tarjeta, no mostramos iupay
+        $redsys->setNotification('http://localhost/noti.php'); //Url de notificacion
+        $redsys->setUrlOk('http://localhost/ok.php'); //Url OK
+        $redsys->setUrlKo('http://localhost/ko.php'); //Url KO
+        $redsys->setVersion('HMAC_SHA256_V1');
+        $redsys->setTradeName('Tienda S.L');
+        $redsys->setTitular('Pedro Risco');
+        
+        $redsys->setPan('4548812049400004'); //Número de la tarjeta
+        $redsys->setExpiryDate('2012'); //AAMM (año y mes)
+        $redsys->setCVV2('123'); //CVV2 de la tarjeta
+        
+        $redsys->setEnviroment('test'); //Entorno test
+
+        $signature = $redsys->generateMerchantSignature($key);
+        $redsys->setMerchantSignature($signature);
+
+        $form = $redsys->createForm();
+    }
+    catch(Exception $e){
+        echo $e->getMessage();
+    }
+    echo $form;
+```
+
 ###Pago con referencia###
 
 Esta operativa nos permite guardar los datos de la tarjeta, SIS almacena la tarjeta y devuelve la referencia que deberá ser almacenada por el comercio.  
