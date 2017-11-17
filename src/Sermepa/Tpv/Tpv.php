@@ -54,7 +54,7 @@ class Tpv{
     /**
      * Set identifier required
      * @param string $value Este parámetro se utilizará para manejar la referencia asociada a los datos de tarjeta. Es un campo alfanumérico de un máximo de 40 posiciones cuyo valor es generado por el TPV Virtual.
-     * @throws Exception
+     * @throws TpvException
      */
     public function setIdentifier($value='REQUIRED')
     {
@@ -62,25 +62,30 @@ class Tpv{
             $this->_setParameters['DS_MERCHANT_IDENTIFIER'] = $value;
         }
         else{
-            throw new Exception('Please add value');
+            throw new TpvException('Please add value');
         }
 
     }
 
+    /**
+     * @param bool $flat
+     *
+     * @throws TpvException
+     */
     public function setMerchantDirectPayment($flat=false)
     {
         if(is_bool($flat)) {
             $this->_setParameters['DS_MERCHANT_DIRECTPAYMENT '] = $flat;
         }
         else{
-            throw new Exception('Please set true or false');
+            throw new TpvException('Please set true or false');
         }
     }
 
     /**
      * Set amount (required)
      * @param $amount
-     * @throws Exception
+     * @throws TpvException
      */
     public function setAmount($amount)
     {
@@ -91,14 +96,14 @@ class Tpv{
             $this->_setParameters['DS_MERCHANT_AMOUNT'] = $amount;
         }
         else {
-            throw new Exception('Amount must be greater than equal 0.');
+            throw new TpvException('Amount must be greater than equal 0.');
         }
     }
 
     /**
      * Set Order number - [The first 4 digits must be numeric.] (required)
      * @param $order
-     * @throws Exception
+     * @throws TpvException
      */
     public function setOrder($order)
     {
@@ -107,7 +112,7 @@ class Tpv{
             $this->_setParameters['DS_MERCHANT_ORDER'] = $order;
         }
         else{
-            throw new Exception('Order id must be a 4 digit string at least, maximum 12 characters.');
+            throw new TpvException('Order id must be a 4 digit string at least, maximum 12 characters.');
         }
     }
 
@@ -139,7 +144,7 @@ class Tpv{
     /**
      * Set code Fuc of trade (required)
      * @param $fuc Fuc
-     * @throws Exception
+     * @throws TpvException
      */
     public function setMerchantcode($fuc)
     {
@@ -147,14 +152,14 @@ class Tpv{
             $this->_setParameters['DS_MERCHANT_MERCHANTCODE'] = $fuc;
         }
         else{
-            throw new Exception('Please add Fuc');
+            throw new TpvException('Please add Fuc');
         }
     }
 
     /**
      * Set currency
      * @param int $currency 978 para Euros, 840 para Dólares, 826 para libras esterlinas y 392 para Yenes.
-     * @throws Exception
+     * @throws TpvException
      */
     public function setCurrency($currency=978)
     {
@@ -162,7 +167,7 @@ class Tpv{
             $this->_setParameters['DS_MERCHANT_CURRENCY'] = $currency;
         }
         else{
-            throw new Exception('Currency is not valid');
+            throw new TpvException('Currency is not valid');
         }
 
     }
@@ -170,7 +175,7 @@ class Tpv{
     /**
      * Set Transaction type
      * @param int $transaction
-     * @throws Exception
+     * @throws TpvException
      */
     public function setTransactiontype($transaction=0)
     {
@@ -178,14 +183,14 @@ class Tpv{
             $this->_setParameters['DS_MERCHANT_TRANSACTIONTYPE'] = $transaction;
         }
         else{
-            throw new Exception('Please add transaction type');
+            throw new TpvException('Please add transaction type');
         }
     }
 
     /**
      * Set terminal by default is 1 to  Sadabell(required)
      * @param int $terminal
-     * @throws Exception
+     * @throws TpvException
      */
     public function setTerminal($terminal=1)
     {
@@ -193,7 +198,7 @@ class Tpv{
             $this->_setParameters['DS_MERCHANT_TERMINAL'] = $terminal;
         }
         else{
-            throw new Exception('Terminal is not valid.');
+            throw new TpvException('Terminal is not valid.');
         }
     }
 
@@ -311,7 +316,7 @@ class Tpv{
             $this->_setEnviroment ='https://sis-t.redsys.es:25443/sis/realizarPago';
         }
         else{
-            throw new Exception('Add test or live');
+            throw new TpvException('Add test or live');
         }
     }
 
@@ -328,7 +333,7 @@ class Tpv{
             $this->_setParameters['DS_MERCHANT_CONSUMERLANGUAGE'] = trim($languagecode);
         }
         else{
-            throw new Exception('Add language code');
+            throw new TpvException('Add language code');
         }
     }
 
@@ -353,7 +358,7 @@ class Tpv{
             $this->_setParameters['DS_MERCHANT_MERCHANTDATA'] = trim($merchantdata);
         }
         else{
-            throw new Exception('Add merchant data');
+            throw new TpvException('Add merchant data');
         }
     }
 
@@ -369,7 +374,7 @@ class Tpv{
             $this->_setParameters['DS_MERCHANT_PRODUCTDESCRIPTION'] = trim($description);
         }
         else{
-            throw new Exception('Add product description');
+            throw new TpvException('Add product description');
         }
     }
 
@@ -385,7 +390,7 @@ class Tpv{
             $this->_setParameters['DS_MERCHANT_TITULAR'] = trim($titular);
         }
         else{
-            throw new Exception('Add name for the user');
+            throw new TpvException('Add name for the user');
         }
 
     }
@@ -402,7 +407,7 @@ class Tpv{
             $this->_setParameters['DS_MERCHANT_MERCHANTNAME'] = trim($tradename);
         }
         else{
-            throw new Exception('Add name for Trade name');
+            throw new TpvException('Add name for Trade name');
         }
     }
 
@@ -418,7 +423,7 @@ class Tpv{
             $this->_setParameters['DS_MERCHANT_PAYMETHODS'] = trim($method);
         }
         else{
-            throw new Exception('Add pay method');
+            throw new TpvException('Add pay method');
         }
     }
 
@@ -426,7 +431,7 @@ class Tpv{
      * Card number
      *
      * @param $pan Tarjeta. Su longitud depende del tipo de tarjeta.
-     * @throws Exception
+     * @throws TpvException
      */
     public function setPan($pan)
     {
@@ -434,7 +439,7 @@ class Tpv{
             $this->_setParameters['DS_MERCHANT_PAN'] = $pan;
         }
         else{
-            throw new Exception('Pan not valid');
+            throw new TpvException('Pan not valid');
         }
     }
 
@@ -442,7 +447,7 @@ class Tpv{
      * Expire date
      *
      * @param $expirydate . Caducidad de la tarjeta. Su formato es AAMM, siendo AA los dos últimos dígitos del año y MM los dos dígitos del mes.
-     * @throws Exception
+     * @throws TpvException
      */
     public function setExpiryDate($expirydate)
     {
@@ -450,7 +455,7 @@ class Tpv{
             $this->_setParameters['DS_MERCHANT_EXPIRYDATE'] = $expirydate;
         }
         else{
-            throw new Exception('Expire date is not valid');
+            throw new TpvException('Expire date is not valid');
         }
     }
 
@@ -458,7 +463,7 @@ class Tpv{
      * CVV2 card
      *
      * @param $cvv2 Código CVV2 de la tarjeta
-     * @throws Exception
+     * @throws TpvException
      */
     public function setCVV2($cvv2)
     {
@@ -466,7 +471,7 @@ class Tpv{
             $this->_setParameters['DS_MERCHANT_CVV2'] = $cvv2;
         }
         else{
-            throw new Exception('CVV2 is not valid');
+            throw new TpvException('CVV2 is not valid');
         }
     }
 
@@ -541,7 +546,7 @@ class Tpv{
      * @param string $key Key
      * @param array $postData Data received by the bank
      * @return bool
-     * @throws Exception
+     * @throws TpvException
      */
     public function check($key='', $postData)
     {
@@ -562,7 +567,7 @@ class Tpv{
             }
 
         } else {
-            throw new Exception("Add data return of bank");
+            throw new TpvException("Add data return of bank");
         }
     }
 
