@@ -63,12 +63,11 @@ class Tpv
      */
     public function setIdentifier($value = 'REQUIRED')
     {
-        if (strlen(trim($value)) > 0) {
-            $this->_setParameters['DS_MERCHANT_IDENTIFIER'] = $value;
-        } else {
+        if ($this->isEmpty($value)) {
             throw new TpvException('Please add value');
         }
 
+        $this->_setParameters['DS_MERCHANT_IDENTIFIER'] = $value;
     }
 
     /**
@@ -78,11 +77,11 @@ class Tpv
      */
     public function setMerchantDirectPayment($flat = false)
     {
-        if (is_bool($flat)) {
-            $this->_setParameters['DS_MERCHANT_DIRECTPAYMENT '] = $flat;
-        } else {
+        if (!is_bool($flat)) {
             throw new TpvException('Please set true or false');
         }
+
+        $this->_setParameters['DS_MERCHANT_DIRECTPAYMENT '] = $flat;
     }
 
     /**
@@ -94,14 +93,14 @@ class Tpv
      */
     public function setAmount($amount)
     {
-        if ($amount >= 0) {
-            $amount = $this->convertNumber($amount);
-            $amount = intval(strval($amount * 100));
-
-            $this->_setParameters['DS_MERCHANT_AMOUNT'] = $amount;
-        } else {
-            throw new TpvException('Amount must be greater than equal 0.');
+        if ($amount < 0) {
+            throw new TpvException('Amount must be greater than or equal to 0.');
         }
+
+        $amount = $this->convertNumber($amount);
+        $amount = intval(strval($amount * 100));
+
+        $this->_setParameters['DS_MERCHANT_AMOUNT'] = $amount;
     }
 
     /**
@@ -114,11 +113,11 @@ class Tpv
     public function setOrder($order)
     {
         $order = trim($order);
-        if (strlen($order) > 0 && strlen($order) <= 12 && is_numeric(substr($order, 0, 4))) {
-            $this->_setParameters['DS_MERCHANT_ORDER'] = $order;
-        } else {
+        if (strlen($order) <= 0 || strlen($order) > 12 || !is_numeric(substr($order, 0, 4))) {
             throw new TpvException('Order id must be a 4 digit string at least, maximum 12 characters.');
         }
+
+        $this->_setParameters['DS_MERCHANT_ORDER'] = $order;
     }
 
     /**
@@ -143,7 +142,7 @@ class Tpv
     {
         $order = '';
         foreach ($parameters as $key => $value) {
-            if (strtolower($key) == 'ds_order') {
+            if (strtolower($key) === 'ds_order') {
                 $order = $value;
             }
         }
@@ -160,11 +159,11 @@ class Tpv
      */
     public function setMerchantcode($fuc)
     {
-        if (strlen(trim($fuc)) > 0) {
-            $this->_setParameters['DS_MERCHANT_MERCHANTCODE'] = $fuc;
-        } else {
+        if ($this->isEmpty($fuc)) {
             throw new TpvException('Please add Fuc');
         }
+
+        $this->_setParameters['DS_MERCHANT_MERCHANTCODE'] = $fuc;
     }
 
     /**
@@ -176,12 +175,11 @@ class Tpv
      */
     public function setCurrency($currency = 978)
     {
-        if ($currency == '978' || $currency == '840' || $currency == '826' || $currency == '392') {
-            $this->_setParameters['DS_MERCHANT_CURRENCY'] = $currency;
-        } else {
+        if ($currency != '978' && $currency != '840' && $currency != '826' && $currency != '392') {
             throw new TpvException('Currency is not valid');
         }
 
+        $this->_setParameters['DS_MERCHANT_CURRENCY'] = $currency;
     }
 
     /**
@@ -193,11 +191,11 @@ class Tpv
      */
     public function setTransactiontype($transaction = 0)
     {
-        if (strlen(trim($transaction)) > 0) {
-            $this->_setParameters['DS_MERCHANT_TRANSACTIONTYPE'] = $transaction;
-        } else {
+        if ($this->isEmpty($transaction)) {
             throw new TpvException('Please add transaction type');
         }
+
+        $this->_setParameters['DS_MERCHANT_TRANSACTIONTYPE'] = $transaction;
     }
 
     /**
@@ -209,11 +207,11 @@ class Tpv
      */
     public function setTerminal($terminal = 1)
     {
-        if (intval($terminal) !== 0) {
-            $this->_setParameters['DS_MERCHANT_TERMINAL'] = $terminal;
-        } else {
+        if (intval($terminal) === 0) {
             throw new TpvException('Terminal is not valid.');
         }
+
+        $this->_setParameters['DS_MERCHANT_TERMINAL'] = $terminal;
     }
 
     /**
@@ -253,7 +251,6 @@ class Tpv
     {
         $this->_setVersion = $version;
     }
-
 
     /**
      * Generate Merchant Parameters
@@ -358,11 +355,11 @@ class Tpv
      */
     public function setLanguage($languageCode = '001')
     {
-        if (strlen(trim($languageCode)) > 0) {
-            $this->_setParameters['DS_MERCHANT_CONSUMERLANGUAGE'] = trim($languageCode);
-        } else {
+        if ($this->isEmpty($languageCode)) {
             throw new TpvException('Add language code');
         }
+
+        $this->_setParameters['DS_MERCHANT_CONSUMERLANGUAGE'] = trim($languageCode);
     }
 
     /**
@@ -385,11 +382,11 @@ class Tpv
      */
     public function setMerchantData($merchantdata)
     {
-        if (strlen(trim($merchantdata)) > 0) {
-            $this->_setParameters['DS_MERCHANT_MERCHANTDATA'] = trim($merchantdata);
-        } else {
+        if ($this->isEmpty($merchantdata)) {
             throw new TpvException('Add merchant data');
         }
+
+        $this->_setParameters['DS_MERCHANT_MERCHANTDATA'] = trim($merchantdata);
     }
 
     /**
@@ -401,11 +398,11 @@ class Tpv
      */
     public function setProductDescription($description = '')
     {
-        if (strlen(trim($description)) > 0) {
-            $this->_setParameters['DS_MERCHANT_PRODUCTDESCRIPTION'] = trim($description);
-        } else {
+        if ($this->isEmpty($description)) {
             throw new TpvException('Add product description');
         }
+
+        $this->_setParameters['DS_MERCHANT_PRODUCTDESCRIPTION'] = trim($description);
     }
 
     /**
@@ -417,12 +414,11 @@ class Tpv
      */
     public function setTitular($titular = '')
     {
-        if (strlen(trim($titular)) > 0) {
-            $this->_setParameters['DS_MERCHANT_TITULAR'] = trim($titular);
-        } else {
+        if ($this->isEmpty($titular)) {
             throw new TpvException('Add name for the user');
         }
 
+        $this->_setParameters['DS_MERCHANT_TITULAR'] = trim($titular);
     }
 
     /**
@@ -434,11 +430,11 @@ class Tpv
      */
     public function setTradeName($tradename = '')
     {
-        if (strlen(trim($tradename)) > 0) {
-            $this->_setParameters['DS_MERCHANT_MERCHANTNAME'] = trim($tradename);
-        } else {
+        if ($this->isEmpty($tradename)) {
             throw new TpvException('Add name for Trade name');
         }
+
+        $this->_setParameters['DS_MERCHANT_MERCHANTNAME'] = trim($tradename);
     }
 
     /**
@@ -451,11 +447,11 @@ class Tpv
      */
     public function setMethod($method = 'T')
     {
-        if (strlen(trim($method)) > 0) {
-            $this->_setParameters['DS_MERCHANT_PAYMETHODS'] = trim($method);
-        } else {
+        if ($this->isEmpty($method)) {
             throw new TpvException('Add pay method');
         }
+
+        $this->_setParameters['DS_MERCHANT_PAYMETHODS'] = trim($method);
     }
 
     /**
@@ -467,11 +463,11 @@ class Tpv
      */
     public function setPan($pan)
     {
-        if (intval($pan) != 0) {
-            $this->_setParameters['DS_MERCHANT_PAN'] = $pan;
-        } else {
+        if (intval($pan) == 0) {
             throw new TpvException('Pan not valid');
         }
+
+        $this->_setParameters['DS_MERCHANT_PAN'] = $pan;
     }
 
     /**
@@ -484,11 +480,11 @@ class Tpv
      */
     public function setExpiryDate($expirydate)
     {
-        if (strlen(trim($expirydate)) == 4) {
-            $this->_setParameters['DS_MERCHANT_EXPIRYDATE'] = $expirydate;
-        } else {
+        if ($this->isEmpty($expirydate) != 4) {
             throw new TpvException('Expire date is not valid');
         }
+
+        $this->_setParameters['DS_MERCHANT_EXPIRYDATE'] = $expirydate;
     }
 
     /**
@@ -500,11 +496,11 @@ class Tpv
      */
     public function setCVV2($cvv2)
     {
-        if (intval($cvv2) != 0) {
-            $this->_setParameters['DS_MERCHANT_CVV2'] = $cvv2;
-        } else {
+        if (intval($cvv2) == 0) {
             throw new TpvException('CVV2 is not valid');
         }
+
+        $this->_setParameters['DS_MERCHANT_CVV2'] = $cvv2;
     }
 
 
@@ -553,11 +549,21 @@ class Tpv
 
     /**
      * Execute redirection to TPV
+     *
+     * @return string|null
      */
-    public function executeRedirection()
+    public function executeRedirection($return = false)
     {
-        echo $this->createForm();
-        echo '<script>document.forms["'.$this->_setNameForm.'"].submit();</script>';
+        $html = $this->createForm();
+        $html .= '<script>document.forms["'.$this->_setNameForm.'"].submit();</script>';
+
+        if (!$return) {
+            echo $html;
+
+            return null;
+        }
+
+        return $html;
     }
 
     /**
@@ -590,24 +596,19 @@ class Tpv
      */
     public function check($key = '', $postData)
     {
-        if (isset($postData)) {
-            $version = $postData["Ds_SignatureVersion"];
-            $parameters = $postData["Ds_MerchantParameters"];
-            $signatureReceived = $postData["Ds_Signature"];
-
-            $decodec = $this->decodeParameters($parameters);
-            $signature = $this->generateMerchantSignatureNotification($key, $parameters);
-
-            if ($signature === $signatureReceived) {
-                return 1;
-            } else {
-                return 0;
-            }
-        } else {
+        if (!isset($postData)) {
             throw new TpvException("Add data return of bank");
         }
-    }
 
+        $version = $postData["Ds_SignatureVersion"];
+        $parameters = $postData["Ds_MerchantParameters"];
+        $signatureReceived = $postData["Ds_Signature"];
+
+        $decodec = $this->decodeParameters($parameters);
+        $signature = $this->generateMerchantSignatureNotification($key, $parameters);
+
+        return ($signature === $signatureReceived);
+    }
 
     /**
      *  Decode Ds_MerchantParameters, return array with the parameters
@@ -619,11 +620,9 @@ class Tpv
     public function getMerchantParameters($parameters)
     {
         $decoded = $this->decodeParameters($parameters);
-        $decodedArray = $this->JsonToArray($decoded);
 
-        return $decodedArray;
+        return $this->JsonToArray($decoded);
     }
-
 
     /**
      * Return array with all parameters assigned.
@@ -691,9 +690,7 @@ class Tpv
      */
     private function hmac256($data, $key)
     {
-        $sha256 = hash_hmac('sha256', $data, $key, true);
-
-        return $sha256;
+        return hash_hmac('sha256', $data, $key, true);
     }
 
     /**
@@ -718,11 +715,24 @@ class Tpv
         return $ciphertext;
     }
 
+    /**
+     * @param string $data
+     *
+     * @return bool|string
+     */
     private function decodeParameters($data)
     {
-        $decode = base64_decode(strtr($data, '-_', '+/'));
+        return base64_decode(strtr($data, '-_', '+/'));
+    }
 
-        return $decode;
+    /**
+     * @param string $value
+     *
+     * @return int
+     */
+    protected function isEmpty($value)
+    {
+        return '' === trim($value);
     }
 
     //http://stackoverflow.com/a/9111049/444225
@@ -730,7 +740,7 @@ class Tpv
     {
         $price = preg_replace('/[^0-9\.,]*/i', '', $price);
         $price = str_replace(',', '.', $price);
-        if (substr($price, -3, 1) == '.') {
+        if (substr($price, -3, 1) === '.') {
             $price = explode('.', $price);
             $last = array_pop($price);
             $price = join($price, '').'.'.$last;
@@ -748,10 +758,7 @@ class Tpv
      */
     private function convertNumber($price)
     {
-        $number = number_format(str_replace(',', '.', $price), 2, '.', '');
-
-        return $number;
-
+        return number_format(str_replace(',', '.', $price), 2, '.', '');
     }
 
     /******  Base64 Functions  *****
@@ -772,9 +779,7 @@ class Tpv
      */
     private function encodeBase64($data)
     {
-        $data = base64_encode($data);
-
-        return $data;
+        return base64_encode($data);
     }
 
     /**
@@ -794,11 +799,8 @@ class Tpv
      */
     private function decodeBase64($data)
     {
-        $data = base64_decode($data);
-
-        return $data;
+        return base64_decode($data);
     }
 
     // ******** END UTILS ********
-
 }
