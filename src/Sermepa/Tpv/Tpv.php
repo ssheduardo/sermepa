@@ -26,7 +26,7 @@ class Tpv
      */
     public function __construct()
     {
-        $this->_setEnvironment = 'https://sis-t.redsys.es:25443/sis/realizarPago';
+        $this->setEnvironment();
 
         $this->_setParameters = array();
         $this->_setVersion = 'HMAC_SHA256_V1';
@@ -119,7 +119,6 @@ class Tpv
     {
         return $this->_setParameters['DS_MERCHANT_ORDER'];
     }
-
 
     /**
      * Get Ds_Order of Notification
@@ -301,7 +300,6 @@ class Tpv
         return $this->base64_url_encode($result);
     }
 
-
     /**
      * Set Merchant Signature
      *
@@ -312,20 +310,20 @@ class Tpv
         $this->_setSignature = $signature;
     }
 
-
     /**
      * Set enviroment
      *
-     * @param string $enviroment test or live
+     * @param string $environment test or live
      *
      * @throws Exception
      */
-    public function setEnviroment($enviroment = 'test')
+    public function setEnvironment($environment = 'test')
     {
-        if (trim($enviroment) === 'live') {
+        $environment = trim($environment);
+        if ($environment === 'live') {
             //Live
             $this->_setEnvironment = 'https://sis.redsys.es/sis/realizarPago';
-        } elseif (trim($enviroment) === 'test') {
+        } elseif ($environment === 'test') {
             //Test
             $this->_setEnvironment = 'https://sis-t.redsys.es:25443/sis/realizarPago';
         } else {
@@ -333,6 +331,14 @@ class Tpv
         }
     }
 
+    /**
+     * @param string $environment
+     * @deprecated Use `setEnvironment`
+     */
+    public function setEnviroment($environment = 'test')
+    {
+        $this->setEnvironment($environment);
+    }
 
     /**
      * Set language code by default 001 = Spanish
@@ -492,7 +498,6 @@ class Tpv
 
         $this->_setParameters['DS_MERCHANT_CVV2'] = $cvv2;
     }
-
 
     /**
      * Set name to form
@@ -700,9 +705,7 @@ class Tpv
             $data_padded = str_pad($data_padded, strlen($data_padded) + 8 - strlen($data_padded) % 8, "\0");
         }
 
-        $ciphertext = openssl_encrypt($data_padded, "DES-EDE3-CBC", $key, OPENSSL_RAW_DATA | OPENSSL_NO_PADDING, $iv);
-
-        return $ciphertext;
+        return openssl_encrypt($data_padded, "DES-EDE3-CBC", $key, OPENSSL_RAW_DATA | OPENSSL_NO_PADDING, $iv);
     }
 
     /**
