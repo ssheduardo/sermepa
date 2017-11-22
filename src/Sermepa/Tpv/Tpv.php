@@ -9,14 +9,9 @@ use Exception;
  */
 class Tpv
 {
-    private $_setEnviroment;
-    private $_setMerchantData;
-    private $_setTerminal;
-    private $_setTransactionType;
-    private $_setMethod;
+    private $_setEnvironment;
     private $_setNameForm;
     private $_setIdForm;
-    private $_setSubmit;
     private $_setParameters;
     private $_setVersion;
     private $_setNameSubmit;
@@ -31,12 +26,7 @@ class Tpv
      */
     public function __construct()
     {
-        $this->_setEnviroment = 'https://sis-t.redsys.es:25443/sis/realizarPago';
-        $this->_setTerminal = 1;
-        $this->_setMerchantData = '';
-        $this->_setTransactionType = 0;
-        $this->_setMethod = 'T';
-        $this->_setSubmit = '';
+        $this->_setEnvironment = 'https://sis-t.redsys.es:25443/sis/realizarPago';
 
         $this->_setParameters = array();
         $this->_setVersion = 'HMAC_SHA256_V1';
@@ -334,10 +324,10 @@ class Tpv
     {
         if (trim($enviroment) === 'live') {
             //Live
-            $this->_setEnviroment = 'https://sis.redsys.es/sis/realizarPago';
+            $this->_setEnvironment = 'https://sis.redsys.es/sis/realizarPago';
         } elseif (trim($enviroment) === 'test') {
             //Test
-            $this->_setEnviroment = 'https://sis-t.redsys.es:25443/sis/realizarPago';
+            $this->_setEnvironment = 'https://sis-t.redsys.es:25443/sis/realizarPago';
         } else {
             throw new TpvException('Add test or live');
         }
@@ -369,7 +359,7 @@ class Tpv
      */
     public function getEnviroment()
     {
-        return $this->_setEnviroment;
+        return $this->_setEnvironment;
     }
 
     /**
@@ -574,7 +564,7 @@ class Tpv
     public function createForm()
     {
         $form = '
-            <form action="'.$this->_setEnviroment.'" method="post" id="'.$this->_setIdForm.'" name="'.$this->_setNameForm.'" >
+            <form action="'.$this->_setEnvironment.'" method="post" id="'.$this->_setIdForm.'" name="'.$this->_setNameForm.'" >
                 <input type="hidden" name="Ds_MerchantParameters" value="'.$this->generateMerchantParameters().'"/>
                 <input type="hidden" name="Ds_Signature" value="'.$this->_setSignature.'"/>
                 <input type="hidden" name="Ds_SignatureVersion" value="'.$this->_setVersion.'"/>
