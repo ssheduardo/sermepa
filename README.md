@@ -107,8 +107,7 @@ try{
     $redsys->setMerchantSignature($signature);
 
     $form = $redsys->createForm();
-}
-catch(Exception $e){
+} catch (\Sermepa\Tpv\TpvException $e) {
     echo $e->getMessage();
 }
 echo $form;
@@ -152,8 +151,7 @@ try{
     $redsys->setMerchantSignature($signature);
 
     $form = $redsys->createForm();
-}
-catch(Exception $e){
+} catch (\Sermepa\Tpv\TpvException $e) {
     echo $e->getMessage();
 }
 echo $form;
@@ -258,8 +256,7 @@ try{
     } else {
         //acciones a realizar si ha sido erroneo
     }
-}
-catch(Exception $e){
+} catch (\Sermepa\Tpv\TpvException $e) {
     echo $e->getMessage();
 }
 ```
