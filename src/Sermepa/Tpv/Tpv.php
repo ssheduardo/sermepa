@@ -476,7 +476,7 @@ class Tpv
      */
     public function setExpiryDate($expirydate)
     {
-        if ($this->isEmpty($expirydate) != 4) {
+        if (strlen($expirydate) != 4) {
             throw new TpvException('Expire date is not valid');
         }
 
