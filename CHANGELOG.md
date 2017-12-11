@@ -2,6 +2,18 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.2.4 (2017-12-11)
+
+### Added
+- Merge pull request (Minor cosmetic fixes).
+- Added setEnvironment.
+
+### Deprecated
+- Method setEnviroment.
+
+### Fixed
+- Nothing
+
 ## Version 1.2.3 (2017-11-23)
 
 ### Added
