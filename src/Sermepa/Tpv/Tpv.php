@@ -476,7 +476,7 @@ class Tpv
      */
     public function setExpiryDate($expirydate)
     {
-        if (strlen($expirydate) != 4) {
+        if (strlen(trim($expirydate)) != 4) {
             throw new TpvException('Expire date is not valid');
         }
 
@@ -595,11 +595,8 @@ class Tpv
             throw new TpvException("Add data return of bank");
         }
 
-        $version = $postData["Ds_SignatureVersion"];
         $parameters = $postData["Ds_MerchantParameters"];
         $signatureReceived = $postData["Ds_Signature"];
-
-        $decodec = $this->decodeParameters($parameters);
         $signature = $this->generateMerchantSignatureNotification($key, $parameters);
 
         return ($signature === $signatureReceived);
@@ -726,22 +723,6 @@ class Tpv
     protected function isEmpty($value)
     {
         return '' === trim($value);
-    }
-
-    //http://stackoverflow.com/a/9111049/444225
-    private function priceToSQL($price)
-    {
-        $price = preg_replace('/[^0-9\.,]*/i', '', $price);
-        $price = str_replace(',', '.', $price);
-        if (substr($price, -3, 1) === '.') {
-            $price = explode('.', $price);
-            $last = array_pop($price);
-            $price = join($price, '').'.'.$last;
-        } else {
-            $price = str_replace('.', '', $price);
-        }
-
-        return $price;
     }
 
     /**
