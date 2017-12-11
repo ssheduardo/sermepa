@@ -101,14 +101,13 @@ try{
     $redsys->setTradeName('Tienda S.L');
     $redsys->setTitular('Pedro Risco');
     $redsys->setProductDescription('Compras varias');
-    $redsys->setEnviroment('test'); //Entorno test
+    $redsys->setEnvironment('test'); //Entorno test
 
     $signature = $redsys->generateMerchantSignature($key);
     $redsys->setMerchantSignature($signature);
 
     $form = $redsys->createForm();
-}
-catch(Exception $e){
+} catch (\Sermepa\Tpv\TpvException $e) {
     echo $e->getMessage();
 }
 echo $form;
@@ -146,14 +145,13 @@ try{
     $redsys->setExpiryDate('2012'); //AAMM (año y mes)
     $redsys->setCVV2('123'); //CVV2 de la tarjeta
     
-    $redsys->setEnviroment('test'); //Entorno test
+    $redsys->setEnvironment('test'); //Entorno test
 
     $signature = $redsys->generateMerchantSignature($key);
     $redsys->setMerchantSignature($signature);
 
     $form = $redsys->createForm();
-}
-catch(Exception $e){
+} catch (\Sermepa\Tpv\TpvException $e) {
     echo $e->getMessage();
 }
 echo $form;
@@ -258,15 +256,14 @@ try{
     } else {
         //acciones a realizar si ha sido erroneo
     }
-}
-catch(Exception $e){
+} catch (\Sermepa\Tpv\TpvException $e) {
     echo $e->getMessage();
 }
 ```
 
 ### Nota
 
-Por defecto se conecta por la pasarela de pruebas. Para cambiar a un entorno real, usar el método `setEnviroment('live')`, con esto ya estará activo.
+Por defecto se conecta por la pasarela de pruebas. Para cambiar a un entorno real, usar el método `setEnvironment('live')`, con esto ya estará activo.
 
 ## Métodos útiles
 
