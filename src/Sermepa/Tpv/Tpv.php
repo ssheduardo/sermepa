@@ -436,8 +436,8 @@ class Tpv
     /**
      * Payment type
      *
-     * @param string $method [T = Pago con Tarjeta + iupay , R = Pago por Transferencia, D = Domiciliacion, C = Sólo
-     *                       Tarjeta (mostrará sólo el formulario para datos de tarjeta)] por defecto es T
+     * @param string $method [T o C = Sólo Tarjeta (mostrará sólo el formulario para datos de tarjeta)
+     *                       R = Pago por Transferencia, D = Domiciliacion]
      *
      * @throws Exception
      */
