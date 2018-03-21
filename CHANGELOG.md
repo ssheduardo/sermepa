@@ -2,6 +2,17 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.2.4.1 (2018-03-22)
+
+### Added
+- Nothing
+
+### Deprecated
+- Nothing
+
+### Fixed
+- Changed information text about of parameter by default for setMethod.
+
 ## Version 1.2.4 (2017-12-11)
 
 ### Added
