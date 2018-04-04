@@ -2,6 +2,17 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.2.5 (2018-04-04)
+
+### Added
+- Nothing
+
+### Deprecated
+- Nothing
+
+### Fixed
+- Changed validation for setCurrency, not limit to 978, 840, 826, 392
+
 ## Version 1.2.4.1 (2018-03-22)
 
 ### Added
