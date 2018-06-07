@@ -49,6 +49,7 @@ class Tpv
      *                      un campo alfanumérico de un máximo de 40 posiciones cuyo valor es generado por el TPV
      *                      Virtual.
      *
+     * @return $this
      * @throws TpvException
      */
     public function setIdentifier($value = 'REQUIRED')
@@ -58,11 +59,14 @@ class Tpv
         }
 
         $this->_setParameters['DS_MERCHANT_IDENTIFIER'] = $value;
+
+        return $this;
     }
 
     /**
      * @param bool $flat
      *
+     * @return $this
      * @throws TpvException
      */
     public function setMerchantDirectPayment($flat = false)
@@ -72,6 +76,8 @@ class Tpv
         }
 
         $this->_setParameters['DS_MERCHANT_DIRECTPAYMENT '] = $flat;
+
+        return $this;
     }
 
     /**
@@ -79,6 +85,7 @@ class Tpv
      *
      * @param $amount
      *
+     * @return $this
      * @throws TpvException
      */
     public function setAmount($amount)
@@ -91,6 +98,8 @@ class Tpv
         $amount = intval(strval($amount * 100));
 
         $this->_setParameters['DS_MERCHANT_AMOUNT'] = $amount;
+
+        return $this;
     }
 
     /**
@@ -98,6 +107,7 @@ class Tpv
      *
      * @param $order
      *
+     * @return $this
      * @throws TpvException
      */
     public function setOrder($order)
@@ -108,6 +118,8 @@ class Tpv
         }
 
         $this->_setParameters['DS_MERCHANT_ORDER'] = $order;
+
+        return $this;
     }
 
     /**
@@ -144,6 +156,7 @@ class Tpv
      *
      * @param string $fuc Fuc
      *
+     * @return $this
      * @throws TpvException
      */
     public function setMerchantcode($fuc)
@@ -153,6 +166,8 @@ class Tpv
         }
 
         $this->_setParameters['DS_MERCHANT_MERCHANTCODE'] = $fuc;
+
+        return $this;
     }
 
     /**
@@ -160,6 +175,7 @@ class Tpv
      *
      * @param int $currency Algunos ejemplos: 978 para Euros, 840 para Dólares, 826 para libras esterlinas y 392 para Yenes.
      *
+     * @return $this
      * @throws TpvException
      */
     public function setCurrency($currency = 978)
@@ -169,6 +185,8 @@ class Tpv
         }
 
         $this->_setParameters['DS_MERCHANT_CURRENCY'] = $currency;
+
+        return $this;
     }
 
     /**
@@ -176,6 +194,7 @@ class Tpv
      *
      * @param int $transaction
      *
+     * @return $this
      * @throws TpvException
      */
     public function setTransactiontype($transaction = 0)
@@ -185,6 +204,8 @@ class Tpv
         }
 
         $this->_setParameters['DS_MERCHANT_TRANSACTIONTYPE'] = $transaction;
+
+        return $this;
     }
 
     /**
@@ -192,6 +213,7 @@ class Tpv
      *
      * @param int $terminal
      *
+     * @return $this
      * @throws TpvException
      */
     public function setTerminal($terminal = 1)
@@ -201,44 +223,58 @@ class Tpv
         }
 
         $this->_setParameters['DS_MERCHANT_TERMINAL'] = $terminal;
+
+        return $this;
     }
 
     /**
      * Set url notification
      *
      * @param string $url
+     * @return $this
      */
     public function setNotification($url = '')
     {
         $this->_setParameters['DS_MERCHANT_MERCHANTURL'] = $url;
+
+        return $this;
     }
 
     /**
      * Set url Ok
      *
      * @param string $url
+     * @return $this
      */
     public function setUrlOk($url = '')
     {
         $this->_setParameters['DS_MERCHANT_URLOK'] = $url;
+
+        return $this;
     }
 
     /**
      * Set url Ko
      *
      * @param string $url
+     * @return $this
      */
     public function setUrlKo($url = '')
     {
         $this->_setParameters['DS_MERCHANT_URLKO'] = $url;
+
+        return $this;
     }
 
     /**
      * @param string $version
+     * @return $this
      */
     public function setVersion($version = '')
     {
         $this->_setVersion = $version;
+
+        return $this;
     }
 
     /**
@@ -304,10 +340,13 @@ class Tpv
      * Set Merchant Signature
      *
      * @param string $signature
+     * @return $this
      */
     public function setMerchantSignature($signature)
     {
         $this->_setSignature = $signature;
+
+        return $this;
     }
 
     /**
@@ -315,6 +354,7 @@ class Tpv
      *
      * @param string $environment test or live
      *
+     * @return $this
      * @throws Exception
      */
     public function setEnvironment($environment = 'test')
@@ -329,15 +369,20 @@ class Tpv
         } else {
             throw new TpvException('Add test or live');
         }
+
+        return $this;
     }
 
     /**
      * @param string $environment
      * @deprecated Use `setEnvironment`
+     * @return $this
      */
     public function setEnviroment($environment = 'test')
     {
         $this->setEnvironment($environment);
+
+        return $this;
     }
 
     /**
@@ -347,6 +392,7 @@ class Tpv
      *                             Holandés-006, Italiano-007, Sueco-008, Portugués-009, Valenciano-010, Polaco-011,
      *                             Gallego-012 y Euskera-013.]
      *
+     * @return $this
      * @throws Exception
      */
     public function setLanguage($languageCode = '001')
@@ -356,6 +402,8 @@ class Tpv
         }
 
         $this->_setParameters['DS_MERCHANT_CONSUMERLANGUAGE'] = trim($languageCode);
+
+        return $this;
     }
 
     /**
@@ -374,6 +422,7 @@ class Tpv
      *
      * @param string $merchantdata
      *
+     * @return $this
      * @throws Exception
      */
     public function setMerchantData($merchantdata)
@@ -383,6 +432,8 @@ class Tpv
         }
 
         $this->_setParameters['DS_MERCHANT_MERCHANTDATA'] = trim($merchantdata);
+
+        return $this;
     }
 
     /**
@@ -390,6 +441,7 @@ class Tpv
      *
      * @param string $description
      *
+     * @return $this
      * @throws Exception
      */
     public function setProductDescription($description = '')
@@ -399,6 +451,8 @@ class Tpv
         }
 
         $this->_setParameters['DS_MERCHANT_PRODUCTDESCRIPTION'] = trim($description);
+
+        return $this;
     }
 
     /**
@@ -406,6 +460,7 @@ class Tpv
      *
      * @param string $titular name of the user (for example Alonso Cotos)
      *
+     * @return $this
      * @throws Exception
      */
     public function setTitular($titular = '')
@@ -415,6 +470,8 @@ class Tpv
         }
 
         $this->_setParameters['DS_MERCHANT_TITULAR'] = trim($titular);
+
+        return $this;
     }
 
     /**
@@ -422,6 +479,7 @@ class Tpv
      *
      * @param string $tradename trade name
      *
+     * @return $this
      * @throws Exception
      */
     public function setTradeName($tradename = '')
@@ -431,6 +489,8 @@ class Tpv
         }
 
         $this->_setParameters['DS_MERCHANT_MERCHANTNAME'] = trim($tradename);
+
+        return $this;
     }
 
     /**
@@ -439,6 +499,7 @@ class Tpv
      * @param string $method [T o C = Sólo Tarjeta (mostrará sólo el formulario para datos de tarjeta)
      *                       R = Pago por Transferencia, D = Domiciliacion]
      *
+     * @return $this
      * @throws Exception
      */
     public function setMethod($method = 'T')
@@ -448,6 +509,8 @@ class Tpv
         }
 
         $this->_setParameters['DS_MERCHANT_PAYMETHODS'] = trim($method);
+
+        return $this;
     }
 
     /**
@@ -455,6 +518,7 @@ class Tpv
      *
      * @param string $pan Tarjeta. Su longitud depende del tipo de tarjeta.
      *
+     * @return $this
      * @throws TpvException
      */
     public function setPan($pan)
@@ -464,6 +528,8 @@ class Tpv
         }
 
         $this->_setParameters['DS_MERCHANT_PAN'] = $pan;
+
+        return $this;
     }
 
     /**
@@ -472,6 +538,7 @@ class Tpv
      * @param $expirydate . Caducidad de la tarjeta. Su formato es AAMM, siendo AA los dos últimos dígitos del año y MM
      *                    los dos dígitos del mes.
      *
+     * @return $this
      * @throws TpvException
      */
     public function setExpiryDate($expirydate)
@@ -481,6 +548,8 @@ class Tpv
         }
 
         $this->_setParameters['DS_MERCHANT_EXPIRYDATE'] = $expirydate;
+
+        return $this;
     }
 
     /**
@@ -488,6 +557,7 @@ class Tpv
      *
      * @param string $cvv2 Código CVV2 de la tarjeta
      *
+     * @return $this
      * @throws TpvException
      */
     public function setCVV2($cvv2)
@@ -497,36 +567,45 @@ class Tpv
         }
 
         $this->_setParameters['DS_MERCHANT_CVV2'] = $cvv2;
+
+        return $this;
     }
 
     /**
      * Set name to form
      *
      * @param string $name Name for form.
+     * @return $this
      */
     public function setNameForm($name = 'servired_form')
     {
         $this->_setNameForm = $name;
+
+        return $this;
     }
 
     /**
      * Set Id to form
      *
      * @param string $id Name for Id
+     * @return $this
      */
     public function setIdForm($id = 'servired_form')
     {
         $this->_setIdForm = $id;
+
+        return $this;
     }
 
     /**
      * Set Attributes to submit
      *
-     * @param string $name     Name submit
-     * @param string $id       Id submit
-     * @param string $value    Value submit
-     * @param string $style    Set Style
+     * @param string $name Name submit
+     * @param string $id Id submit
+     * @param string $value Value submit
+     * @param string $style Set Style
      * @param string $cssClass CSS class
+     * @return $this
      */
     public function setAttributesSubmit(
         $name = 'btn_submit',
@@ -540,6 +619,8 @@ class Tpv
         $this->_setValueSubmit = $value;
         $this->_setStyleSubmit = $style;
         $this->_setClassSubmit = $cssClass;
+
+        return $this;
     }
 
     /**
