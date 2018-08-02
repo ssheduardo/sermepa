@@ -2,6 +2,17 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.2.6 (2018-08-02)
+
+### Added
+- Add support to chain methods
+
+### Deprecated
+- Nothing
+
+### Fixed
+- Nothing
+
 ## Version 1.2.5 (2018-04-04)
 
 ### Added
