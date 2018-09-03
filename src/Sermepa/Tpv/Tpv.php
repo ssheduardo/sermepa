@@ -9,17 +9,17 @@ use Exception;
  */
 class Tpv
 {
-    private $_setEnvironment;
-    private $_setNameForm;
-    private $_setIdForm;
-    private $_setParameters;
-    private $_setVersion;
-    private $_setNameSubmit;
-    private $_setIdSubmit;
-    private $_setValueSubmit;
-    private $_setStyleSubmit;
-    private $_setClassSubmit;
-    private $_setSignature;
+    protected $_setEnvironment;
+    protected $_setNameForm;
+    protected $_setIdForm;
+    protected $_setParameters;
+    protected $_setVersion;
+    protected $_setNameSubmit;
+    protected $_setIdSubmit;
+    protected $_setValueSubmit;
+    protected $_setStyleSubmit;
+    protected $_setClassSubmit;
+    protected $_setSignature;
 
     /**
      * Constructor
@@ -75,7 +75,7 @@ class Tpv
             throw new TpvException('Please set true or false');
         }
 
-        $this->_setParameters['DS_MERCHANT_DIRECTPAYMENT '] = $flat;
+        $this->_setParameters['DS_MERCHANT_DIRECTPAYMENT'] = $flat;
 
         return $this;
     }
@@ -110,10 +110,10 @@ class Tpv
      * @return $this
      * @throws TpvException
      */
-    public function setOrder($order)
+    public function setOrder($order='')
     {
         $order = trim($order);
-        if (strlen($order) <= 0 || strlen($order) > 12 || !is_numeric(substr($order, 0, 4))) {
+        if (strlen($order) <= 3 || strlen($order) > 12 || !is_numeric(substr($order, 0, 4))) {
             throw new TpvException('Order id must be a 4 digit string at least, maximum 12 characters.');
         }
 
@@ -159,7 +159,7 @@ class Tpv
      * @return $this
      * @throws TpvException
      */
-    public function setMerchantcode($fuc)
+    public function setMerchantcode($fuc='')
     {
         if ($this->isEmpty($fuc)) {
             throw new TpvException('Please add Fuc');
@@ -272,6 +272,9 @@ class Tpv
      */
     public function setVersion($version = '')
     {
+        if ($this->isEmpty($version)) {
+            throw new TpvException('Please add version.');
+        }
         $this->_setVersion = $version;
 
         return $this;
@@ -425,7 +428,7 @@ class Tpv
      * @return $this
      * @throws Exception
      */
-    public function setMerchantData($merchantdata)
+    public function setMerchantData($merchantdata='')
     {
         if ($this->isEmpty($merchantdata)) {
             throw new TpvException('Add merchant data');
@@ -521,7 +524,7 @@ class Tpv
      * @return $this
      * @throws TpvException
      */
-    public function setPan($pan)
+    public function setPan($pan=0)
     {
         if (intval($pan) == 0) {
             throw new TpvException('Pan not valid');
@@ -541,15 +544,14 @@ class Tpv
      * @return $this
      * @throws TpvException
      */
-    public function setExpiryDate($expirydate)
+    public function setExpiryDate($expirydate='')
     {
-        if (strlen(trim($expirydate)) != 4) {
+        if ( !$this->isExpiryDate($expirydate) ) {
             throw new TpvException('Expire date is not valid');
         }
-
         $this->_setParameters['DS_MERCHANT_EXPIRYDATE'] = $expirydate;
-
         return $this;
+
     }
 
     /**
@@ -560,7 +562,7 @@ class Tpv
      * @return $this
      * @throws TpvException
      */
-    public function setCVV2($cvv2)
+    public function setCVV2($cvv2=0)
     {
         if (intval($cvv2) == 0) {
             throw new TpvException('CVV2 is not valid');
@@ -582,6 +584,16 @@ class Tpv
         $this->_setNameForm = $name;
 
         return $this;
+    }
+
+    /**
+     * Get name form
+     *
+     * @return string
+     */
+    public function getNameForm()
+    {
+        return $this->_setNameForm;
     }
 
     /**
@@ -736,7 +748,7 @@ class Tpv
      *
      * @return string Json
      */
-    private function arrayToJson($data)
+    protected function arrayToJson($data)
     {
         return json_encode($data);
     }
@@ -748,7 +760,7 @@ class Tpv
      *
      * @return mixed
      */
-    private function JsonToArray($data)
+    protected function JsonToArray($data)
     {
         return json_decode($data, true);
     }
@@ -761,7 +773,7 @@ class Tpv
      *
      * @return string
      */
-    private function hmac256($data, $key)
+    protected function hmac256($data, $key)
     {
         return hash_hmac('sha256', $data, $key, true);
     }
@@ -774,7 +786,7 @@ class Tpv
      *
      * @return string
      */
-    private function encrypt_3DES($data, $key)
+    protected function encrypt_3DES($data, $key)
     {
         $iv = "\0\0\0\0\0\0\0\0";
         $data_padded = $data;
@@ -791,7 +803,7 @@ class Tpv
      *
      * @return bool|string
      */
-    private function decodeParameters($data)
+    protected function decodeParameters($data)
     {
         return base64_decode(strtr($data, '-_', '+/'));
     }
@@ -807,11 +819,34 @@ class Tpv
     }
 
     /**
+     * Check if expiry date is valid
+     *
+     * @param string $expirydate
+     * @return boolean
+     */
+    protected function isExpiryDate($expirydate='')
+    {
+        return (strlen(trim($expirydate)) == 4 && is_numeric($expirydate));
+    }
+
+    /**
+     * Check is order is valid
+     *
+     * @param string $order
+     * @return boolean
+     */
+    protected function isValidOrder($order='')
+    {
+        return ( strlen($order) >= 4 && strlen($order) <= 12 && is_numeric(substr($order, 0, 4)) )?true:false;
+
+    }
+
+    /**
      * @param mixed $price
      *
      * @return string
      */
-    private function convertNumber($price)
+    protected function convertNumber($price)
     {
         return number_format(str_replace(',', '.', $price), 2, '.', '');
     }
@@ -822,7 +857,7 @@ class Tpv
      *
      * @return string
      */
-    private function base64_url_encode($input)
+    protected function base64_url_encode($input)
     {
         return strtr(base64_encode($input), '+/', '-_');
     }
@@ -832,7 +867,7 @@ class Tpv
      *
      * @return string
      */
-    private function encodeBase64($data)
+    protected function encodeBase64($data)
     {
         return base64_encode($data);
     }
@@ -842,7 +877,7 @@ class Tpv
      *
      * @return string
      */
-    private function base64_url_decode($input)
+    protected function base64_url_decode($input)
     {
         return base64_decode(strtr($input, '-_', '+/'));
     }
@@ -852,7 +887,7 @@ class Tpv
      *
      * @return string
      */
-    private function decodeBase64($data)
+    protected function decodeBase64($data)
     {
         return base64_decode($data);
     }

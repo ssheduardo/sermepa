@@ -9,3 +9,6 @@ ehthumbs.db
 Thumbs.db
 
 .idea
+
+phpunit.xml
+vendor

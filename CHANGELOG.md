@@ -2,6 +2,19 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.2.7 (2018-09-03)
+
+### Added
+- Added test.
+- Added by default _setVersion in the construction.
+- Added method getNameForm.
+
+### Deprecated
+- Nothing
+
+### Fixed
+- Changed property and methods private to protected
+
 ## Version 1.2.6 (2018-08-02)
 
 ### Added
