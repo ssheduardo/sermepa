@@ -6,7 +6,6 @@ All Notable changes to `Redsys` will be documented in this file
 
 ### Added
 - Added test.
-- Added by default _setVersion in the construction.
 - Added method getNameForm.
 
 ### Deprecated
