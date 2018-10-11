@@ -2,6 +2,17 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.2.8 (2018-10-11)
+
+### Added
+- Added travis_ci
+
+### Deprecated
+- Nothing
+
+### Fixed
+- Fixed errors when uses php5.6 (travis_ci)
+
 ## Version 1.2.7 (2018-09-03)
 
 ### Added
