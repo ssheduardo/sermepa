@@ -2,6 +2,20 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.2.9 (2019-05-18)
+
+### Added
+- Added new methods for recurring payment:
+    - setSumtotal
+    - setChargeExpiryDate
+    - setDateFrecuency
+
+### Deprecated
+- Nothing
+
+### Fixed
+- Nothing
+
 ## Version 1.2.8 (2018-10-11)
 
 ### Added
