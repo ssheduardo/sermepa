@@ -62,6 +62,114 @@ class TpvTest extends PHPUnitTestCase
     }
 
 
+    /**
+     * @test
+     * @dataProvider amountProvider
+     */
+    public function sum_total_is_valid($correctAmount, $amount)
+    {
+        $redsys = new Tpv();
+        $redsys->setSumTotal($amount);
+        $ds = $redsys->getParameters();
+        $this->assertEquals($correctAmount, $ds['DS_MERCHANT_SUMTOTAL']);
+
+    }
+
+    /**
+     * @test
+     * @expectedException \Sermepa\Tpv\TpvException
+     * @expectedExceptionMessage Sum total must be greater than or equal to 0.
+     */
+    public function throw_sum_total_is_invalid_number()
+    {
+        $redsys = new Tpv();
+        $redsys->setSumTotal(-1);
+    }
+
+
+    public function dateFrecuencyProvider()
+    {
+        return [
+            [3],
+            [75],
+            [490],
+            [9120]
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider dateFrecuencyProvider
+     */
+    public function date_frecuency_is_valid($dateFrecuency)
+    {
+        $redsys = new Tpv();
+        $redsys->setDateFrecuency($dateFrecuency);
+        $parameters = $redsys->getParameters();
+
+        $this->assertArrayHasKey('DS_MERCHANT_DATEFRECUENCY', $parameters);
+    }
+
+    public function invalidDateFrecuencyProvider()
+    {
+        return [
+            [666666],
+            [155555],
+            ['cat'],
+            ['A1'],
+
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider invalidDateFrecuencyProvider
+     * @expectedException \Sermepa\Tpv\TpvException
+     * @expectedExceptionMessage Date frecuency is not valid.
+     */
+    public function throw_date_frecuency_is_invalid($dateFrecuency)
+    {
+        $redsys = new Tpv();
+        $redsys->setDateFrecuency($dateFrecuency);
+    }
+
+    /**
+     * @test
+     */
+    public function charge_expiry_date_is_valid()
+    {
+        $redsys = new Tpv();
+        $redsys->setChargeExpiryDate('2025-03-04');
+        $parameters = $redsys->getParameters();
+
+        $this->assertArrayHasKey('DS_MERCHANT_CHARGEEXPIRYDATE', $parameters);
+    }
+
+    public function invalidChargeExpiryDateProvider()
+    {
+        return [
+            ['2024-13-04'],
+            ['04-03-81'],
+            ['01-05-2019'],
+            ['00-00-00'],
+            ['03-21-19'],
+            ['10-21-2022'],
+            ['22-06-29'],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider invalidChargeExpiryDateProvider
+     * @expectedException \Sermepa\Tpv\TpvException
+     * @expectedExceptionMessage Date is not valid.
+     */
+    public function throw_charge_expiry_date_is_invalid($date)
+    {
+        $redsys = new Tpv();
+        $redsys->setChargeExpiryDate($date);
+    }
+
 
     public function invalidOrderNumberProvider()
     {

@@ -6,8 +6,8 @@
 
 ---
 
-[![JetBrains & PhpStorm](https://ubublog.com/wp-content/uploads/logo-ps-jb.png)](https://jetbrains.com/phpstorm)  
-_This project is friendly supported by [JetBrains](https://jetbrains.com) & [PhpStorm](https://jetbrains.com/phpstorm)!_
+[![Visual Studio Code](https://ubublog.com/wp-content/uploads/2019/05/vsc.png)](https://code.visualstudio.com/)
+_This project is friendly supported by [Visual Studio Code](https://code.visualstudio.com/)!_
 
 ---
 
@@ -30,7 +30,7 @@ PHP 5 >= 5.3.0, PHP 7.1
 
 ## Créditos
 
-Clase creada por Eduardo Diaz, Madrid 2012  
+Clase creada por Eduardo Diaz, Madrid 2012
 Twitter: @eduardo_dx
 
 
@@ -140,11 +140,11 @@ try{
     $redsys->setVersion('HMAC_SHA256_V1');
     $redsys->setTradeName('Tienda S.L');
     $redsys->setTitular('Pedro Risco');
-    
+
     $redsys->setPan('4548812049400004'); //Número de la tarjeta
     $redsys->setExpiryDate('2012'); //AAMM (año y mes)
     $redsys->setCVV2('123'); //CVV2 de la tarjeta
-    
+
     $redsys->setEnvironment('test'); //Entorno test
 
     $signature = $redsys->generateMerchantSignature($key);
@@ -159,7 +159,7 @@ echo $form;
 
 ## Pago con referencia
 
-Esta operativa nos permite guardar los datos de la tarjeta. SIS almacena la tarjeta y devuelve la referencia que deberá ser almacenada por el comercio.  
+Esta operativa nos permite guardar los datos de la tarjeta. SIS almacena la tarjeta y devuelve la referencia que deberá ser almacenada por el comercio.
 
 Imaginemos que en el ejemplo anterior, queremos guardar los datos de la tarjeta, solo bastará con agregar el método `setIdentifier()`. Cuando se haga el llamado a la url de notificación, éste nos devolverá `Ds_Merchant_Identifier` y `Ds_ExpiryDate`.
 
@@ -174,7 +174,7 @@ Array
     [Ds_Hour] => 13:06
     [Ds_SecurePayment] => 1
     [Ds_Card_Number] => 454881******0004
-    
+
     [Ds_ExpiryDate] => 2012
     [Ds_Merchant_Identifier] => cd8e4017c4c2f16bc9ccff87b0d07ad9c6cbd257
 
@@ -192,7 +192,7 @@ Array
 )
 ```
 
-Ahora bien, si queremos realizar otro cobro sin que nos pidan los datos de la tarjeta para ese mismo usuario, bastará con pasar el `Ds_Merchant_Identifier` anterior en el método `setIdentifier()`. 
+Ahora bien, si queremos realizar otro cobro sin que nos pidan los datos de la tarjeta para ese mismo usuario, bastará con pasar el `Ds_Merchant_Identifier` anterior en el método `setIdentifier()`.
 
 Cada banco tiene un sistema de seguridad a través de un código de SMS, tarjeta de coordenadas, etc. que se mostrará para completar la transacción.
 
@@ -206,7 +206,7 @@ Array
     [Ds_Hour] => 15:19
     [Ds_SecurePayment] => 1
     [Ds_Card_Number] => 454881******0004
-    
+
     [Ds_Merchant_Identifier] => cd8e4017c4c2f16bc9ccff87b0d07ad9c6cbd257
 
     [Ds_Card_Country] => 724
@@ -232,7 +232,7 @@ $redsys->setMerchantDirectPayment(true);
 ## Redirección automática
 
 Podemos forzar la redirección sin pasar por el método `createForm()` (gracias a la colaboración de [jaumecornado](https://github.com/jaumecornado))
-    
+
 ```php
 $redsys->executeRedirection();
 ```
@@ -309,7 +309,7 @@ Si usáis redirección podéis ocultar el botón con `display:none`
 
 ```php
 $redsys->createForm();
-```     
+```
 
 ### Obtener un array con todos los datos asignados
 
@@ -394,8 +394,10 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 ## Donación
 
-¿Te gustaría apoyarme?  
-¿Aprecias mi trabajo?  
+¿Te gustaría apoyarme?
+¿Aprecias mi trabajo?
 ¿Lo usas en proyectos comerciales?
 
 ¡Siéntete libre de hacer una pequeña [donación](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ssh%2eeduardo%40gmail%2ecom&lc=ES&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted)! :wink:
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ssh%2eeduardo%40gmail%2ecom&lc=ES&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted)
