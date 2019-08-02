@@ -739,13 +739,13 @@ class Tpv
     /**
      * Check if properly made ​​the purchase.
      *
-     * @param string $key      Key
      * @param array  $postData Data received by the bank
+     * @param string $key      Key
      *
      * @return bool
      * @throws TpvException
      */
-    public function check($key = '', $postData)
+    public function check($postData, $key = '')
     {
         if (!isset($postData)) {
             throw new TpvException("Add data return of bank");
