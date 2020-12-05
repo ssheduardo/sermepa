@@ -618,6 +618,31 @@ class Tpv
     }
 
     /**
+     * Set parameters
+     *
+     * @param array $parameters
+     * @return $this
+     * @throws TpvException
+     */
+
+    public function setParameters($parameters=[])
+    {
+        if(!is_array($parameters)) {
+            throw new TpvException('Paramaters is not an array');
+        }
+
+        $keys = array_keys($parameters);
+
+        if(array_keys($keys) === $keys ) {
+            throw new TpvException('Paramaters is not an array associative');
+        }
+
+        $parameters = array_change_key_case($parameters, CASE_UPPER);
+        $this->_setParameters = array_merge($this->_setParameters, $parameters);
+        return $this;
+    }
+
+    /**
      * CVV2 card
      *
      * @param string $cvv2 Código CVV2 de la tarjeta

@@ -2,6 +2,17 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.3.0 (2020-12-05)
+
+### Added
+- Added new method: setParameters
+
+### Deprecated
+- Nothing
+
+### Fixed
+- Nothing
+
 ## Version 1.2.9 (2019-05-18)
 
 ### Added

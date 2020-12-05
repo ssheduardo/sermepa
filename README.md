@@ -267,6 +267,14 @@ Por defecto se conecta por la pasarela de pruebas. Para cambiar a un entorno rea
 
 ## Métodos útiles
 
+### Asignar parámetros
+Este método recibe un array asociativo con los nuevos valores a asignar.
+
+Ejemplo:
+```php
+$parameters = ['DS_MERCHANT_CHARGEEXPIRYDATE' => '2020', 'DS_MERCHANT_COF_INI' => 'S'];
+$redsys->setParameters();
+```
 ### Asignar nombre a id y name del formulario
 
 ```php
