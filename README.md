@@ -273,7 +273,7 @@ Este método recibe un array asociativo con los nuevos valores a asignar.
 Ejemplo:
 ```php
 $parameters = ['DS_MERCHANT_CHARGEEXPIRYDATE' => '2020', 'DS_MERCHANT_COF_INI' => 'S'];
-$redsys->setParameters();
+$redsys->setParameters($parameters);
 ```
 ### Asignar nombre a id y name del formulario
 
