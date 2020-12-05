@@ -489,4 +489,50 @@ class TpvTest extends PHPUnitTestCase
         $redsys->setCVV2();
     }
 
+
+    public function invalidParameters()
+    {
+        return [
+            ['23233'],
+            [45],
+            [666],
+            [
+                [100,'R'],
+                ['Ds_store' => 233]
+            ]
+        ];
+
+    }
+
+    /**
+     * @test
+     * @dataProvider invalidParameters
+     * @expectedException \Sermepa\Tpv\TpvException
+     * @expectedExceptionMessage Paramaters is not an array
+     * @expectedExceptionMessage Paramaters is not an array associative
+     */
+
+    public function throw_parameters_is_not_an_array($parameters)
+    {
+       $redsys = new Tpv();
+
+       $redsys->setParameters($parameters);
+
+    }
+
+    /**
+     * @test
+     */
+
+     public function set_new_parameters()
+     {
+        $parameters = ['DS_MERCHANT_COF_INI' => 'S', 'DS_MERCHANT_COF_TYPE' => 'R'];
+        $redsys = new Tpv();
+        $redsys->setParameters($parameters);
+
+        $this->assertArrayHasKey('DS_MERCHANT_COF_INI', $parameters);
+        $this->assertArrayHasKey('DS_MERCHANT_COF_TYPE', $parameters);
+
+     }
+
 }
