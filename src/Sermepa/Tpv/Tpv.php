@@ -827,6 +827,64 @@ class Tpv
         return $this->_setSignature;
     }
 
+    /**
+     * COF Transition Indicator.
+     * Mandatory for COF Visa and MC operations.
+     * Possible values:
+     * “S”: It is first COF transaction (store credentials)
+     * “N”: It is not the first COF transaction
+     *
+     * @return $this
+     * @throws Exception
+     */
+    public function setMerchantCofIni($isFirstTransaction)
+    {
+        $this->_setParameters['DS_MERCHANT_COF_INI'] = $isFirstTransaction ? 'S' : 'N';
+
+        return $this;
+    }
+
+    /**
+     * COF transaction type. Optional for COF Visa and MC.
+     * Possible values:
+     * “I”: Installments “R”: Recurring
+     * “H”: Reauthorization “E”: Resubmission “D”: Delayed
+     * “M”: Incremental “N”: No Show
+     * “C”: Otras
+     *
+     * @return $this
+     * @throws Exception
+     */
+    public function setMerchantCofType($value)
+    {
+        $validOptions = ['I', 'R', 'H', 'E', 'D', 'M', 'N', 'C'];
+        $value = strtoupper($value);
+        if (!in_array($value, $validOptions, true)) {
+            throw new TpvException('Set Merchant COF type');
+        }
+        $this->_setParameters['DS_MERCHANT_COF_TYPE'] = $value;
+
+        return $this;
+    }
+
+    /**
+     * COF identifier identifier. Optional. This
+     * identifier is returned in the answer of the first
+     * COF (store credentials) operation and
+     * we must send in successive transactions made
+     * with the credentials that generated this same Id_txn
+     *
+     * @return $this
+     * @throws Exception
+     */
+    public function setMerchantCofTxnid($txid)
+    {
+        if($txid) {
+        $this->_setParameters['DS_MERCHANT_COF_TXNID'] = $txid;
+        }
+        return $this;
+    }
+
     // ******** UTILS ********
 
     /**
