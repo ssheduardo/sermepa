@@ -770,7 +770,7 @@ class Tpv
      * @return bool
      * @throws TpvException
      */
-    public function check($key = '', $postData)
+    public function check($key, $postData)
     {
         if (!isset($postData)) {
             throw new TpvException("Add data return of bank");
