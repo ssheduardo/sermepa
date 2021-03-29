@@ -11,9 +11,7 @@ matrix:
 sudo: false
 
 before_install:
-  - if [[ $TRAVIS_PHP_VERSION != 7.1 ]]; then
-    - travis_retry composer self-update;
-  fi
+  - if [[ $TRAVIS_PHP_VERSION != 7.1 ]]; then travis_retry composer self-update; fi
 
 install:
 - travis_retry composer install --prefer-dist --no-interaction
