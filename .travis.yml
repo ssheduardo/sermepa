@@ -3,7 +3,6 @@ language: php
 matrix:
   fast_finish: true
   include:
-    - php: 7.1.2
     - php: 7.2
     - php: 7.3.24
     - php: 7.4.0
@@ -11,7 +10,7 @@ matrix:
 sudo: false
 
 before_install:
-  - if [[ $TRAVIS_PHP_VERSION != 7.1.2 ]]; then travis_retry composer self-update; fi
+  - travis_retry composer self-update
 
 install:
 - travis_retry composer install --prefer-dist --no-interaction
