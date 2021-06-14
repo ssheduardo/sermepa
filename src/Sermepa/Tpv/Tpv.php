@@ -601,7 +601,7 @@ class Tpv
      */
     public function setPan($pan=0)
     {
-        if (intval($pan) == 0) {
+        if (intval($pan) === 0) {
             throw new TpvException('Pan not valid');
         }
 
@@ -664,7 +664,7 @@ class Tpv
      */
     public function setCVV2($cvv2=0)
     {
-        if (intval($cvv2) == 0) {
+        if (intval($cvv2) === 0) {
             throw new TpvException('CVV2 is not valid');
         }
 
@@ -983,7 +983,7 @@ class Tpv
      */
     protected function isExpiryDate($expirydate='')
     {
-        return (strlen(trim($expirydate)) == 4 && is_numeric($expirydate));
+        return (strlen(trim($expirydate)) === 4 && is_numeric($expirydate));
     }
 
     /**
