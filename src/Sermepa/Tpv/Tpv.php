@@ -416,7 +416,7 @@ class Tpv
     }
 
     /**
-     * Set enviroment
+     * Set environment
      *
      * @param string $environment test or live
      *
@@ -473,11 +473,21 @@ class Tpv
     }
 
     /**
-     * Return enviroment
-     *
-     * @return string Url of enviroment
+     * Return environment
+     * @deprecated Use `getEnvironment`
+     * @return string Url of environment
      */
     public function getEnviroment()
+    {
+        return $this->getEnvironment();
+    }
+
+    /**
+     * Return environment
+     *
+     * @return string Url of environment
+     */
+    public function getEnvironment()
     {
         return $this->_setEnvironment;
     }
@@ -563,7 +573,7 @@ class Tpv
      * Payment type
      *
      * @param string $method [T o C = Sólo Tarjeta (mostrará sólo el formulario para datos de tarjeta)
-     *                       R = Pago por Transferencia, D = Domiciliacion]
+     *                       R = Pago por Transferencia, D = Domiciliación]
      *
      * @return $this
      * @throws Exception
@@ -628,13 +638,13 @@ class Tpv
     public function setParameters($parameters=[])
     {
         if(!is_array($parameters)) {
-            throw new TpvException('Paramaters is not an array');
+            throw new TpvException('Parameters is not an array');
         }
 
         $keys = array_keys($parameters);
 
         if(array_keys($keys) === $keys ) {
-            throw new TpvException('Paramaters is not an array associative');
+            throw new TpvException('Parameters is not an array associative');
         }
 
         $parameters = array_change_key_case($parameters, CASE_UPPER);

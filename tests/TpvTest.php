@@ -282,7 +282,7 @@ class TpvTest extends PHPUnitTestCase
 
     }
 
-    public function SearchinFormProvider()
+    public function SearchingFormProvider()
     {
         return [
             ['Ds_MerchantParameters'],
@@ -295,7 +295,7 @@ class TpvTest extends PHPUnitTestCase
 
     /**
      * @test
-     * @dataProvider SearchinFormProvider
+     * @dataProvider SearchingFormProvider
      */
     public function check_if_form_create_inputs_with_parameters($search)
     {
@@ -508,8 +508,8 @@ class TpvTest extends PHPUnitTestCase
      * @test
      * @dataProvider invalidParameters
      * @expectedException \Sermepa\Tpv\TpvException
-     * @expectedExceptionMessage Paramaters is not an array
-     * @expectedExceptionMessage Paramaters is not an array associative
+     * @expectedExceptionMessage Parameters is not an array
+     * @expectedExceptionMessage Parameters is not an array associative
      */
 
     public function throw_parameters_is_not_an_array($parameters)
