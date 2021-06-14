@@ -332,6 +332,7 @@ class Tpv
     /**
      * @param string $version
      * @return $this
+     * @throws TpvException
      */
     public function setVersion($version = '')
     {
@@ -421,7 +422,7 @@ class Tpv
      * @param string $environment test or live
      *
      * @return $this
-     * @throws Exception
+     * @throws TpvException
      */
     public function setEnvironment($environment = 'test')
     {
@@ -441,6 +442,7 @@ class Tpv
 
     /**
      * @param string $environment
+     * @throws TpvException
      * @deprecated Use `setEnvironment`
      * @return $this
      */
@@ -863,7 +865,7 @@ class Tpv
      * “C”: Otras
      *
      * @return $this
-     * @throws Exception
+     * @throws TpvException
      */
     public function setMerchantCofType($value)
     {
@@ -885,7 +887,6 @@ class Tpv
      * with the credentials that generated this same Id_txn
      *
      * @return $this
-     * @throws Exception
      */
     public function setMerchantCofTxnid($txid)
     {
@@ -967,7 +968,7 @@ class Tpv
     /**
      * @param string $value
      *
-     * @return int
+     * @return bool
      */
     protected function isEmpty($value)
     {
