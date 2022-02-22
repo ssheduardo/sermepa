@@ -1,4 +1,4 @@
-name: Template - PHP Package
+name: Run Tests
 on:
     push:
         branches:
