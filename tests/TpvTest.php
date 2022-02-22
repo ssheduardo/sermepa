@@ -32,7 +32,7 @@ class TpvTest extends PHPUnitTestCase
         $redsys = new Tpv();
         $redsys->setMerchantDirectPayment($boolean);
         $ds = $redsys->getParameters();
-        $this->assertInternalType('boolean', $ds['DS_MERCHANT_DIRECTPAYMENT']);
+        $this->assertIsBool( $ds['DS_MERCHANT_DIRECTPAYMENT']);
     }
 
     public function amountProvider()
@@ -175,14 +175,14 @@ class TpvTest extends PHPUnitTestCase
     {
         return [
             ['A-001'],
-            ['BHGF23'],
             ['13A'],
-            ['53N2'],
-            ['00A1'],
+            ['53N'],
+            ['--00DA34'],
             ['3656745676711'],
             [date('YmdHis')],
             ['111'],
-            [22]
+            [22],
+            ['/*()$"%()!·%']
         ];
     }
 
@@ -207,7 +207,9 @@ class TpvTest extends PHPUnitTestCase
             ['0001-A45'],
             ['9834BC-001'],
             ['300004A'],
-            ['4000-H001-A']
+            ['4000-H001-A'],
+            ['ACAR00001120'],
+            ['5A7000000001']
         ];
     }
 
@@ -301,7 +303,7 @@ class TpvTest extends PHPUnitTestCase
     {
         $redsys = new Tpv();
         $form = $redsys->createForm();
-        $this->assertContains($search,$form);
+        $this->assertStringContainsString($search,$form);
     }
 
     /**
@@ -356,6 +358,8 @@ class TpvTest extends PHPUnitTestCase
         return [
             ['live', 'https://sis.redsys.es/sis/realizarPago'],
             ['test', 'https://sis-t.redsys.es:25443/sis/realizarPago'],
+            ['restLive', 'https://sis.redsys.es/sis/rest/trataPeticionREST'],
+            ['restTest', 'https://sis-t.redsys.es:25443/sis/rest/trataPeticionREST'],
         ];
     }
 
@@ -367,7 +371,7 @@ class TpvTest extends PHPUnitTestCase
     {
         $redsys = new Tpv();
         $redsys->setEnvironment($environment);
-        $url_tpv = $redsys->getEnviroment();
+        $url_tpv = $redsys->getEnvironment();
         $this->assertEquals($url, $url_tpv);
     }
 
@@ -382,7 +386,7 @@ class TpvTest extends PHPUnitTestCase
 
         $redirect = $redsys->executeRedirection(true);
 
-        $this->assertContains($js, $redirect);
+        $this->assertStringContainsString($js, $redirect);
     }
 
     /**

@@ -20,13 +20,13 @@ Válido para Sermepa y Redsys.
 
 ## Introducción
 
-La clase `sermepa` sirve para generar el formulario que se comunicará con la pasarela de pagos que usan muchos bancos, como Sabadell, Lacaixa, etc.
+La clase `sermepa` actualmente `Redsys` sirve para generar el formulario que se comunicará con la pasarela de pagos que usan muchos bancos, como Santander, Sabadell, Lacaixa, etc.
 
 Es una versión que irá creciendo y actualizándose poco a poco y mejorándolo. Si lo usas en algún proyecto y te ayudo en algo no dudes en decírmelo
 
 ## Requerimientos mínimos
 
-PHP 5 >= 5.3.0, PHP 7.1
+PHP 5 >= 5.3.0, PHP 7.1, 8.0
 
 ## Créditos
 
@@ -41,6 +41,7 @@ Twitter: @eduardo_dx
 - Se cambian todos los nombres de la clases a ingles.
 - Se crean nuevos métodos.
 - Para facilitar la integración usamos funciones ya creadas.
+- Rest.
 
 ## Instalación
 
@@ -55,7 +56,7 @@ composer require sermepa/sermepa
 ```json
 {
    "require": {
-      "sermepa/sermepa": "^1.2"
+      "sermepa/sermepa": "^1.3.2"
    }
 }
 ```
@@ -170,26 +171,29 @@ $redsys->setIdentifier();
 //En la url de notificación nos devolverá algo como esto
 Array
 (
-    [Ds_Date] => 20/10/2016
-    [Ds_Hour] => 13:06
+    [Ds_Date] => 17%2F02%2F2022
+    [Ds_Hour] => 23%3A25
     [Ds_SecurePayment] => 1
-    [Ds_Card_Number] => 454881******0004
-
-    [Ds_ExpiryDate] => 2012
-    [Ds_Merchant_Identifier] => cd8e4017c4c2f16bc9ccff87b0d07ad9c6cbd257
-
+    [Ds_Card_Number] => 491801******4602
+    [Ds_ExpiryDate] => 3212
+    [Ds_Merchant_Identifier] => 2214a9c5ac0bd6e0fg476e6b3468ac4fa38a592c
     [Ds_Card_Country] => 724
-    [Ds_Amount] => 47700
+    [Ds_Amount] => 0
     [Ds_Currency] => 978
-    [Ds_Order] => 1476961526
+    [Ds_Order] => 1645136683
     [Ds_MerchantCode] => 999008881
     [Ds_Terminal] => 001
     [Ds_Response] => 0000
-    [Ds_MerchantData] => Descripcion_del_pedido_extra
+    [Ds_MerchantData] =>
     [Ds_TransactionType] => 0
     [Ds_ConsumerLanguage] => 1
-    [Ds_AuthorisationCode] => 024772
+    [Ds_AuthorisationCode] => 005090
+    [Ds_Card_Brand] => 1
+    [Ds_Merchant_Cof_Txnid] => 2202172334011
+    [Ds_ProcessedPayMethod] => 1
+    [Ds_Control_1645136701458] => 1645136701458
 )
+
 ```
 
 Ahora bien, si queremos realizar otro cobro sin que nos pidan los datos de la tarjeta para ese mismo usuario, bastará con pasar el `Ds_Merchant_Identifier` anterior en el método `setIdentifier()`.
@@ -197,29 +201,31 @@ Ahora bien, si queremos realizar otro cobro sin que nos pidan los datos de la ta
 Cada banco tiene un sistema de seguridad a través de un código de SMS, tarjeta de coordenadas, etc. que se mostrará para completar la transacción.
 
 ```php
-$redsys->setIdentifier(cd8e4017c4c2f16bc9ccff87b0d07ad9c6cbd257);
+$redsys->setIdentifier(2214a9c5ac0bd6e0fg476e6b3468ac4fa38a592c);
 
 //En la url de notificación nos devolverá algo como esto
 Array
 (
-    [Ds_Date] => 20/10/2016
-    [Ds_Hour] => 15:19
+    [Ds_Date] => 17%2F02%2F2022
+    [Ds_Hour] => 23%3A28
     [Ds_SecurePayment] => 1
-    [Ds_Card_Number] => 454881******0004
-
-    [Ds_Merchant_Identifier] => cd8e4017c4c2f16bc9ccff87b0d07ad9c6cbd257
-
+    [Ds_Card_Number] => 491801******4602
+    [Ds_Merchant_Identifier] => 2214a9c5ac0bd6e0fg476e6b3468ac4fa38a592c
     [Ds_Card_Country] => 724
-    [Ds_Amount] => 3200
+    [Ds_Amount] => 12000
     [Ds_Currency] => 978
-    [Ds_Order] => 1476969550
+    [Ds_Order] => 1645136909
     [Ds_MerchantCode] => 999008881
     [Ds_Terminal] => 001
     [Ds_Response] => 0000
-    [Ds_MerchantData] => Descripcion_del_pedido_extra
+    [Ds_MerchantData] =>
     [Ds_TransactionType] => 0
     [Ds_ConsumerLanguage] => 1
-    [Ds_AuthorisationCode] => 025483
+    [Ds_AuthorisationCode] => 078737
+    [Ds_Card_Brand] => 1
+    [Ds_Merchant_Cof_Txnid] => 2202172334011
+    [Ds_ProcessedPayMethod] => 1
+    [Ds_Control_1645136925978] => 1645136925978
 )
 ```
 
@@ -227,6 +233,46 @@ Si no queremos que nos muestre ninguna pantalla y directamente realice el pago d
 
 ```php
 $redsys->setMerchantDirectPayment(true);
+```
+También podemos hacer los cobros recurrentes a traves de Rest.
+```php
+try{
+    //Key de ejemplo
+    $key = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
+
+    $redsys = new Sermepa\Tpv\Tpv();
+    $redsys->setAmount(rand(20,80));
+    $redsys->setOrder(time());
+    $redsys->setMerchantcode('999008881'); //Reemplazar por el código que proporciona el banco
+
+    $redsys->setCurrency('978');
+    $redsys->setTransactiontype('0');
+    $redsys->setTerminal('1');
+    $redsys->setIdentifier('2214a9c5ac0bd6e0fg476e6b3468ac4fa38a592c');
+    $redsys->setVersion('HMAC_SHA256_V1');
+    $redsys->setEnvironment('restTest'); //Rest entorno test
+    $redsys->setMerchantCofIni(false);
+    $redsys->setMerchantCofTxnid(2202172334011);
+
+    $signature = $redsys->generateMerchantSignature($key);
+    $redsys->setMerchantSignature($signature);
+
+    $response = json_decode($redsys->send(), true);
+
+    $parameters = $redsys->getMerchantParameters($response['Ds_MerchantParameters']);
+    $DsResponse = $parameters["Ds_Response"];
+    $DsResponse += 0;
+    if ($redsys->check($key, $response) && $DsResponse <= 99) {
+        //Si es todo correcto ya podemos hacer lo que necesitamos, para este ejemplo solo mostramos los datos.
+        print_r($parameters);
+    } else {
+        //acciones a realizar si ha sido erroneo
+    }
+
+} catch (\Sermepa\Tpv\TpvException $e) {
+    echo $e->getMessage();
+}
+
 ```
 
 ## Redirección automática
@@ -264,6 +310,14 @@ try{
 ### Nota
 
 Por defecto se conecta por la pasarela de pruebas. Para cambiar a un entorno real, usar el método `setEnvironment('live')`, con esto ya estará activo.
+
+```php
+Los entornos que tenemos son:
+ - test
+ - live
+ - restLive
+ - restTest
+```
 
 ## Métodos útiles
 
