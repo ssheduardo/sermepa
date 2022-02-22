@@ -3,6 +3,7 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Total Downloads][ico-downloads]][link-downloads]
+[![Run Tests](https://github.com/ssheduardo/sermepa/actions/workflows/ci.yml/badge.svg)][link-workflows]
 
 ---
 
@@ -453,6 +454,8 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-packagist]: https://packagist.org/packages/sermepa/sermepa
 [link-downloads]: https://packagist.org/packages/sermepa/sermepa
 [link-author]: https://github.com/ssheduardo
+
+ [link-workflows]: https://github.com/ssheduardo/sermepa/actions/workflows/ci.yml
 
 ## Donación
 
