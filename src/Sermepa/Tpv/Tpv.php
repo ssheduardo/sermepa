@@ -9,6 +9,10 @@ use Exception;
  */
 class Tpv
 {
+    CONST TIMEOUT = 10;
+    CONST READ_TIMEOUT = 120;
+    CONST SSLVERSION_TLSv1_2 = 6;
+
     protected $_setEnvironment;
     protected $_setNameForm;
     protected $_setIdForm;
@@ -176,7 +180,7 @@ class Tpv
     public function setOrder($order='')
     {
         $order = trim($order);
-        if (strlen($order) <= 3 || strlen($order) > 12 || !is_numeric(substr($order, 0, 4))) {
+        if (strlen($order) <= 3 || strlen($order) > 12 || !preg_match('/^[\w\.]+$/', substr($order, 0, 4))) {
             throw new TpvException('Order id must be a 4 digit string at least, maximum 12 characters.');
         }
 
@@ -433,6 +437,12 @@ class Tpv
         } elseif ($environment === 'test') {
             //Test
             $this->_setEnvironment = 'https://sis-t.redsys.es:25443/sis/realizarPago';
+        } elseif ($environment === 'restLive') {
+            //Rest Live
+            $this->_setEnvironment = 'https://sis.redsys.es/sis/rest/trataPeticionREST';
+        } elseif ($environment === 'restTest') {
+            //Rest Test
+            $this->_setEnvironment = 'https://sis-t.redsys.es:25443/sis/rest/trataPeticionREST';
         } else {
             throw new TpvException('Add test or live');
         }
@@ -774,6 +784,45 @@ class Tpv
     }
 
     /**
+     * Send data
+     */
+    public function send()
+    {
+        $data['Ds_MerchantParameters'] = $this->generateMerchantParameters();
+        $data['Ds_Signature'] = $this->_setSignature;
+        $data['Ds_SignatureVersion'] = $this->_setVersion;
+
+        $jsonCode = json_encode($data);
+
+        $rest = curl_init ();
+        curl_setopt ($rest, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt ( $rest, CURLOPT_URL, $this->_setEnvironment );
+        curl_setopt ( $rest, CURLOPT_CONNECTTIMEOUT, self::TIMEOUT );
+        curl_setopt ( $rest, CURLOPT_TIMEOUT, self::READ_TIMEOUT );
+        curl_setopt ( $rest, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt ( $rest, CURLOPT_SSL_VERIFYHOST, 0 );
+        curl_setopt ( $rest, CURLOPT_SSL_VERIFYPEER, 0 );
+        curl_setopt ( $rest, CURLOPT_SSLVERSION, self::SSLVERSION_TLSv1_2 );
+        curl_setopt ( $rest, CURLOPT_POST, true );
+        curl_setopt ( $rest, CURLOPT_POSTFIELDS, $jsonCode );
+
+        $tmp = curl_exec ( $rest );
+        $httpCode=curl_getinfo($rest,CURLINFO_HTTP_CODE);
+
+        if($tmp !== false && $httpCode==200){
+            $result=$tmp;
+        }
+        else{
+            $strError="Request failure ".(($httpCode!=200)?"[HttpCode: '".$httpCode."']":"").((curl_error($rest))?" [Error: '".curl_error($rest)."']":"");
+            exit($strError);
+        }
+
+        curl_close( $rest );
+
+        return $result;
+    }
+
+    /**
      * Check if properly made ​​the purchase.
      *
      * @param string $key      Key
@@ -994,7 +1043,7 @@ class Tpv
      */
     protected function isValidOrder($order='')
     {
-        return ( strlen($order) >= 4 && strlen($order) <= 12 && is_numeric(substr($order, 0, 4)) )?true:false;
+        return ( strlen($order) >= 4 && strlen($order) <= 12 && preg_match('/^[\w\.]+$/', substr($order, 0, 4)) )?true:false;
 
     }
 

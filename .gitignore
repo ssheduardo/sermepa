@@ -10,6 +10,10 @@ Thumbs.db
 
 .idea
 
+# PHPUnit
+/.phpunit.cache
+.phpunit.result.cache
+
 phpunit.xml
 vendor
 docker

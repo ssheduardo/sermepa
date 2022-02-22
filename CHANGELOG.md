@@ -2,6 +2,13 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.4.0 (2022-02-22)
+
+### Added
+- Added new method: send using rest.
+### Fixed
+- setOrder, Allows you to add numbers and letters in the first 4.
+
 ## Version 1.3.0 (2020-12-05)
 
 ### Added
