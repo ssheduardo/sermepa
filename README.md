@@ -252,7 +252,9 @@ try{
     $redsys->setIdentifier('2214a9c5ac0bd6e0fg476e6b3468ac4fa38a592c');
     $redsys->setVersion('HMAC_SHA256_V1');
     $redsys->setEnvironment('restTest'); //Rest entorno test
-    $redsys->setMerchantCofIni(false);
+    $redsys->setMerchantCofIni('N');
+    $redsys->setMerchantDirectPayment(true);
+
     $redsys->setMerchantCofTxnid(2202172334011);
 
     $signature = $redsys->generateMerchantSignature($key);
