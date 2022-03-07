@@ -2,6 +2,14 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.4.1 (2022-03-07)
+
+### Added
+- Nothing
+### Fixed
+- Updated README, example rest.
+
+
 ## Version 1.4.0 (2022-02-22)
 
 ### Added
