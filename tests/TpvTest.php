@@ -539,4 +539,71 @@ class TpvTest extends PHPUnitTestCase
 
      }
 
+    public function validTransactionTypeProvider(): array
+    {
+        return [
+            'Installments' => [Tpv::INSTALLMENTS],
+            'Recurring' => [Tpv::RECURRING],
+            'Reauthorization' => [Tpv::REAUTHORIZATION],
+            'Resubmission' => [Tpv::RESUBMISSION],
+            'Delayed' => [Tpv::DELAYED],
+            'Incremental' => [Tpv::INCREMENTAL],
+            'No Show' => [Tpv::NO_SHOW],
+            'Otras' => [Tpv::OTHER],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider validTransactionTypeProvider
+     */
+    public function transaction_type_is_valid($type): void
+    {
+        $redsys = new Tpv();
+        $redsys->setMerchantCofType($type);
+        $ds = $redsys->getParameters();
+        $this->assertEquals($type, $ds['DS_MERCHANT_COF_TYPE']);
+    }
+
+
+
+    public function invalidTransactionTypeProvider(): array
+    {
+        return [
+            'A' => ['A'],
+            'B' => ['B'],
+            'F' => ['F'],
+            'G' => ['G'],
+            'J' => ['J'],
+            'K' => ['K'],
+            'L' => ['L'],
+            'O' => ['O'],
+            'P' => ['P'],
+            'Q' => ['Q'],
+            'S' => ['S'],
+            'T' => ['T'],
+            'U' => ['U'],
+            'V' => ['V'],
+            'W' => ['W'],
+            'X' => ['X'],
+            'Y' => ['Y'],
+            'Z' => ['Z'],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider invalidTransactionTypeProvider
+     */
+
+    public function throw_when_transaction_type_is_not_valid($type): void
+    {
+        $this->expectExceptionMessage('Set Merchant COF type');
+        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $redsys = new Tpv();
+        $redsys->setMerchantCofType($type);
+
+        $redsys->setParameters($type);
+
+    }
 }
