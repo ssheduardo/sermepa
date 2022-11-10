@@ -437,12 +437,18 @@ class Tpv
         } elseif ($environment === 'test') {
             //Test
             $this->_setEnvironment = 'https://sis-t.redsys.es:25443/sis/realizarPago';
-        } elseif ($environment === 'restLive') {
+        } elseif ($environment === 'restLive' || $environment === 'manageRequestRestLive') {
             //Rest Live
             $this->_setEnvironment = 'https://sis.redsys.es/sis/rest/trataPeticionREST';
-        } elseif ($environment === 'restTest') {
+        } elseif ($environment === 'restTest' || $environment === 'manageRequestRestTest' ) {
             //Rest Test
             $this->_setEnvironment = 'https://sis-t.redsys.es:25443/sis/rest/trataPeticionREST';
+        } elseif ($environment === 'startRequestRestLive') {
+            //Start request
+            $this->_setEnvironment = 'https://sis.redsys.es/sis/rest/iniciaPeticionREST';
+        } elseif ($environment === 'startRequestRestTest') {
+            //Start request test
+            $this->_setEnvironment = 'https://sis-t.redsys.es:25443/sis/rest/iniciaPeticionREST';        
         } else {
             throw new TpvException('Add test or live');
         }
