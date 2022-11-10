@@ -2,6 +2,13 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.4.2 (2022-11-10)
+
+### Added
+- New environment iniciaPeticionREST to Rest Api.
+### Fixed
+- Nothing
+
 ## Version 1.4.1 (2022-03-07)
 
 ### Added
