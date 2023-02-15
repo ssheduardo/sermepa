@@ -360,6 +360,8 @@ class TpvTest extends PHPUnitTestCase
             ['test', 'https://sis-t.redsys.es:25443/sis/realizarPago'],
             ['restLive', 'https://sis.redsys.es/sis/rest/trataPeticionREST'],
             ['restTest', 'https://sis-t.redsys.es:25443/sis/rest/trataPeticionREST'],
+            ['startRequestRestLive', 'https://sis.redsys.es/sis/rest/iniciaPeticionREST'],
+            ['startRequestRestTest', 'https://sis-t.redsys.es:25443/sis/rest/iniciaPeticionREST'],
         ];
     }
 
