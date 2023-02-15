@@ -448,7 +448,7 @@ class Tpv
             $this->_setEnvironment = 'https://sis.redsys.es/sis/rest/iniciaPeticionREST';
         } elseif ($environment === 'startRequestRestTest') {
             //Start request test
-            $this->_setEnvironment = 'https://sis-t.redsys.es:25443/sis/rest/iniciaPeticionREST';        
+            $this->_setEnvironment = 'https://sis-t.redsys.es:25443/sis/rest/iniciaPeticionREST';
         } else {
             throw new TpvException('Add test or live');
         }
@@ -508,6 +508,23 @@ class Tpv
     public function getEnvironment()
     {
         return $this->_setEnvironment;
+    }
+
+    /**
+     * Return path Javascript to Insite
+     *
+     * @param string $env test or live
+     * @return string string path javascript
+     */
+    public static function getJsPath($environment = 'test'){
+        if($environment == 'test'){
+            return 'https://sis-t.redsys.es:25443/sis/NC/sandbox/redsysV2.js';
+        }
+        elseif($environment == 'live'){
+            return 'https://sis.redsys.es/sis/NC/redsysV2.js';
+        }else{
+            throw new TpvException('Add test or live');
+        }
     }
 
     /**
