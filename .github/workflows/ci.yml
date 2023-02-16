@@ -25,7 +25,7 @@ jobs:
                   php-version: ${{ matrix.php-versions }}
             - name: Install Dependencies
               if: steps.vendor-cache.outputs.cache-hit != 'true'
-              run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+              run: composer update -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
             - name: Update Dependencies with latest stable
               if: matrix.dependency-stability == 'prefer-stable'
