@@ -12,20 +12,20 @@ jobs:
         strategy:
             matrix:
                 operating-system: [ubuntu-latest]
-                php-versions: ["8.0", "7.4", "7.3"]
+                php-versions: ["8.2","8.1","8.0", "7.4", "7.3"]
                 dependency-stability: ["prefer-stable"]
 
         name: P${{ matrix.php-versions }} - L${{ matrix.laravel }} - ${{ matrix.dependency-stability }} - ${{ matrix.operating-system}}
 
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - name: Install PHP versions
               uses: shivammathur/setup-php@v2
               with:
                   php-version: ${{ matrix.php-versions }}
             - name: Install Dependencies
               if: steps.vendor-cache.outputs.cache-hit != 'true'
-              run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+              run: composer update -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
             - name: Update Dependencies with latest stable
               if: matrix.dependency-stability == 'prefer-stable'
