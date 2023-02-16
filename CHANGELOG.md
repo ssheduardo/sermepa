@@ -2,6 +2,14 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.4.3 (2023-02-16)
+
+### Added
+- Testing with PHP 8.2.
+- Added new method getJsPath for inSite.
+### Fixed
+- Nothing
+
 ## Version 1.4.2 (2022-11-10)
 
 ### Added
