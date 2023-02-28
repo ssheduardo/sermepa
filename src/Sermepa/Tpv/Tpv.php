@@ -13,6 +13,15 @@ class Tpv
     CONST READ_TIMEOUT = 120;
     CONST SSLVERSION_TLSv1_2 = 6;
 
+    public const INSTALLMENTS = 'I';
+    public const RECURRING = 'R';
+    public const REAUTHORIZATION = 'H';
+    public const RESUBMISSION = 'E';
+    public const DELAYED = 'D';
+    public const INCREMENTAL = 'M';
+    public const NO_SHOW = 'N';
+    public const OTHER = 'C';
+
     protected $_setEnvironment;
     protected $_setNameForm;
     protected $_setIdForm;
@@ -941,14 +950,32 @@ class Tpv
      */
     public function setMerchantCofType($value)
     {
-        $validOptions = ['I', 'R', 'H', 'E', 'D', 'M', 'N', 'C'];
         $value = strtoupper($value);
-        if (!in_array($value, $validOptions, true)) {
+        if (!self::isValidCofType($value)) {
             throw new TpvException('Set Merchant COF type');
         }
         $this->_setParameters['DS_MERCHANT_COF_TYPE'] = $value;
 
         return $this;
+    }
+
+    private static function isValidCofType($value): bool
+    {
+        return in_array($value, self::getValidCofTypes(), true);
+    }
+
+    private static function getValidCofTypes(): array
+    {
+        return [
+            self::INSTALLMENTS,
+            self::RECURRING,
+            self::REAUTHORIZATION,
+            self::RESUBMISSION,
+            self::DELAYED,
+            self::INCREMENTAL,
+            self::NO_SHOW,
+            self::OTHER,
+        ];
     }
 
     /**
