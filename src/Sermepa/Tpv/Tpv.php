@@ -607,16 +607,27 @@ class Tpv
     /**
      * Payment type
      *
-     * @param string $method [T o C = Sólo Tarjeta (mostrará sólo el formulario para datos de tarjeta)
-     *                       R = Pago por Transferencia, D = Domiciliación]
+     * @param string $method 
+     * [
+     *      T o C = Sólo Tarjeta (mostrará sólo el formulario para datos de tarjeta)
+     *      R = Pago por Transferencia, 
+     *      D = Domiciliación
+     *      z = Bizum
+     *      p = PayPal
+     *      N = Masterpass
+     * ]
      *
      * @return $this
      * @throws Exception
      */
-    public function setMethod($method = 'T')
+    public function setMethod($method = 'C')
     {
         if ($this->isEmpty($method)) {
             throw new TpvException('Add pay method');
+        }
+
+        if (!in_array($method, ['T', 'C', 'R', 'D', 'z', 'p', 'N'])) {
+            throw new TpvException('Pay method is not valid');
         }
 
         $this->_setParameters['DS_MERCHANT_PAYMETHODS'] = trim($method);
