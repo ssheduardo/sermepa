@@ -2,6 +2,16 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.4.4 (2023-08-07)
+
+### Added
+- Merge pull request from diegomarty.
+- Changed value by default in setMethod: T to C.
+- Added validation for this parameters: 'T', 'C', 'R', 'D', 'z', 'p', 'N'
+- Added new test for setMethod
+### Fixed
+- Nothing
+-
 ## Version 1.4.3 (2023-02-16)
 
 ### Added
