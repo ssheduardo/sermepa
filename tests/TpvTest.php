@@ -541,4 +541,53 @@ class TpvTest extends PHPUnitTestCase
 
      }
 
+    public function invalidSetMethod()
+    {
+        return [
+            ['V'],
+            ['A'],
+            ['X'],
+            ['AA'],
+            ['Np'],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider invalidSetMethod
+     */
+    public function throw_when_set_method_is_invalid($method)
+    {
+        $this->expectExceptionMessage("Pay method is not valid");
+        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $redsys = new Tpv();
+        $redsys->setMethod($method);
+    }
+
+    public function methodsProvider()
+    {
+        return [
+            ['T'],
+            ['C'],
+            ['R'],
+            ['D'],
+            ['z'],
+            ['p'],
+            ['N']
+        ];
+    }
+
+    /**
+     *
+     * @test
+     * @dataProvider methodsProvider
+     */
+    public function should_validate_a_method($method)
+    {
+        $redsys = new Tpv();
+        $redsys->setMethod($method);
+        $parameters = $redsys->getParameters();
+        $this->assertArrayHasKey('DS_MERCHANT_PAYMETHODS', $parameters);
+    }
+
 }
