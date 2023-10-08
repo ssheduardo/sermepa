@@ -875,7 +875,7 @@ class Tpv
         $signatureReceived = $postData["Ds_Signature"];
         $signature = $this->generateMerchantSignatureNotification($key, $parameters);
 
-        return ($signature === $signatureReceived);
+        return hash_equals($signature, $signatureReceived);
     }
 
     /**
