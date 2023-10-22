@@ -9,9 +9,9 @@ use Exception;
  */
 class Tpv
 {
-    CONST TIMEOUT = 10;
-    CONST READ_TIMEOUT = 120;
-    CONST SSLVERSION_TLSv1_2 = 6;
+    public const TIMEOUT = 10;
+    public const READ_TIMEOUT = 120;
+    public const SSLVERSION_TLSv1_2 = 6;
 
     protected $_setEnvironment;
     protected $_setNameForm;
@@ -32,7 +32,7 @@ class Tpv
     {
         $this->setEnvironment();
 
-        $this->_setParameters = array();
+        $this->_setParameters = [];
         $this->_setVersion = 'HMAC_SHA256_V1';
         $this->_setNameForm = 'redsys_form';
         $this->_setIdForm = 'redsys_form';
@@ -139,7 +139,7 @@ class Tpv
      */
     public function setChargeExpiryDate($date)
     {
-        if ( ! $this->isValidDate($date) ) {
+        if (! $this->isValidDate($date)) {
             throw new TpvException('Date is not valid.');
         }
 
@@ -149,20 +149,20 @@ class Tpv
     }
 
     /**
-     * Set Date frecuency (required for recurring payment)
+     * Set Date frequency (required for recurring payment)
      *
-     * @param $dateFrecuency
+     * @param $dateFrequency
      *
      * @return $this
      * @throws TpvException
      */
-    public function setDateFrecuency($dateFrecuency)
+    public function setDateFrequency($dateFrequency): self
     {
-        if ( !is_numeric($dateFrecuency) || (strlen($dateFrecuency) < 1 || strlen($dateFrecuency) > 5) ) {
-            throw new TpvException('Date frecuency is not valid.');
+        if (!is_numeric($dateFrequency) || (strlen($dateFrequency) < 1 || strlen($dateFrequency) > 5)) {
+            throw new TpvException('Date frequency is not valid.');
         }
 
-        $this->_setParameters['DS_MERCHANT_DATEFRECUENCY'] = $dateFrecuency;
+        $this->_setParameters['DS_MERCHANT_DATEFRECUENCY'] = $dateFrequency;
 
         return $this;
     }
@@ -177,7 +177,7 @@ class Tpv
      * @return $this
      * @throws TpvException
      */
-    public function setOrder($order='')
+    public function setOrder($order = '')
     {
         $order = trim($order);
         if (strlen($order) <= 3 || strlen($order) > 12 || !preg_match('/^[\w\.]+$/', substr($order, 0, 4))) {
@@ -226,7 +226,7 @@ class Tpv
      * @return $this
      * @throws TpvException
      */
-    public function setMerchantcode($fuc='')
+    public function setMerchantcode($fuc = '')
     {
         if ($this->isEmpty($fuc)) {
             throw new TpvException('Please add Fuc');
@@ -440,7 +440,7 @@ class Tpv
         } elseif ($environment === 'restLive' || $environment === 'manageRequestRestLive') {
             //Rest Live
             $this->_setEnvironment = 'https://sis.redsys.es/sis/rest/trataPeticionREST';
-        } elseif ($environment === 'restTest' || $environment === 'manageRequestRestTest' ) {
+        } elseif ($environment === 'restTest' || $environment === 'manageRequestRestTest') {
             //Rest Test
             $this->_setEnvironment = 'https://sis-t.redsys.es:25443/sis/rest/trataPeticionREST';
         } elseif ($environment === 'startRequestRestLive') {
@@ -516,13 +516,13 @@ class Tpv
      * @param string $env test or live
      * @return string string path javascript
      */
-    public static function getJsPath($environment = 'test'){
-        if($environment == 'test'){
+    public static function getJsPath($environment = 'test')
+    {
+        if($environment == 'test') {
             return 'https://sis-t.redsys.es:25443/sis/NC/sandbox/redsysV2.js';
-        }
-        elseif($environment == 'live'){
+        } elseif($environment == 'live') {
             return 'https://sis.redsys.es/sis/NC/redsysV2.js';
-        }else{
+        } else {
             throw new TpvException('Add test or live');
         }
     }
@@ -536,7 +536,7 @@ class Tpv
      * @return $this
      * @throws Exception
      */
-    public function setMerchantData($merchantdata='')
+    public function setMerchantData($merchantdata = '')
     {
         if ($this->isEmpty($merchantdata)) {
             throw new TpvException('Add merchant data');
@@ -607,10 +607,10 @@ class Tpv
     /**
      * Payment type
      *
-     * @param string $method 
+     * @param string $method
      * [
      *      T o C = Sólo Tarjeta (mostrará sólo el formulario para datos de tarjeta)
-     *      R = Pago por Transferencia, 
+     *      R = Pago por Transferencia,
      *      D = Domiciliación
      *      z = Bizum
      *      p = PayPal
@@ -643,7 +643,7 @@ class Tpv
      * @return $this
      * @throws TpvException
      */
-    public function setPan($pan=0)
+    public function setPan($pan = 0)
     {
         if (intval($pan) === 0) {
             throw new TpvException('Pan not valid');
@@ -663,9 +663,9 @@ class Tpv
      * @return $this
      * @throws TpvException
      */
-    public function setExpiryDate($expirydate='')
+    public function setExpiryDate($expirydate = '')
     {
-        if ( !$this->isExpiryDate($expirydate) ) {
+        if (!$this->isExpiryDate($expirydate)) {
             throw new TpvException('Expire date is not valid');
         }
         $this->_setParameters['DS_MERCHANT_EXPIRYDATE'] = $expirydate;
@@ -681,7 +681,7 @@ class Tpv
      * @throws TpvException
      */
 
-    public function setParameters($parameters=[])
+    public function setParameters($parameters = [])
     {
         if(!is_array($parameters)) {
             throw new TpvException('Parameters is not an array');
@@ -689,7 +689,7 @@ class Tpv
 
         $keys = array_keys($parameters);
 
-        if(array_keys($keys) === $keys ) {
+        if(array_keys($keys) === $keys) {
             throw new TpvException('Parameters is not an array associative');
         }
 
@@ -706,7 +706,7 @@ class Tpv
      * @return $this
      * @throws TpvException
      */
-    public function setCVV2($cvv2=0)
+    public function setCVV2($cvv2 = 0)
     {
         if (intval($cvv2) === 0) {
             throw new TpvException('CVV2 is not valid');
@@ -787,7 +787,7 @@ class Tpv
     public function executeRedirection($return = false)
     {
         $html = $this->createForm();
-        $html .= '<script>document.forms["'.$this->_setNameForm.'"].submit();</script>';
+        $html .= '<script>document.forms["' . $this->_setNameForm . '"].submit();</script>';
 
         if (!$return) {
             echo $html;
@@ -806,11 +806,11 @@ class Tpv
     public function createForm()
     {
         $form = '
-            <form action="'.$this->_setEnvironment.'" method="post" id="'.$this->_setIdForm.'" name="'.$this->_setNameForm.'" >
-                <input type="hidden" name="Ds_MerchantParameters" value="'.$this->generateMerchantParameters().'"/>
-                <input type="hidden" name="Ds_Signature" value="'.$this->_setSignature.'"/>
-                <input type="hidden" name="Ds_SignatureVersion" value="'.$this->_setVersion.'"/>
-                <input type="submit" name="'.$this->_setNameSubmit.'" id="'.$this->_setIdSubmit.'" value="'.$this->_setValueSubmit.'" '.($this->_setStyleSubmit != '' ? ' style="'.$this->_setStyleSubmit.'"' : '').' '.($this->_setClassSubmit != '' ? ' class="'.$this->_setClassSubmit.'"' : '').'>
+            <form action="' . $this->_setEnvironment . '" method="post" id="' . $this->_setIdForm . '" name="' . $this->_setNameForm . '" >
+                <input type="hidden" name="Ds_MerchantParameters" value="' . $this->generateMerchantParameters() . '"/>
+                <input type="hidden" name="Ds_Signature" value="' . $this->_setSignature . '"/>
+                <input type="hidden" name="Ds_SignatureVersion" value="' . $this->_setVersion . '"/>
+                <input type="submit" name="' . $this->_setNameSubmit . '" id="' . $this->_setIdSubmit . '" value="' . $this->_setValueSubmit . '" ' . ($this->_setStyleSubmit != '' ? ' style="' . $this->_setStyleSubmit . '"' : '') . ' ' . ($this->_setClassSubmit != '' ? ' class="' . $this->_setClassSubmit . '"' : '') . '>
             </form>
         ';
 
@@ -828,30 +828,29 @@ class Tpv
 
         $jsonCode = json_encode($data);
 
-        $rest = curl_init ();
-        curl_setopt ($rest, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-        curl_setopt ( $rest, CURLOPT_URL, $this->_setEnvironment );
-        curl_setopt ( $rest, CURLOPT_CONNECTTIMEOUT, self::TIMEOUT );
-        curl_setopt ( $rest, CURLOPT_TIMEOUT, self::READ_TIMEOUT );
-        curl_setopt ( $rest, CURLOPT_RETURNTRANSFER, true );
-        curl_setopt ( $rest, CURLOPT_SSL_VERIFYHOST, 0 );
-        curl_setopt ( $rest, CURLOPT_SSL_VERIFYPEER, 0 );
-        curl_setopt ( $rest, CURLOPT_SSLVERSION, self::SSLVERSION_TLSv1_2 );
-        curl_setopt ( $rest, CURLOPT_POST, true );
-        curl_setopt ( $rest, CURLOPT_POSTFIELDS, $jsonCode );
+        $rest = curl_init();
+        curl_setopt($rest, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($rest, CURLOPT_URL, $this->_setEnvironment);
+        curl_setopt($rest, CURLOPT_CONNECTTIMEOUT, self::TIMEOUT);
+        curl_setopt($rest, CURLOPT_TIMEOUT, self::READ_TIMEOUT);
+        curl_setopt($rest, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($rest, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($rest, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($rest, CURLOPT_SSLVERSION, self::SSLVERSION_TLSv1_2);
+        curl_setopt($rest, CURLOPT_POST, true);
+        curl_setopt($rest, CURLOPT_POSTFIELDS, $jsonCode);
 
-        $tmp = curl_exec ( $rest );
-        $httpCode=curl_getinfo($rest,CURLINFO_HTTP_CODE);
+        $tmp = curl_exec($rest);
+        $httpCode = curl_getinfo($rest, CURLINFO_HTTP_CODE);
 
-        if($tmp !== false && $httpCode==200){
-            $result=$tmp;
-        }
-        else{
-            $strError="Request failure ".(($httpCode!=200)?"[HttpCode: '".$httpCode."']":"").((curl_error($rest))?" [Error: '".curl_error($rest)."']":"");
+        if($tmp !== false && $httpCode == 200) {
+            $result = $tmp;
+        } else {
+            $strError = "Request failure " . (($httpCode != 200) ? "[HttpCode: '" . $httpCode . "']" : "") . ((curl_error($rest)) ? " [Error: '" . curl_error($rest) . "']" : "");
             exit($strError);
         }
 
-        curl_close( $rest );
+        curl_close($rest);
 
         return $result;
     }
@@ -974,7 +973,7 @@ class Tpv
     public function setMerchantCofTxnid($txid)
     {
         if($txid) {
-        $this->_setParameters['DS_MERCHANT_COF_TXNID'] = $txid;
+            $this->_setParameters['DS_MERCHANT_COF_TXNID'] = $txid;
         }
         return $this;
     }
@@ -1064,7 +1063,7 @@ class Tpv
      * @param string $expirydate
      * @return boolean
      */
-    protected function isExpiryDate($expirydate='')
+    protected function isExpiryDate($expirydate = '')
     {
         return (strlen(trim($expirydate)) === 4 && is_numeric($expirydate));
     }
@@ -1075,9 +1074,9 @@ class Tpv
      * @param string $order
      * @return boolean
      */
-    protected function isValidOrder($order='')
+    protected function isValidOrder($order = '')
     {
-        return ( strlen($order) >= 4 && strlen($order) <= 12 && preg_match('/^[\w\.]+$/', substr($order, 0, 4)) )?true:false;
+        return (strlen($order) >= 4 && strlen($order) <= 12 && preg_match('/^[\w\.]+$/', substr($order, 0, 4))) ? true : false;
 
     }
 

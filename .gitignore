@@ -11,11 +11,13 @@ Thumbs.db
 .idea
 
 # PHPUnit
-/.phpunit.cache
-.phpunit.result.cache
+*.cache
 
 phpunit.xml
 vendor
 docker
 docker-compose.yml
 .env
+composer.lock
+clover.xml
+junit-logfile.xml
