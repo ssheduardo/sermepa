@@ -590,4 +590,54 @@ class TpvTest extends PHPUnitTestCase
         $this->assertArrayHasKey('DS_MERCHANT_PAYMETHODS', $parameters);
     }
 
+    public function jsPathProvider()
+    {
+        return [
+            ['test', '2', 'https://sis-t.redsys.es:25443/sis/NC/sandbox/redsysV2.js'],
+            ['test', '3', 'https://sis-t.redsys.es:25443/sis/NC/sandbox/redsysV3.js'],
+            ['live', '2', 'https://sis.redsys.es/sis/NC/redsysV2.js'],
+            ['live', '3', 'https://sis.redsys.es/sis/NC/redsysV3.js'],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider jsPathProvider
+     */
+    public function should_return_the_correct_js_path($environment, $version, $expectedPath)
+    {
+        $redsys = new Tpv();
+        $actualPath = $redsys->getJsPath($environment, $version);
+
+        $this->assertEquals($expectedPath, $actualPath);
+    }
+
+    public function invalidEnvironmentVersionPathJs()
+    {
+        return [
+            ['test', '1'],
+            ['test', 'N'],
+            ['live', '12'],
+            ['live', '4'],
+            ['real', '2'],
+            ['testeo', '3'],
+            ['life', '2'],
+            ['', '1'],
+            ['real', '5'],
+            ['testing', '1'],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider invalidEnvironmentVersionPathJs
+     */
+    public function throw_when_set_environment_or_version_is_invalid($environment, $version)
+    {
+        $this->expectExceptionMessage("Invalid environment or version");
+        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $redsys = new Tpv();
+        $redsys->getJsPath($environment, $version);
+    }
+
 }
