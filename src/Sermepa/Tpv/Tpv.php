@@ -139,7 +139,7 @@ class Tpv
      */
     public function setChargeExpiryDate($date)
     {
-        if (! $this->isValidDate($date)) {
+        if (!$this->isValidDate($date)) {
             throw new TpvException('Date is not valid.');
         }
 
@@ -517,7 +517,8 @@ class Tpv
      * @param string $version JavaScript file version: 2 or 3.
      * @return string JavaScript file path.
      */
-    public static function getJsPath($environment = 'test', $version = '2'){
+    public static function getJsPath($environment = 'test', $version = '2')
+    {
 
         // Stores the array of JavaScript file paths.
         static $jsPaths = [

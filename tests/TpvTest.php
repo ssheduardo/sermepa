@@ -605,7 +605,7 @@ class TpvTest extends PHPUnitTestCase
      * @test
      * @dataProvider jsPathProvider
      */
-    public function should_return_the_correct_js_path($environment, $version, $expectedPath)
+    public function should_return_the_correct_js_path($environment, $version, $expectedPath): void
     {
         $redsys = new Tpv();
         $actualPath = $redsys->getJsPath($environment, $version);
@@ -613,7 +613,7 @@ class TpvTest extends PHPUnitTestCase
         $this->assertEquals($expectedPath, $actualPath);
     }
 
-    public function invalidEnvironmentVersionPathJs()
+    public static function invalidEnvironmentVersionPathJs()
     {
         return [
             ['test', '1'],
@@ -633,7 +633,7 @@ class TpvTest extends PHPUnitTestCase
      * @test
      * @dataProvider invalidEnvironmentVersionPathJs
      */
-    public function throw_when_set_environment_or_version_is_invalid($environment, $version)
+    public function throw_when_set_environment_or_version_is_invalid($environment, $version): void
     {
         $this->expectExceptionMessage("Invalid environment or version");
         $this->expectException(\Sermepa\Tpv\TpvException::class);

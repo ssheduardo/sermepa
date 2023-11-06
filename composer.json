@@ -41,8 +41,10 @@
     "fix": [
       "@php ./vendor/bin/php-cs-fixer fix --allow-risky=yes"
     ],
+    "test-static": [
+      "@php ./vendor/bin/php-cs-fixer check --allow-risky=yes"
+    ],
     "test": [
-      "@php ./vendor/bin/php-cs-fixer check --allow-risky=yes",
       "@php ./vendor/bin/phpunit --testdox"
     ]
   }
