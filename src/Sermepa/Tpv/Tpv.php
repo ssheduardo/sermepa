@@ -511,20 +511,33 @@ class Tpv
     }
 
     /**
-     * Return path Javascript to Insite
+     * Returns the path to the Redsys JavaScript file for the specified environment and version.
      *
-     * @param string $env test or live
-     * @return string string path javascript
+     * @param string $environment Environment: test or live.
+     * @param string $version JavaScript file version: 2 or 3.
+     * @return string JavaScript file path.
      */
-    public static function getJsPath($environment = 'test')
-    {
-        if($environment == 'test') {
-            return 'https://sis-t.redsys.es:25443/sis/NC/sandbox/redsysV2.js';
-        } elseif($environment == 'live') {
-            return 'https://sis.redsys.es/sis/NC/redsysV2.js';
-        } else {
-            throw new TpvException('Add test or live');
+    public static function getJsPath($environment = 'test', $version = '2'){
+
+        // Stores the array of JavaScript file paths.
+        static $jsPaths = [
+            'test' => [
+                '2' => 'https://sis-t.redsys.es:25443/sis/NC/sandbox/redsysV2.js',
+                '3' => 'https://sis-t.redsys.es:25443/sis/NC/sandbox/redsysV3.js',
+            ],
+            'live' => [
+                '2' => 'https://sis.redsys.es/sis/NC/redsysV2.js',
+                '3' => 'https://sis.redsys.es/sis/NC/redsysV3.js',
+            ],
+        ];
+
+        // Checks if the environment and version are valid.
+        if (!isset($jsPaths[$environment][$version])) {
+            throw new TpvException('Invalid environment or version');
         }
+
+        // Returns the JavaScript file path.
+        return $jsPaths[$environment][$version];
     }
 
     /**
@@ -874,7 +887,7 @@ class Tpv
         $signatureReceived = $postData["Ds_Signature"];
         $signature = $this->generateMerchantSignatureNotification($key, $parameters);
 
-        return ($signature === $signatureReceived);
+        return hash_equals($signature, $signatureReceived);
     }
 
     /**
