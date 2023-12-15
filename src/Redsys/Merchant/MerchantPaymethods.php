@@ -3,6 +3,8 @@
 
 	namespace Redsys\Merchant;
 
+	use ReflectionClass;
+
 	class MerchantPaymethods {
 		public const ALL = '';
 		public const TARJETA = 'C';
@@ -12,4 +14,8 @@
 		public const TRANSFERENCIA = 'R';
 		public const MASTERPASS = 'N';
 		public const IUPAY = 'O';
+
+		public static function isValid (string $value) : bool {
+			return in_array($value, (new ReflectionClass(self::class))->getConstants());
+		}
 	}

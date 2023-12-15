@@ -3,6 +3,8 @@
 
 	namespace Redsys\Merchant;
 
+	use ReflectionClass;
+
 	class MerchantCurrencies {
 		public const AED = '784'; // Dirham DE EAU
 		public const AFN = '971'; // Afgani afgano
@@ -172,4 +174,8 @@
 		public const ZAR = '710'; // Rand
 		public const ZMW = '967'; // Kwacha zambiano
 		public const ZWL = '932'; // Dólar zimbabuense
+
+		public static function isValid (string $value) : bool {
+			return in_array($value, (new ReflectionClass(self::class))->getConstants());
+		}
 	}

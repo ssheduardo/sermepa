@@ -3,6 +3,8 @@
 
 	namespace Redsys\Merchant;
 
+	use ReflectionClass;
+
 	class MerchantConsumerLanguages {
 		public const DEFAULT = 0; // Por defecto
 		public const ES = 1; // Español
@@ -36,4 +38,8 @@
 		public const SK = 703; // Slovenský jazyk - Eslovaco
 		public const SL = 705; // Slovenski jezik - Esloveno
 		public const TR = 792; // Türkçe - Turco
+
+		public static function isValid (int $value) : bool {
+			return in_array($value, (new ReflectionClass(self::class))->getConstants());
+		}
 	}

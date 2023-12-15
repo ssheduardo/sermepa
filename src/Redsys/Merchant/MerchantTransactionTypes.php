@@ -3,6 +3,8 @@
 
 	namespace Redsys\Merchant;
 
+	use ReflectionClass;
+
 	class MerchantTransactionTypes {
 		public const AUTORIZACION = 0; // Autorización
 		public const PREAUTORIZACION = 1; // Preautorización
@@ -14,4 +16,8 @@
 		public const ANULACION_AUTORIZACION = 9; // Anulación de Preautorización o Autorización
 		public const ABONO_APUESTAS = 37; // Abono de Apuestas
 		public const PAYGOLD = 'F'; // Paygold
+
+		public static function isValid (string $value) : bool {
+			return in_array($value, (new ReflectionClass(self::class))->getConstants());
+		}
 	}
