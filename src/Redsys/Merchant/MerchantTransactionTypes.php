@@ -23,7 +23,7 @@
 		public const ANULACION_DE_CONFIRMACION_SEPARADA           = 47; // Anulación de confirmación separada
 		public const MODIFICACION_DE_CADUCIDAD_DEL_ENLACE_PAYGOLD = 51; // Modificación de caducidad del enlace (Paygold)
 
-		public static function isValid (string $value) : bool {
+		public static function isValid (int $value) : bool {
 			return in_array($value, (new ReflectionClass(self::class))->getConstants());
 		}
 	}

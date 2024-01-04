@@ -11,6 +11,6 @@
 		}
 
 		public function testCodeNotValid () {
-			$this->assertFalse(MerchantTransactionTypes::isValid('INVALID'));
+			$this->assertFalse(MerchantTransactionTypes::isValid(-1));
 		}
 	}
