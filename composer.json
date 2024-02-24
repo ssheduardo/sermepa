@@ -19,7 +19,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Sermepa\\Tpv\\": "src/Sermepa/Tpv/"
+      "Sermepa\\Tpv\\": "src/Sermepa/Tpv/",
+      "Redsys\\": "src/Redsys/"
     }
   },
   "minimum-stability": "stable"
