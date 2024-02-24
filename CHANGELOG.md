@@ -2,6 +2,18 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+
+## Version 1.4.7 (2024-02-24)
+### Added
+- Static validation methods for convenience and reusability.
+
+- Tests for the new methods and functionalities, ensuring code quality and stability.
+
+### Changed
+- Possible internal changes were made to implement the new features.
+### Fixed
+- None
+
 ## Version 1.4.6 (2023-10-28)
 
 ### Added
