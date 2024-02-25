@@ -1,21 +1,22 @@
 <?php
 
-namespace Sermepa\Tpv;
+namespace Sermepa\Tests;
 
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
+use Sermepa\Tpv\Tpv;
+use Sermepa\Tpv\TpvException;
 
 class TpvTest extends PHPUnitTestCase
 {
-
     /** @test */
-    public function identifier_by_default_required()
+    public function identifier_by_default_required(): void
     {
         $redsys = new Tpv();
         $redsys->setIdentifier();
         $this->assertContains('REQUIRED', $redsys->getParameters());
     }
 
-    public function booleanProvider()
+    public static function booleanProvider(): array
     {
         return [
             [true],
@@ -27,15 +28,15 @@ class TpvTest extends PHPUnitTestCase
      * @test
      * @dataProvider booleanProvider
      */
-    public function merchant_direct_payment_return_false_or_true($boolean)
+    public function merchant_direct_payment_return_false_or_true($boolean): void
     {
         $redsys = new Tpv();
         $redsys->setMerchantDirectPayment($boolean);
         $ds = $redsys->getParameters();
-        $this->assertIsBool( $ds['DS_MERCHANT_DIRECTPAYMENT']);
+        $this->assertIsBool($ds['DS_MERCHANT_DIRECTPAYMENT']);
     }
 
-    public function amountProvider()
+    public static function amountProvider(): array
     {
         return [
             [0, '00,00'],
@@ -52,7 +53,7 @@ class TpvTest extends PHPUnitTestCase
      * @test
      * @dataProvider amountProvider
      */
-    public function amount_is_valid($correctAmount, $amount)
+    public function amount_is_valid($correctAmount, $amount): void
     {
         $redsys = new Tpv();
         $redsys->setAmount($amount);
@@ -66,7 +67,7 @@ class TpvTest extends PHPUnitTestCase
      * @test
      * @dataProvider amountProvider
      */
-    public function sum_total_is_valid($correctAmount, $amount)
+    public function sum_total_is_valid($correctAmount, $amount): void
     {
         $redsys = new Tpv();
         $redsys->setSumTotal($amount);
@@ -78,16 +79,16 @@ class TpvTest extends PHPUnitTestCase
     /**
      * @test
      */
-    public function throw_sum_total_is_invalid_number()
+    public function throw_sum_total_is_invalid_number(): void
     {
         $this->expectExceptionMessage("Sum total must be greater than or equal to 0.");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
         $redsys->setSumTotal(-1);
     }
 
 
-    public function dateFrecuencyProvider()
+    public static function dateFrequencyProvider(): array
     {
         return [
             [3],
@@ -99,18 +100,18 @@ class TpvTest extends PHPUnitTestCase
 
     /**
      * @test
-     * @dataProvider dateFrecuencyProvider
+     * @dataProvider dateFrequencyProvider
      */
-    public function date_frecuency_is_valid($dateFrecuency)
+    public function date_frequency_is_valid($dateFrequency): void
     {
         $redsys = new Tpv();
-        $redsys->setDateFrecuency($dateFrecuency);
+        $redsys->setDateFrequency($dateFrequency);
         $parameters = $redsys->getParameters();
 
         $this->assertArrayHasKey('DS_MERCHANT_DATEFRECUENCY', $parameters);
     }
 
-    public function invalidDateFrecuencyProvider()
+    public static function invalidDateFrequencyProvider(): array
     {
         return [
             [666666],
@@ -123,20 +124,20 @@ class TpvTest extends PHPUnitTestCase
 
     /**
      * @test
-     * @dataProvider invalidDateFrecuencyProvider
+     * @dataProvider invalidDateFrequencyProvider
      */
-    public function throw_date_frecuency_is_invalid($dateFrecuency)
+    public function throw_date_frequency_is_invalid($dateFrequency): void
     {
-        $this->expectExceptionMessage("Date frecuency is not valid.");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectExceptionMessage("Date frequency is not valid.");
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
-        $redsys->setDateFrecuency($dateFrecuency);
+        $redsys->setDateFrequency($dateFrequency);
     }
 
     /**
      * @test
      */
-    public function charge_expiry_date_is_valid()
+    public function charge_expiry_date_is_valid(): void
     {
         $redsys = new Tpv();
         $redsys->setChargeExpiryDate('2025-03-04');
@@ -145,7 +146,7 @@ class TpvTest extends PHPUnitTestCase
         $this->assertArrayHasKey('DS_MERCHANT_CHARGEEXPIRYDATE', $parameters);
     }
 
-    public function invalidChargeExpiryDateProvider()
+    public static function invalidChargeExpiryDateProvider(): array
     {
         return [
             ['2024-13-04'],
@@ -162,16 +163,16 @@ class TpvTest extends PHPUnitTestCase
      * @test
      * @dataProvider invalidChargeExpiryDateProvider
      */
-    public function throw_charge_expiry_date_is_invalid($date)
+    public function throw_charge_expiry_date_is_invalid($date): void
     {
         $this->expectExceptionMessage("Date is not valid.");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
         $redsys->setChargeExpiryDate($date);
     }
 
 
-    public function invalidOrderNumberProvider()
+    public static function invalidOrderNumberProvider(): array
     {
         return [
             ['A-001'],
@@ -190,16 +191,16 @@ class TpvTest extends PHPUnitTestCase
      * @test
      * @dataProvider invalidOrderNumberProvider
      */
-    public function throw_when_order_is_invalid($orderNumber)
+    public function throw_when_order_is_invalid($orderNumber): void
     {
         $this->expectExceptionMessage("Order id must be a 4 digit string at least, maximum 12 characters.");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
         $redsys->setOrder($orderNumber);
 
     }
 
-    public function orderNumberProvider()
+    public static function orderNumberProvider(): array
     {
         return [
             [100253508],
@@ -218,7 +219,7 @@ class TpvTest extends PHPUnitTestCase
      * @test
      * @dataProvider orderNumberProvider
      */
-    public function should_validate_an_order_number($order)
+    public function should_validate_an_order_number($order): void
     {
         $redsys = new Tpv();
         $redsys->setOrder($order);
@@ -229,10 +230,10 @@ class TpvTest extends PHPUnitTestCase
     /**
      * @test
      */
-    public function throw_merchant_code_is_empty()
+    public function throw_merchant_code_is_empty(): void
     {
         $this->expectExceptionMessage("Please add Fuc");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
         $redsys->setMerchantcode();
     }
@@ -240,10 +241,10 @@ class TpvTest extends PHPUnitTestCase
     /**
      * @test
      */
-    public function throw_currency_is_not_supported()
+    public function throw_currency_is_not_supported(): void
     {
         $this->expectExceptionMessage("Currency is not valid");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
         $redsys->setCurrency('csm');
     }
@@ -251,10 +252,10 @@ class TpvTest extends PHPUnitTestCase
     /**
      * @test
      */
-    public function throw_transaction_type_is_empty()
+    public function throw_transaction_type_is_empty(): void
     {
         $this->expectExceptionMessage("Please add transaction type");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
         $redsys->setTransactiontype('');
     }
@@ -263,10 +264,10 @@ class TpvTest extends PHPUnitTestCase
     /**
      * @test
      */
-    public function throw_terminal_is_invalid_number()
+    public function throw_terminal_is_invalid_number(): void
     {
         $this->expectExceptionMessage("Terminal is not valid.");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
         $redsys->setTerminal('0');
     }
@@ -274,17 +275,17 @@ class TpvTest extends PHPUnitTestCase
     /**
      * @test
      */
-    public function throw_environment_is_not_test_or_live()
+    public function throw_environment_is_not_test_or_live(): void
     {
         $this->expectExceptionMessage("Add test or live");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
         $redsys->setEnvironment('production');
 
 
     }
 
-    public function SearchingFormProvider()
+    public static function searchingFormProvider(): array
     {
         return [
             ['Ds_MerchantParameters'],
@@ -297,24 +298,24 @@ class TpvTest extends PHPUnitTestCase
 
     /**
      * @test
-     * @dataProvider SearchingFormProvider
+     * @dataProvider searchingFormProvider
      */
-    public function check_if_form_create_inputs_with_parameters($search)
+    public function check_if_form_create_inputs_with_parameters($search): void
     {
         $redsys = new Tpv();
         $form = $redsys->createForm();
-        $this->assertStringContainsString($search,$form);
+        $this->assertStringContainsString($search, $form);
     }
 
     /**
      * @test
      *
      */
-    public function when_set_all_parameters_should_obtain_all_ds_merchant_valid()
+    public function when_set_all_parameters_should_obtain_all_ds_merchant_valid(): void
     {
         $redsys = new Tpv();
         $redsys->setEnvironment('test')
-            ->setAmount(rand(10,600))
+            ->setAmount(rand(10, 600))
             ->setOrder(time())
             ->setMerchantcode('999008881')
             ->setCurrency('978')
@@ -344,16 +345,16 @@ class TpvTest extends PHPUnitTestCase
     /**
      * @test
      */
-    public function throw_version_is_empty()
+    public function throw_version_is_empty(): void
     {
         $this->expectExceptionMessage("Please add version.");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
         $redsys->setVersion();
     }
 
 
-    public function urlTpvProvider()
+    public static function urlTpvProvider(): array
     {
         return [
             ['live', 'https://sis.redsys.es/sis/realizarPago'],
@@ -369,7 +370,7 @@ class TpvTest extends PHPUnitTestCase
      * @test
      * @dataProvider urlTpvProvider
      */
-    public function check_if_url_of_tpv_is_test_or_live($environment, $url)
+    public function check_if_url_of_tpv_is_test_or_live($environment, $url): void
     {
         $redsys = new Tpv();
         $redsys->setEnvironment($environment);
@@ -380,11 +381,11 @@ class TpvTest extends PHPUnitTestCase
     /**
      * @test
      */
-    public function force_to_send_the_form_with_javascript()
+    public function force_to_send_the_form_with_javascript(): void
     {
         $redsys = new Tpv();
-        $redsys->setNameForm('custom_form_'.date('His'));
-        $js = 'document.forms["'.$redsys->getNameForm().'"].submit();';
+        $redsys->setNameForm('custom_form_' . date('His'));
+        $js = 'document.forms["' . $redsys->getNameForm() . '"].submit();';
 
         $redirect = $redsys->executeRedirection(true);
 
@@ -394,10 +395,10 @@ class TpvTest extends PHPUnitTestCase
     /**
      * @test
      */
-    public function throw_merchant_data_is_empty()
+    public function throw_merchant_data_is_empty(): void
     {
         $this->expectExceptionMessage("Add merchant data");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
         $redsys->setMerchantData();
     }
@@ -405,10 +406,10 @@ class TpvTest extends PHPUnitTestCase
     /**
      * @test
      */
-    public function throw_product_description_is_empty()
+    public function throw_product_description_is_empty(): void
     {
         $this->expectExceptionMessage("Add product description");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
         $redsys->setProductDescription();
     }
@@ -416,10 +417,10 @@ class TpvTest extends PHPUnitTestCase
     /**
      * @test
      */
-    public function throw_titular_is_empty()
+    public function throw_titular_is_empty(): void
     {
         $this->expectExceptionMessage("Add name for the user");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
         $redsys->setTitular();
     }
@@ -427,10 +428,10 @@ class TpvTest extends PHPUnitTestCase
     /**
      * @test
      */
-    public function throw_trade_name_is_empty()
+    public function throw_trade_name_is_empty(): void
     {
         $this->expectExceptionMessage("Add name for Trade name");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
         $redsys->setTradeName();
     }
@@ -438,15 +439,15 @@ class TpvTest extends PHPUnitTestCase
     /**
      * @test
      */
-    public function throw_pan_is_invalid()
+    public function throw_pan_is_invalid(): void
     {
         $this->expectExceptionMessage("Pan not valid");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
         $redsys->setPan(0);
     }
 
-    public function invalidExpiryDateProvider()
+    public static function invalidExpiryDateProvider(): array
     {
         return [
             ['23233'],
@@ -465,10 +466,10 @@ class TpvTest extends PHPUnitTestCase
      * @test
      * @dataProvider invalidExpiryDateProvider
      */
-    public function throw_expiry_date_is_invalid($expiry_date)
+    public function throw_expiry_date_is_invalid($expiry_date): void
     {
         $this->expectExceptionMessage("Expire date is not valid");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
         $redsys->setExpiryDate($expiry_date);
     }
@@ -476,7 +477,7 @@ class TpvTest extends PHPUnitTestCase
     /**
      * @test
      */
-    public function expiry_date_is_number_and_has_four_characters()
+    public function expiry_date_is_number_and_has_four_characters(): void
     {
         $redsys = new Tpv();
         $redsys->setExpiryDate(2012);
@@ -487,16 +488,16 @@ class TpvTest extends PHPUnitTestCase
     /**
      * @test
      */
-    public function throw_cvv2_is_invalid()
+    public function throw_cvv2_is_invalid(): void
     {
         $this->expectExceptionMessage("CVV2 is not valid");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
         $redsys->setCVV2();
     }
 
 
-    public function invalidParameters()
+    public static function invalidParameters(): array
     {
         return [
             ['23233'],
@@ -515,14 +516,14 @@ class TpvTest extends PHPUnitTestCase
      * @dataProvider invalidParameters
      */
 
-    public function throw_parameters_is_not_an_array($parameters)
+    public function throw_parameters_is_not_an_array($parameters): void
     {
         $this->expectExceptionMessage("Parameters is not an array associative");
         $this->expectExceptionMessage("Parameters is not an array");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
 
-       $redsys->setParameters($parameters);
+        $redsys->setParameters($parameters);
 
     }
 
@@ -530,8 +531,8 @@ class TpvTest extends PHPUnitTestCase
      * @test
      */
 
-     public function set_new_parameters()
-     {
+    public function set_new_parameters(): void
+    {
         $parameters = ['DS_MERCHANT_COF_INI' => 'S', 'DS_MERCHANT_COF_TYPE' => 'R'];
         $redsys = new Tpv();
         $redsys->setParameters($parameters);
@@ -539,9 +540,9 @@ class TpvTest extends PHPUnitTestCase
         $this->assertArrayHasKey('DS_MERCHANT_COF_INI', $parameters);
         $this->assertArrayHasKey('DS_MERCHANT_COF_TYPE', $parameters);
 
-     }
+    }
 
-    public function invalidSetMethod()
+    public static function invalidSetMethod(): array
     {
         return [
             ['V'],
@@ -556,15 +557,15 @@ class TpvTest extends PHPUnitTestCase
      * @test
      * @dataProvider invalidSetMethod
      */
-    public function throw_when_set_method_is_invalid($method)
+    public function throw_when_set_method_is_invalid($method): void
     {
         $this->expectExceptionMessage("Pay method is not valid");
-        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $this->expectException(TpvException::class);
         $redsys = new Tpv();
         $redsys->setMethod($method);
     }
 
-    public function methodsProvider()
+    public static function methodsProvider(): array
     {
         return [
             ['T'],
@@ -582,7 +583,7 @@ class TpvTest extends PHPUnitTestCase
      * @test
      * @dataProvider methodsProvider
      */
-    public function should_validate_a_method($method)
+    public function should_validate_a_method($method): void
     {
         $redsys = new Tpv();
         $redsys->setMethod($method);
@@ -604,7 +605,7 @@ class TpvTest extends PHPUnitTestCase
      * @test
      * @dataProvider jsPathProvider
      */
-    public function should_return_the_correct_js_path($environment, $version, $expectedPath)
+    public function should_return_the_correct_js_path($environment, $version, $expectedPath): void
     {
         $redsys = new Tpv();
         $actualPath = $redsys->getJsPath($environment, $version);
@@ -612,7 +613,7 @@ class TpvTest extends PHPUnitTestCase
         $this->assertEquals($expectedPath, $actualPath);
     }
 
-    public function invalidEnvironmentVersionPathJs()
+    public static function invalidEnvironmentVersionPathJs()
     {
         return [
             ['test', '1'],
@@ -632,7 +633,7 @@ class TpvTest extends PHPUnitTestCase
      * @test
      * @dataProvider invalidEnvironmentVersionPathJs
      */
-    public function throw_when_set_environment_or_version_is_invalid($environment, $version)
+    public function throw_when_set_environment_or_version_is_invalid($environment, $version): void
     {
         $this->expectExceptionMessage("Invalid environment or version");
         $this->expectException(\Sermepa\Tpv\TpvException::class);

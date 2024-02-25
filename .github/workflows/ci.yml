@@ -1,5 +1,6 @@
 name: Run Tests
 on:
+    pull_request:
     push:
         branches:
             - master
@@ -12,13 +13,13 @@ jobs:
         strategy:
             matrix:
                 operating-system: [ubuntu-latest]
-                php-versions: ["8.2","8.1","8.0", "7.4", "7.3"]
+                php-versions: ["8.3","8.2","8.1"]
                 dependency-stability: ["prefer-stable"]
 
         name: P${{ matrix.php-versions }} - L${{ matrix.laravel }} - ${{ matrix.dependency-stability }} - ${{ matrix.operating-system}}
 
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - name: Install PHP versions
               uses: shivammathur/setup-php@v2
               with:
@@ -39,10 +40,14 @@ jobs:
             - name: PHP Version
               run: php --version
 
+            - name: Execute static analysis tests
+              if: matrix.php-versions == '8.2'
+              run: composer test-static
+
             # Code quality
             - name: Execute tests (Unit and Feature tests) via PHPUnit
               # Set environment
               env:
                   SESSION_DRIVER: array
 
-              run: vendor/bin/phpunit --testdox
+              run: composer test
