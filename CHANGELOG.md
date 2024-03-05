@@ -2,6 +2,17 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.4.8 (2024-03-05)
+### Added
+- Implementation of the `xpay` method within the `setMethod` functionality to support GooglePay and ApplePay.
+
+- TDD (Test Driven Development) implementation for enhanced code reliability and maintainability.
+
+### Changed
+- Possible internal changes were made to integrate the `xpay` method and accommodate the TDD implementation, ensuring code consistency.
+
+### Fixed
+- None
 
 ## Version 1.4.7 (2024-02-24)
 ### Added
