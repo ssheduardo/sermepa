@@ -1,0 +1,3985 @@
+
+
+
+
+					<!-- 	*****************************
+        *****************************
+ 	       TABLA PARÁMETROS ENTRADA
+ 	    *****************************
+ 	    *****************************  -->
+
+					<div id="entradaTable_wrapper" class="dataTables_wrapper no-footer active" style="height: 400px;"><table id="entradaTable" title="Parámetros de entrada" class="table table-striped errores-sis dataTable no-footer fix-head" role="grid">
+						<thead id="tableHeader">
+							<tr id="pp" role="row"><th class="fix sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">
+									DATO</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;"><input id="entradaInput" class="errores filter" data-column-index="1" style="color: #555;" value="" placeholder="PARÁMETRO DE ENTRADA" type="text"></th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Long. / Tipo</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">TIPO OPERACIÓN <br> <input id="entradaTTInput" class="errores filter" data-column-index="3" style="color: #555;" value="" placeholder="DS_MERCHANT_TRANSACTIONTYPE" type="text"></th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">REDIRECCION <br> <select id="realizarInput" class="errores filter" data-column-index="4" style="color: #555;" value="">
+										<option value=""></option>
+										<option value="OBLIGATORIO">OBLIGATORIO</option>
+										<option value="OPCIONAL">OPCIONAL</option>
+										<option value="CONDICIONAL">CONDICIONAL</option>
+								</select>
+								</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">REST/SOAP <br> <select id="soapInput" class="errores filter" data-column-index="5" style="color: #555;" value="">
+										<option value=""></option>
+										<option value="OBLIGATORIO">OBLIGATORIO</option>
+										<option value="OPCIONAL">OPCIONAL</option>
+										<option value="CONDICIONAL">CONDICIONAL</option>
+								</select>
+								</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">COMENTARIOS</th></tr>
+						</thead>
+						<tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						<tr role="row" class="odd">
+								<td class="col">Importe</td>
+								<td>DS_MERCHANT_AMOUNT</td>
+								<td>12/N</td>
+								<td>0,1,2,3,7,8,9,11,15,17,34,37,45,46,47,48</td>
+								<td>OBLIGATORIO</td>
+								<td>OBLIGATORIO</td>
+								<td>Las últimas posiciones hacen referencia a los decimales
+									de la moneda.Ejemplo: En el caso del EURO 43,45 Euros habría
+									que indicar 4345.</td>
+							</tr><tr role="row" class="even">
+								<td class="col">Código de Autorización</td>
+								<td>DS_MERCHANT_AUTHORISATIONCODE</td>
+								<td>6/N</td>
+								<td>3</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Representa el código de autorización necesario para
+									identificar de manera inequivoca la transacción original sobre
+									la que se desea realizar la devolución. Este parámetro tiene
+									sentido en aquellos comercios que permiten repetir el número de
+									pedido.</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Indicador de transacción COF</td>
+								<td>DS_MERCHANT_COF_INI</td>
+								<td>1/AN</td>
+								<td>0,1,7,15</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Obligatorio para operativa COF Visa y MC. Valores
+									posibles:
+									<ul class="nowrap">
+										<li>"S": Sí es primera transacción COF (almacenar
+											credenciales).</li>
+										<li>"N": No es primera transacción COF.</li>
+										<li>Cualquier otro valor no se tendrá en cuenta y la
+											operación no se procesará como COF.</li>
+									</ul> <!-- 									Documentación: <a href="documents\Especificaciones-COF-v1.2.pdf" -->
+									<!-- 										target="_blank" rel="noopener">Especificaciones-COF-v1.2.pdf</a></td> -->
+							</td></tr><tr role="row" class="even">
+								<td class="col">Identificador de transacción COF</td>
+								<td>DS_MERCHANT_COF_TXNID</td>
+								<td>15/AN</td>
+								<td>0,1,7</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Opcional. Este identificador es devuelto en la
+									respuesta de la primera operación COF (almacenamiento de
+									credenciales), y deberá enviarse en transacciones sucesivas
+									realizadas con las credenciales que generaron este mismo
+									Id_txn.<br>
+								<br> <!-- 								Documentación: <a href="documents\Especificaciones-COF-v1.2.pdf" -->
+									<!-- 										target="_blank" rel="noopener">Especificaciones-COF-v1.2.pdf</a></td> -->
+							</td></tr><tr role="row" class="odd">
+								<td class="col">Tipo de transacción COF</td>
+								<td>DS_MERCHANT_COF_TYPE</td>
+								<td>1 / AN</td>
+								<td>0,1,7,15</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Opcional para COF Visa y MC. Valores posibles:
+									<ul class="nowrap">
+										<li>"I": Installments.</li>
+										<li>"R": Recurring.</li>
+										<li>"H": Reauthorization.</li>
+										<li>"E": Resubmission.</li>
+										<li>"D": Delayed.</li>
+										<li>"M": Incremental.</li>
+										<li>"N": No Show.</li>
+										<li>"C": Otras.</li>
+									</ul> <!-- 									Documentación: <a href="documents\Especificaciones-COF-v1.2.pdf" -->
+									<!-- 										target="_blank" rel="noopener">Especificaciones-COF-v1.2.pdf</a></td> -->
+							</td></tr><tr role="row" class="even">
+								<td class="col">Idioma del titular</td>
+								<td>DS_MERCHANT_CONSUMERLANGUAGE</td>
+								<td>3/N.</td>
+								<td>0,1,2,3,7,8,9,15,17,34,37</td>
+								<td>OPCIONAL</td>
+								<td>&nbsp;</td>
+								<td>Los valores posibles se incluyen en la <a class="table-link" table-target="idiomasTable">tabla de
+									idiomas</a></td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Moneda</td>
+								<td>DS_MERCHANT_CURRENCY</td>
+								<td>3/N</td>
+								<td>0,1,2,3,7,8,9,11,15,17,34,37,45,46,47,48</td>
+								<td>OBLIGATORIO</td>
+								<td>OBLIGATORIO</td>
+								<td>Se debe enviar el código numérico de la moneda según el
+									ISO-4217, ver <a class="table-link" style="color: #dc7c26;" table-target="monedasTable">tabla
+									de monedas</a>.
+								</td>
+							</tr><tr role="row" class="even">
+								<td class="col">CVV2</td>
+								<td>DS_MERCHANT_CVV2</td>
+								<td>3-4/N</td>
+								<td>0,1,7,17,34,37</td>
+								<td>CONDICIONAL</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Opcional si se envía el parámetro DS_MERCHANT_PAN y en
+												funcion de la configuración del comercio." data-original-title="" title="">CONDICIONAL</a></td>
+								<td>Código CVV2 de la tarjeta.</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Indicador de pago sin autenticación</td>
+								<td>DS_MERCHANT_DIRECTPAYMENT</td>
+								<td>4/N</td>
+								<td>0,1,7,15,17,37</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Valores posibles:
+									<ul role="row" class="odd">
+										<li>"true": identifica la intención de realizar la
+											operación sin autenticación.</li>
+										<li>"moto": identifica la operación como pago MOTO.</li>
+									</ul> <!-- 									Documentación: <a href="documents\TPV-Virtual-Pago-MOTO.pdf" -->
+									<!-- 										target="_blank" rel="noopener">TPV-Virtual-Pago-MOTO.pdf</a></td> -->
+							</td></tr><tr role="row" class="even">
+								<td class="col">JSON con la información de la autenticación</td>
+								<td>DS_MERCHANT_EMV3DS</td>
+								<td>Variable/JSON Object</td>
+								<td>0,1,7,17</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Este campo contiene toda la información necesaria para
+									autenticación EMV3DS (V1 o V2).
+									 <br><br> <b>***Con el fin de mejorar la experiencia del usuario en
+									 el proceso de autenticación, se recomienda añadir en la petición de
+									 pago los siguientes parámetros definidos en la versión EMV 3DS v2 (Email,
+									 homePhone, shipAddrLine1 y dentro de acctInfo: chAccChange, chAccDate y
+									 txnActivityYear), que aportan datos adicionales del titular de la tarjeta
+									 y del dispositivo que se está utilizando </b>.<br><br>
+								<a class="table-link" style="color: #dc7c26;" table-target="dsemv3dsTable">Ver tabla DS_MERCHANT_EMV3DS</a>
+								</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Caducidad</td>
+								<td>DS_MERCHANT_EXPIRYDATE</td>
+								<td>4/N</td>
+								<td>0,1,7,17,34,37</td>
+								<td>CONDICIONAL</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio si se envía el parámetro
+												DS_MERCHANT_PAN." data-original-title="" title="">CONDICIONAL</a></td>
+								<td>Caducidad de la tarjeta. Su formato es AAMM, siendo AA
+									los dos últimos dígitos del año y MM los dos dígitos del mes.</td>
+							</tr><tr role="row" class="even">
+								<td class="col">Código de grupo</td>
+								<td>DS_MERCHANT_GROUP</td>
+								<td>9/N</td>
+								<td>0,1,7,15,17,37</td>
+								<td>CONDICIONAL</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Opcional si se envía el parámetro
+												DS_MERCHANT_IDENTIFIER." data-original-title="" title="">CONDICIONAL</a>
+								</td>
+								<td>Identificador del código de grupo asociado a la
+									referencia <!-- 									Documentación: <a href="documents\TPV-Virtual-Pago-por-referencia.pdf" -->
+									<!-- 										target="_blank" rel="noopener">TPV-Virtual-Pago-por-referencia.pdf</a> -->
+								</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Referencia</td>
+								<td>DS_MERCHANT_IDENTIFIER</td>
+								<td>40/N</td>
+								<td>0,1,7,15,17,38</td>
+								<td>OPCIONAL</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio si se genera o utiliza una referencia" data-original-title="" title="">OBLIGATORIO</a></td>
+								<td>Este parámetro indica la referencia de la tarjeta a
+									utilizar, o la solicitud de generar una referencia.<br> Para
+									generar una nueva referencia enviar "REQUIRED" en el caso de
+									REST/SOAP el parámetro DS_MERCHANT_PAN es Obligatorio. <!-- 									Documentación: <a href="documents\TPV-Virtual-Pago-por-referencia.pdf" -->
+									<!-- 										target="_blank" rel="noopener">TPV-Virtual-Pago-por-referencia.pdf</a> -->
+								</td>
+							</tr><tr role="row" class="even">
+								<td class="col">Identificador de la operación de INSITE</td>
+								<td>DS_MERCHANT_IDOPER</td>
+								<td>40/A-N</td>
+								<td>0,1,7,17,37</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Identificador de la operación de INSITE. <!-- 									Documentación: <a href="documents\TPV-Virtual-Integración-inSite-V2.1.pdf" -->
+									<!-- 										target="_blank" rel="noopener">TPV-Virtual-Integración-inSite-V2.1.pdf</a> -->
+								</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Identificación de comercio: código FUC</td>
+								<td>DS_MERCHANT_MERCHANTCODE</td>
+								<td>9/N.</td>
+								<td>0,1,2,3,7,8,9,11,15,17,34,37,45,46,47,48</td>
+								<td>OBLIGATORIO</td>
+								<td>OBLIGATORIO</td>
+								<td>Código FUC asignado al comercio.(Nº de comercio)</td>
+							</tr><tr role="row" class="even">
+								<td class="col">Datos del comercio</td>
+								<td>DS_MERCHANT_MERCHANTDATA</td>
+								<td>1024 /A-N</td>
+								<td>0,1,2,3,7,8,9,15,17,34,37</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Cadena de datos que no procesará el TPV-Virtual y se
+									devolverán de la misma forma en la respuesta</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Identificación de comercio:</td>
+								<td>DS_MERCHANT_MERCHANTNAME</td>
+								<td>25/A-N</td>
+								<td>0,1,2,3,7,8,9,15,17,34,37</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Para la entrada de realizar pago esta información se
+									mostrará al titular en la pantallas con las que este
+									interaciona. En caso de no informarse aparecerá el nombre
+									configurado en la administración del TPV- Virtual.</td>
+							</tr><tr role="row" class="even">
+								<td class="col">URL del comercio para la notificación
+									"on-line"</td>
+								<td>DS_MERCHANT_MERCHANTURL</td>
+								<td>250/A-N</td>
+								<td>0,1,2,3,7,8,9,15,17,34,37</td>
+								<td>OPCIONAL</td>
+								<td>&nbsp;</td>
+								<td>Si el comercio tiene configurada notificación online
+									"HTTP" en el módulo de administración, se enviará una petición
+									post con el resultado de la transacción a la URL especificada.</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Número de Pedido</td>
+								<td>DS_MERCHANT_ORDER</td>
+								<td>12 / A-N.</td>
+								<td>0,1,2,3,7,8,9,11,15,17,34,37,45,46,47,48</td>
+								<td>OBLIGATORIO</td>
+								<td>OBLIGATORIO</td>
+								<td>Se recomienda, por posibles problemas en el proceso de
+									liquidación, que los 4 primeros dígitos sean numéricos. Para
+									los dígitos restantes solo utilizar los siguientes caracteres
+									ASCII:
+									<ul>
+										<li>Del 48 = 0 al 57 = 9</li>
+										<li>Del 65 = A al 90 = Z</li>
+										<li>Del 97 = a al 122 = z</li>
+									</ul>
+								</td>
+							</tr><tr role="row" class="even">
+								<td class="col">Tarjeta</td>
+								<td>DS_MERCHANT_PAN</td>
+								<td>19/N</td>
+								<td>0,1,7,17,34,37</td>
+								<td>OPCIONAL</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio si no se envía el parámetro
+												DS_MERCHANT_IDENTIFIER o
+												el valor de DS_MERCHANT_IDENTIFIER es 'REQUIRED'." data-original-title="" title="">CONDICIONAL</a></td>
+								<td>Tarjeta. Su longitud depende del tipo de tarjeta.</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Forma de pago aplicable</td>
+								<td>DS_MERCHANT_PAYMETHODS</td>
+								<td>1/A</td>
+								<td>Ver tabla <a class="table-link" style="color: #dc7c26;" table-target="dspaymethodsTable">DS_MERCHANT_PAYMETHODS</a></td>
+								<td>OPCIONAL</td>
+								<td>&nbsp;</td>
+								<td>Ver tabla <a class="table-link" style="color: #dc7c26;" table-target="dspaymethodsTable">DS_MERCHANT_PAYMETHODS</a></td>
+							</tr><tr role="row" class="even">
+								<td class="col">Descripción del producto</td>
+								<td>DS_MERCHANT_PRODUCTDESCRIPTION</td>
+								<td>125 / A-N</td>
+								<td>0,1,2,3,7,8,9,15,17,34,37</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>La longitud máxima es 125. Para la entrada de realizar
+									pago esta información se mostrará al titular en la pantallas
+									con las que este interaciona.</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Código del tributo a pagar</td>
+								<td>DS_MERCHANT_TAX_REFERENCE</td>
+								<td>100/N</td>
+								<td>0</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Operativa especial de pago de tributos. Código de
+									barras del tributo en operativa especial de pago de tributos.
+									Se requiere activación por parte de la entidad.</td>
+							</tr><tr role="row" class="even">
+								<td class="col">Número de terminal</td>
+								<td>DS_MERCHANT_TERMINAL</td>
+								<td>3/N.</td>
+								<td>0,1,2,3,7,8,9,11,15,17,34,37,45,46,47,48</td>
+								<td>OBLIGATORIO</td>
+								<td>OBLIGATORIO</td>
+								<td>Número de terminal que le asignará su banco.</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Nombre y apellidos del titular</td>
+								<td>DS_MERCHANT_TITULAR</td>
+								<td>60/A-N</td>
+								<td>0,1,2,3,7,8,9,15,17,34,37</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Su longitud máxima es de 60 caracteres. Para la entrada
+									de realizar pago esta información se mostrará al titular en la
+									pantallas con las que este interaciona. En la pantalla de pago,
+									el titular podrá modificar este valor.</td>
+							</tr><tr role="row" class="even">
+								<td class="col">Fecha de la operación</td>
+								<td>DS_MERCHANT_TRANSACTIONDATE</td>
+								<td>10 / A-N</td>
+								<td>3</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Formato yyyy-mm-dd. Representa la fecha de la operación
+									sobre que la se realiza la devolución, este campo es necesario
+									para identificar de manera inequivoca la transacción original
+									sobre la que se desea realizar la devolución. Este parámetro
+									tiene sentido en aquellos comercios que permiten repetir el
+									número de pedido.</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Tipo de transacción</td>
+								<td>DS_MERCHANT_TRANSACTIONTYPE</td>
+								<td>1 / Num</td>
+								<td>0,1,2,3,7,8,9,11,15,17,34,37,45,46,47,48</td>
+								<td>OBLIGATORIO</td>
+								<td>OBLIGATORIO</td>
+								<td>Tipo de operación.Ver tabla <a class="table-link" style="color: #dc7c26;" table-target="dstransactiontypeTable">DS_MERCHANT_TRANSACTTIONTYPE</a></td>
+							</tr><tr role="row" class="even">
+								<td class="col">URL KO</td>
+								<td>DS_MERCHANT_URLKO</td>
+								<td>250/A-N</td>
+								<td>0,1,2,3,7,8,9,15,17,34,37</td>
+								<td>OPCIONAL</td>
+								<td>&nbsp;</td>
+								<td>URL en la que se enviará una petición HTTP get cuando
+									el resultado de la transacción sea KO. Si este parámetro no
+									viene informado se usará la configuración en el módulo de
+									administración.</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">URLOK</td>
+								<td>DS_MERCHANT_URLOK</td>
+								<td>250/A-N</td>
+								<td>0,1,2,3,7,8,9,15,17,34,37</td>
+								<td>OPCIONAL</td>
+								<td>&nbsp;</td>
+								<td>URL en la que se enviará una petición HTTP get cuando
+									el resultado de la transacción sea OK. Si este parámetro no
+									viene informado se usará la configuración en el módulo de
+									administración.</td>
+							</tr><tr role="row" class="even">
+								<td class="col">Datos de XPAY</td>
+								<td>DS_XPAYDECODEDDATA</td>
+								<td>JSON</td>
+								<td>0.1</td>
+								<td>&nbsp;</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio si se envia DS_XPAYORIGEN y DS_XPAYTYPE (Si se envía este parámetro,
+										no se enviará el DS_XPAYDATA)." data-original-title="" title="">CONDICIONAL</a>
+								</td>
+								<td>Campo en el que se incluyen los datos descrifrados en referencia a los xPay
+								<a class="table-link" style="color: #dc7c26;" table-target="dsXpayCodeDataTable">ver tabla DS_XPAYDECODEDATA</a>
+<!-- 									Documentación: <a href="documents\TPV-Virtual-ApplePay.pdf" -->
+<!-- 										target="_blank" rel="noopener">TPV-Virtual-ApplePay.pdf</a></td> -->
+
+							</td></tr><tr role="row" class="odd">
+								<td class="col">Datos de XPAY</td>
+								<td>DS_XPAYDATA</td>
+								<td>10000 / A-N</td>
+								<td>0.1</td>
+								<td>&nbsp;</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio si se envia DS_XPAYORIGEN y DS_XPAYTYPE
+									(Si se envía este parámetro, no se enviará el DS_XPAYDECODEDDATA)." data-original-title="" title="">CONDICIONAL</a>
+								</td>
+								<td>Campo en el que se incluyen los datos del enviados por
+									el xPay en formato Hexadecimal.
+									 <!-- 									Documentación: <a href="documents\TPV-Virtual-ApplePay.pdf" -->
+									<!-- 										target="_blank" rel="noopener">TPV-Virtual-ApplePay.pdf</a></td> -->
+							</td></tr><tr role="row" class="even">
+								<td class="col">Origen XPAY</td>
+								<td>DS_XPAYORIGEN</td>
+								<td>5 / A-N</td>
+								<td>0.1</td>
+								<td>&nbsp;</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio si se envia DS_XPAYDATA y DS_XPAYTYPE." data-original-title="" title="">CONDICIONAL</a>
+								</td>
+								<td>Origen de la petición. Los posibles valores son:
+									<ul>
+										<li>Google.</li>
+										<li>Apple.</li>
+									</ul> <!-- 									Documentación: <a href="documents\TPV-Virtual-ApplePay.pdf" -->
+									<!-- 										target="_blank" rel="noopener">TPV-Virtual-ApplePay.pdf</a></td> -->
+
+								</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Tipo de XPAY</td>
+								<td>DS_XPAYTYPE</td>
+								<td>10 / A-N</td>
+								<td>0.1</td>
+								<td>&nbsp;</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio si se envia DS_XPAYORIGEN y DS_XPAYDATA." data-original-title="" title="">CONDICIONAL</a>
+								</td>
+								<td>Tipo de xPay. Los posibles valores son:
+									<ul>
+										<li>WEB.</li>
+										<li>InApp.</li>
+									</ul> <!-- 									Documentación: <a href="documents\TPV-Virtual-ApplePay.pdf" -->
+									<!-- 										target="_blank" rel="noopener">TPV-Virtual-ApplePay.pdf</a></td> -->
+								</td>
+							</tr><tr role="row" class="even">
+								<td class="col">Indicador de obtención de datos de
+									dirección de PayPal</td>
+								<td>DS_MERCHANT_SHIPPINGADDRESSPYP</td>
+								<td>1 / N</td>
+								<td>0,1,15</td>
+								<td>OPCIONAL</td>
+								<td>&nbsp;</td>
+								<td>Indica si entre los campos de respuesta al comercio se
+									incluye información relativa a la dirección de envío que tiene
+									el titular configurada en su cuenta PayPal. Los valores que se
+									pueden indicar en dicho campo son:
+									<ul>
+										<li>S: si se desea obtener dicha información en la
+											respuesta del TPV-Virtual.</li>
+										<li>N: se NO se desea obtener dicha información en la
+											respuesta del TPV-Virtual.</li>
+									</ul> <!-- 									Documentación: <a href="documents\TPV-Virtual-Manual-PayPal.pdf" -->
+									<!-- 										target="_blank" rel="noopener">TPV-Virtual-Manual-PayPal.pdf</a></td> -->
+								</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Descriptor Flexible</td>
+								<td>DS_MERCHANT_MERCHANTDESCRIPTOR</td>
+								<td>25 / A-N</td>
+								<td>0,1,2,3,7,8,9,15,17,34,37</td>
+								<td>OPCIONAL</td>
+								<td>&nbsp;</td>
+								<td>El valor de este parámetro es de 25 posiciones (caracteres).
+								Si el comercio está configurado para poder enviar este parámetro
+								y no envía ninguna información, o no está configurado, por defecto
+								se enviará el nombre del comercio. Requiere activación por porte de la entidad.
+									 <!-- 									Documentación: <a href="documents\TPV-Virtual-Manual-PayPal.pdf" -->
+									<!-- 										target="_blank" rel="noopener">TPV-Virtual-Manual-PayPal.pdf</a></td> -->
+								</td>
+							</tr><tr role="row" class="even">
+								<td class="col">Código de personalización</td>
+								<td>DS_MERCHANT_PERSOCODE</td>
+								<td>1 / N</td>
+								<td>0,1,3,7,8,9,15,34,37</td>
+								<td>OPCIONAL</td>
+								<td>&nbsp;</td>
+								<td>Número de personalización que se desea utilizar en la
+									operación. Si no se informa dicho parámetro o el valor que se
+									informa no corresponde con un número de personalización activa
+									existente <br>
+								<br> <!-- 									Documentación: <a href="documents\TPV-Virtual-Herramienta-Personalizacion.pdf" -->
+									<!-- 										target="_blank" rel="noopener">TPV-Virtual-Herramienta-Personalizacion.pdf</a></td> -->
+							</td></tr><tr role="row" class="odd">
+								<td class="col">Matching data</td>
+								<td>DS_MERCHANT_MATCHINGDATA</td>
+								<td>21/A-N</td>
+								<td>17</td>
+								<td>&nbsp;</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio si se envia DS_ACQUIRER_IDENTIFIER." data-original-title="" title="">CONDICIONAL</a>
+								</td>
+								<td>No debe repetirse. Valor que enviará en la respuesta
+									para identificar a la petición</td>
+							</tr><tr role="row" class="even">
+								<td class="col">Identificador del que procesará la
+									operación</td>
+								<td>DS_ACQUIRER_IDENTIFIER</td>
+								<td>6/N</td>
+								<td>17</td>
+								<td>&nbsp;</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio si se envia DS_MERCHANT_MATCHINGDATA." data-original-title="" title="">CONDICIONAL</a>
+								</td>
+								<td>Es el valor de la interfaz PUC, por dónde el comercio
+									procesará la transacción de autorización.</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Parámetros para MPI External</td>
+								<td>DS_MERCHANT_MPIEXTERNAL</td>
+								<td>JSON</td>
+								<td>0,1,7</td>
+								<td>&nbsp;</td>
+								<td>OPCIONAL</td>
+								<td>Ver tabla <a class="table-link" style="color: #dc7c26;" table-target="dsmpiexternalTable">DS_MERCHANT_MPIEXTERNAL</a></td>
+							</tr><tr role="row" class="even">
+								<td class="col">Telefóno del titular para PayGold</td>
+								<td>DS_MERCHANT_CUSTOMER_MOBILE</td>
+								<td>19 /A-N</td>
+								<td>15</td>
+								<td>&nbsp;</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio si se envian DS_MERCHANT_CUSTOMER_MAIL,
+									DS_MERCHANT_P2F_EXPIRYDATE, DS_MERCHANT_CUSTOMER_SMS_TEXT,
+									DS_MERCHANT_P2F_XMLDATA." data-original-title="" title="">CONDICIONAL</a></td>
+								<td>Para informar el número de teléfono del titular para
+									enviar el SMS con el enlace.</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Mail del titular para PayGold</td>
+								<td>DS_MERCHANT_CUSTOMER_MAIL</td>
+								<td>100 /A-N</td>
+								<td>15</td>
+								<td>&nbsp;</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio si se envian DS_MERCHANT_CUSTOMER_MOBILE,
+									DS_MERCHANT_P2F_EXPIRYDATE, DS_MERCHANT_CUSTOMER_SMS_TEXT,
+									DS_MERCHANT_P2F_XMLDATA." data-original-title="" title="">CONDICIONAL</a>
+								</td>
+								<td>Para informar la dirección de mail del titular para
+									enviar el enlace.</td>
+							</tr><tr role="row" class="even">
+								<td class="col">Fecha de caducidad enlace PayGold</td>
+								<td>DS_MERCHANT_P2F_EXPIRYDATE</td>
+								<td>23/ A-N</td>
+								<td>15</td>
+								<td>&nbsp;</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio si se envian DS_MERCHANT_CUSTOMER_MOBILE,
+									DS_MERCHANT_CUSTOMER_MAIL, DS_MERCHANT_CUSTOMER_SMS_TEXT,
+									DS_MERCHANT_P2F_XMLDATA" data-original-title="" title="">CONDICIONAL</a></td>
+
+								<td>Permite especificar la fecha de caducidad del enlace
+									siendo posible especificar la fecha de cada operación mediante
+									este parámetro. El valor del campo podrá ser el número de
+									minutos desde la operación o la fecha y hora exacta de
+									caducidad con el siguiente formato: aaaa-mm-dd-HH:MM:ss.sss
+									(por ejemplo 2014-08-06-16.31.35.318).</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Texto del SMS de PayGold</td>
+								<td>DS_MERCHANT_CUSTOMER_SMS_TEXT</td>
+								<td>160/A-N</td>
+								<td>15</td>
+								<td>&nbsp;</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio si se envian DS_MERCHANT_CUSTOMER_MOBILE,
+									DS_MERCHANT_CUSTOMER_MAIL, DS_MERCHANT_P2F_EXPIRYDATE,
+									DS_MERCHANT_P2F_XMLDATA." data-original-title="" title="">CONDICIONAL</a></td>
+
+								<td>Personalización de los mensajes SMS enviados al
+									usuario. Este campo contendrá una cadena de texto con los
+									campos relevantes entre arrobas, es obligatorio incluir siempre
+									la URL (@URL@). Los campos soportados son @COMERCIO@,
+									@IMPORTE@, @MONEDA@ y @URL@. Se sustituirán dichos campos por
+									los valores correspondientes. Es recomendable limitar la
+									longitud del texto (máximo 160 caracteres) para que se envíe en
+									un único SMS.<br> Mensaje de ejemplo: <br>
+									<ul>
+										<li>"Esto es un SMS personalizado del comercio
+											@COMERCIO@. Debe pagar @IMPORTE@ @MONEDA@ en la siguiente
+											url: @URL@"</li>
+									</ul>
+
+								</td>
+							</tr><tr role="row" class="even">
+								<td class="col">Texto del Mail de PayGold</td>
+								<td>DS_MERCHANT_P2F_XMLDATA</td>
+								<td>1000/A-N</td>
+								<td>15</td>
+								<td>&nbsp;</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio si se envian DS_MERCHANT_CUSTOMER_MOBILE,
+									DS_MERCHANT_CUSTOMER_MAIL, DS_MERCHANT_P2F_EXPIRYDATE,
+									DS_MERCHANT_CUSTOMER_SMS_TEXT." data-original-title="" title="">CONDICIONAL</a></td>
+
+								<td>Personalización de los mensajes de correo enviados.
+									Dicho campo permite pasar TAGs para la personalización. Es
+									importante escapar los símbolos &lt;&gt;y / como &amp;lt; &amp;gt; y
+									&amp;#47; así como dejarlos dentro del CDATA.<br> Cualquier
+									error aquí podría ocasionar que el XML no esté bien formado y
+									que la petición falle por lo que es obligatorio escapar también
+									los caracteres especiales como acentos etc. Los campos que
+									incluye este parámetro son:
+									<ul>
+										<li>nombreComprador: El nombre del comprador. Sin
+											limitación de caracteres.</li>
+										<li>direccionComprador: La dirección del comprador. Sin
+											limitación de caracteres.</li>
+										<li>textoLibre1: El texto que se incluirá describiendo la
+											compra. Sin limitación de caracteres.</li>
+									</ul>
+								</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Campo indicador para la solicitud de DCC y
+									envio de información DCC</td>
+								<td>DS_MERCHANT_DCC</td>
+								<td>JSON</td>
+								<td>0</td>
+								<td>&nbsp;</td>
+								<td>OPCIONAL</td>
+								<td>Enviar Y o N para la solicitud de iniciaPetición. Para
+									mandar información de DCC ver tabla <a class="table-link" style="color: #dc7c26;" table-target="dsmerchantdccTable">DS_MERCHANT_DCC</a>.
+								</td>
+							</tr><tr role="row" class="even">
+								<td class="col">Exenciones para PDS2</td>
+								<td>DS_MERCHANT_EXCEP_SCA</td>
+								<td>3/A-N</td>
+								<td>0.1</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Valores posibles: MIT , LWV, TRA, COR, ATD, NDF.
+									Requiere activación por parte de la Entidad.</td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Exenciones para PDS2</td>
+								<td>DS_MERCHANT_OTA</td>
+								<td>1/N</td>
+								<td>7</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Valor: S (petición inicial OTA SI).Petición de
+									operación inicial de Autenticación de Viajes Online (OTA)</td>
+							</tr><tr role="row" class="even">
+								<td class="col">IP de cliente</td>
+								<td>DS_MERCHANT_CLIENTIP</td>
+								<td>15/A-N</td>
+								<td>0,1,2,3,7,8,9,15,17,34,37</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td></td>
+							</tr><tr role="row" class="odd">
+								<td class="col">Valor RTS para Devoluciones de confirmaciones parciales.</td>
+								<td>DS_MERCHANT_RTS</td>
+								<td>24/N</td>
+								<td>3</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Obligatorio para realizar una devolución de una confirmación parcial</td>
+							</tr></tbody>
+					</table></div>
+
+
+
+
+
+
+
+
+
+
+					<!-- 	*****************************
+        *****************************
+ 	       TABLA PARÁMETROS SALIDA
+ 	    *****************************
+ 	    *****************************  -->
+
+
+					<div id="salidaTable_wrapper" class="dataTables_wrapper no-footer" style="height: 400px;"><table id="salidaTable" title="Parámetros de salida" class="center table table-striped errores-sis dataTable no-footer fix-head" role="grid">
+						<thead>
+							<tr role="row"><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">DATO</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;"><input id="entradaSalidaInput" class="errores filter" data-column-index="1" style="color: #555;" value="" placeholder="PARÁMETRO DE SALIDA" type="text"></th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Long. / Tipo</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">REALIZAR PAGO<br> <select id="salidaPagoInput" class="errores
+										filter" data-column-index="3" style="color: #555;" value="">
+										<option value=""></option>
+										<option value="OBLIGATORIO">OBLIGATORIO</option>
+										<option value="OPCIONAL">OPCIONAL</option>
+										<option value="CONDICIONAL">CONDICIONAL</option>
+								</select></th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">REST/SOAP<br> <select id="salidaSoapInput" class="errores
+										filter" data-column-index="4" style="color: #555;" value="">
+										<option value=""></option>
+										<option value="OBLIGATORIO">OBLIGATORIO</option>
+										<option value="OPCIONAL">OPCIONAL</option>
+										<option value="CONDICIONAL">CONDICIONAL</option>
+								</select></th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">COMENTARIOS</th></tr>
+						</thead>
+						<tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						<tr role="row" class="odd">
+								<td>Fecha</td>
+								<td>DS_DATE</td>
+								<td>dd/mm/yyyy</td>
+								<td>OBLIGATORIO</td>
+								<td></td>
+								<td>Fecha de la transacción</td>
+							</tr><tr role="row" class="even">
+								<td>Hora</td>
+								<td>DS_HOUR</td>
+								<td>HH:mm</td>
+								<td>OBLIGATORIO</td>
+								<td></td>
+								<td>Hora de la transacción</td>
+							</tr><tr role="row" class="odd">
+								<td>Importe</td>
+								<td>DS_AMOUNT</td>
+								<td>12 / Núm.</td>
+								<td>OBLIGATORIO</td>
+								<td>OBLIGATORIO</td>
+								<td>Mismo importe que se envió en la petición.</td>
+							</tr><tr role="row" class="even">
+								<td>Moneda</td>
+								<td>DS_CURRENCY</td>
+								<td>3 / Núm.</td>
+								<td>OBLIGATORIO</td>
+								<td>OBLIGATORIO</td>
+								<td>Misma moneda que se envió en la petición. Lo de la
+									longitd ya viene en otra columna.</td>
+							</tr><tr role="row" class="odd">
+								<td>Número de pedido</td>
+								<td>DS_ORDER</td>
+								<td>12 / A-N.</td>
+								<td>OBLIGATORIO</td>
+								<td>OBLIGATORIO</td>
+								<td>Mismo pedido que se envió en la petición.</td>
+							</tr><tr role="row" class="even">
+								<td>Identificación de comercio: código FUC</td>
+								<td>DS_MERCHANTCODE</td>
+								<td>9 / N.</td>
+								<td>OBLIGATORIO</td>
+								<td>OBLIGATORIO</td>
+								<td>Mismo código de comercio que se envió en la petición.</td>
+							</tr><tr role="row" class="odd">
+								<td>Terminal</td>
+								<td>DS_TERMINAL</td>
+								<td>3 / Núm.</td>
+								<td>OBLIGATORIO</td>
+								<td>OBLIGATORIO</td>
+								<td>Mismo código de terminal que se envió en la petición</td>
+							</tr><tr role="row" class="even">
+								<td>Código de respuesta</td>
+								<td>DS_RESPONSE</td>
+								<td>4 / Núm.</td>
+								<td>OBLIGATORIO</td>
+								<td>OBLIGATORIO</td>
+								<td>Valor que indica el resultado de la operación. Indicará
+									si ha sido autorizada o no. Ver <a href="codigosRespuesta.html#codigo-dsresponse">tabla
+										Ds_Response</a>
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Datos del comercio</td>
+								<td>DS_MERCHANTDATA</td>
+								<td>1024 / A-N</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Información opcional enviada por el comercio en el
+									formulario de pago.</td>
+							</tr><tr role="row" class="even">
+								<td>Pago Seguro</td>
+								<td>DS_SECUREPAYMENT</td>
+								<td>1 / Núm.</td>
+								<td>OBLIGATORIO</td>
+								<td>OBLIGATORIO</td>
+								<td><ul>
+										<li>0 - Si el pago NO es seguro</li>
+										<li>1 - Si el pago es seguro</li>
+									</ul></td>
+							</tr><tr role="row" class="odd">
+								<td>Tipo de operación</td>
+								<td>DS_TRANSACTIONTYPE</td>
+								<td>1 / A-N</td>
+								<td>OBLIGATORIO</td>
+								<td>OBLIGATORIO</td>
+								<td>Tipo de operación que se envió en el formulario de pago</td>
+							</tr><tr role="row" class="even">
+								<td>País del titular</td>
+								<td>DS_CARD_COUNTRY</td>
+								<td>3/Núm</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>País de emisión de la tarjeta con la que se ha
+									intentado realizar el pago. En el siguiente enlace es posible
+									consultar los códigos de país y su correspondencia:
+									http://unstats.un.org/unsd/methods/m49/m49alpha.htm</td>
+							</tr><tr role="row" class="odd">
+								<td>Código de autorización</td>
+								<td>DS_AUTHORISATIONCODE</td>
+								<td>6/ A-N</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Código alfanumérico de autorización asignado a la
+									aprobación de la transacción por la institución autorizadora.</td>
+							</tr><tr role="row" class="even">
+								<td>Idioma del titular</td>
+								<td>DS_CONSUMERLANGUAGE</td>
+								<td>3 / Núm</td>
+								<td>OPCIONAL</td>
+								<td></td>
+								<td>El valor 0, indicará que no se ha determinado el idioma
+									del cliente.</td>
+							</tr><tr role="row" class="odd">
+								<td>Tipo de Tarjeta</td>
+								<td>DS_CARD_TYPE</td>
+								<td>1 / A-N</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Valores posibles:
+									<ul>
+										<li>C - Crédito</li>
+										<li>D - Débito</li>
+									</ul>
+								</td>
+							</tr><tr role="row" class="even">
+								<td>Marca de Tarjeta</td>
+								<td>DS_CARD_BRAND</td>
+								<td>2 / Núm</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>"No se debe hacer una validación cerrada sobre estos
+									valores, pues pueden variar y/o añadise nuevos. Valores
+									posibles:
+									<ul>
+										<li>1 - VISA</li>
+										<li>2 - MASTERCARD</li>
+										<li>6 - DINERS</li>
+										<li>7 - PRIVADA</li>
+										<li>8 - AMEX</li>
+										<li>9 - JCB</li>
+										<li>22 - UPI</li>
+									</ul>
+							</td></tr><tr role="row" class="odd">
+								<td>Número de tarjeta</td>
+								<td>DS_CARD_NUMBER</td>
+								<td>19/N</td>
+								<td></td>
+								<td>OPCIONAL</td>
+								<td>Tarjeta. Su longitud depende del tipo de tarjeta.</td>
+							</tr><tr role="row" class="even">
+								<td>Fecha caducidad de la tarjeta</td>
+								<td>DS_EXPIRYDATE</td>
+								<td>4/N</td>
+								<td></td>
+								<td>OPCIONAL</td>
+								<td>Caducidad de la tarjeta. Su formato es AAMM, siendo AA
+									los dos últimos dígitos del año y MM los dos dígitos del mes.</td>
+							</tr><tr role="row" class="odd">
+								<td>Referencia de la tarjeta</td>
+								<td>DS_MERCHANT_IDENTIFIER</td>
+								<td>8/N</td>
+								<td></td>
+								<td>OPCIONAL</td>
+								<td>Este parámetro indica la referencia de la tarjeta a
+									utilizar</td>
+							</tr><tr role="row" class="even">
+								<td>Código de error</td>
+								<td>DS_ERRORCODE</td>
+								<td>7/A-N</td>
+								<td>OPCIONAL</td>
+								<td></td>
+								<td>Código de error</td>
+							</tr><tr role="row" class="odd">
+								<td>Código de error</td>
+								<td>ERRORCODE</td>
+								<td>7/A-N</td>
+								<td></td>
+								<td></td>
+								<td>Código de error</td>
+							</tr><tr role="row" class="even">
+								<td>Código de error</td>
+								<td>CODIGO</td>
+								<td>7/A-N</td>
+								<td></td>
+								<td></td>
+								<td>Valores posibles:
+									<ul>
+										<li><strong>CODIGO igual a 0</strong> (La transacción se
+											ha procesado pero no implica que se haya autorizado. Para
+											saber si la operación está autorizada se debe revisar el
+											parámetro <a href="codigosRespuesta.html#codigo-dsresponse">Ds_Response</a>).</li>
+										<li><strong>CODIGO diferente de 0</strong> (La
+											transacción no se ha podido procesar diversos motivos)</li>
+									</ul>
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Enlace de pago Paygold</td>
+								<td>DS_URLPAGO2FASES</td>
+								<td>Max 80 /A-N</td>
+								<td></td>
+								<td>OPCIONAL</td>
+								<td>URL del enlace que se le envía al cliente para realizar
+									el pago PayGold</td>
+							</tr><tr role="row" class="even">
+								<td>Firma</td>
+								<td>DS_SIGNATURE</td>
+								<td>44 / A-N</td>
+								<td></td>
+								<td>OBLIGATORIO</td>
+								<td>Firma de la petición de respuesta</td>
+							</tr><tr role="row" class="odd">
+								<td>Información sobre DCC</td>
+								<td>DS_DCC</td>
+								<td>Json</td>
+								<td></td>
+								<td>OPCIONAL</td>
+								<td>Información sobre DCC, ver <a class="table-link" style="color: #dc7c26;" table-target="dsdccTable">tabla DS_DCC</a></td>
+							</tr><tr role="row" class="even">
+								<td>Información sobre pago seguro</td>
+								<td>DS_EMV3DS</td>
+								<td>Json</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Información sobre EMV3DS, ver <a class="table-link" style="color: #dc7c26;" table-target="dsemv3dsTable">Tabla DS_EMV3DS</a></td>
+							</tr><tr role="row" class="odd">
+								<td>Tarjeta afectada por PSD2</td>
+								<td>DS_CARD_PSD2</td>
+								<td>Max 1/A-N</td>
+								<td></td>
+								<td>OBLIGATORIO</td>
+								<td>Parámetro de respuesta en iniciaPeticion.
+									Valores posibles: Y (Si afectada) o N (no afectada)
+								</td>
+							</tr><tr role="row" class="even">
+								<td>Excepciones permitidas</td>
+								<td>Ds_Excep_SCA</td>
+								<td>Max 40 /A-N</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Parámetro de respuesta en iniciaPeticion. Valores
+									posibles un subjunto de: LWV;TRA[30.0];COR;MIT;ATD;WHL</td>
+							</tr><tr role="row" class="odd">
+								<td>Identificador de transacción COF</td>
+								<td>Ds_ProcessedPayMethod</td>
+								<td>3/N</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Opcional. Informa sobre el método en el que se ha
+									realizado la operación:, ver <a class="table-link" style="color: #dc7c26;" table-target="ds_ProcessedPayMethodTable">Tabla
+										DS_ProcessedPayMethod</a>
+								</td>
+							</tr><tr role="row" class="even">
+								<td>Identificador de transacción COF</td>
+								<td>Ds_Merchant_Cof_Txnid</td>
+								<td>Max 15 / AN</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Este identificador es devuelto en la respuesta de la primera
+									operación COF (almacenamiento de credenciales), y deberá enviarse
+									en transacciones sucesivas realizadas con las credenciales que
+									generaron este mismo Id_txn.
+							</td>
+							</tr><tr role="row" class="odd">
+								<td>Importe en la moneda DCC</td>
+								<td>Ds_Amount_DCC</td>
+								<td>Max 12 / N</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Solo aplica en operaciones DCC.
+							</td>
+							</tr><tr role="row" class="even">
+								<td>Contravalor en euros cuando la operación se realiza en moneda diferente de euro</td>
+								<td>Ds_Amount_Euro</td>
+								<td>Max 12 / N</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Solo aplica en operaciones DCC.
+							</td>
+							</tr><tr role="row" class="odd">
+								<td>Codigo de moneda DCC</td>
+								<td>Ds_Currency_DCC</td>
+								<td>Max 3 / N</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Solo aplica en operaciones DCC.
+							</td>
+							</tr><tr role="row" class="even">
+								<td>Valor RTS en Confirmaciones Parciales</td>
+								<td>rts</td>
+								<td>Max 24 / N</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Solo aplica en confirmaciones parciales TransactionType 48.
+									Este valor se envía en la respuesta de la confirmación parcial
+									 para que en el caso de querer realizar una devolución de esa
+									  confirmación, se envíe en el parámetro de entrada DS_MERCHANT_RTS.L
+							</td>
+							</tr><tr role="row" class="odd">
+								<td>Valor de control</td>
+								<td>Ds_Control_XXXXXXXXXXXXX</td>
+								<td>Max 13 / N</td>
+								<td>OPCIONAL</td>
+								<td>OPCIONAL</td>
+								<td>Se trata de un campo con valor aleatorio pensado para
+								 que el comercio esté preparado a recibir campos nuevos sin
+								 que esto afecte a su servicio,  con esto se pretende que
+								  no se realice una validación restrictiva de los campos
+								   en la respuesta que se envía al comercio y  que cuando
+								    se envíe uno nuevo no afecte al comercio</td>
+							</tr></tbody>
+					</table></div>
+
+					<!-- 	*****************************
+        *****************************
+ 	     TABLA DS_PROCESSEDPAYMETHOD
+ 	    *****************************
+ 	    *****************************  -->
+
+
+					<div id="ds_ProcessedPayMethodTable_wrapper" class="dataTables_wrapper no-footer" style="height: 400px;"><table id="ds_ProcessedPayMethodTable" title="Tabla Ds_ProcessedPayMethod" class="table table-striped errores-sis dataTable no-footer fix-head" role="grid">
+						<thead>
+							<tr role="row"><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Método de pago</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Valor</th></tr></thead>
+						<tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						<tr role="row" class="odd">
+								<td>1</td>
+								<td>Visa Secure</td>
+							</tr><tr role="row" class="even">
+								<td>3</td>
+								<td>Tradicional Mundial</td>
+							</tr><tr role="row" class="odd">
+								<td>5</td>
+								<td>Finanet</td>
+							</tr><tr role="row" class="even">
+								<td>11</td>
+								<td>Capacidad FINANET</td>
+							</tr><tr role="row" class="odd">
+								<td>13</td>
+								<td>Capacidad Visa Secure</td>
+							</tr><tr role="row" class="even">
+								<td>14</td>
+								<td>Tradicional UE</td>
+							</tr><tr role="row" class="odd">
+								<td>22</td>
+								<td>MasterCard Identity Check</td>
+							</tr><tr role="row" class="even">
+								<td>23</td>
+								<td>Capacidad Identity Check</td>
+							</tr><tr role="row" class="odd">
+								<td>24</td>
+								<td>Pago AMEX</td>
+							</tr><tr role="row" class="even">
+								<td>25</td>
+								<td>Pago MOTO</td>
+							</tr><tr role="row" class="odd">
+								<td>28</td>
+								<td>Pago JCB</td>
+							</tr><tr role="row" class="even">
+								<td>31</td>
+								<td>Pago DINERS</td>
+							</tr><tr role="row" class="odd">
+								<td>39</td>
+								<td>JCB JSecure</td>
+							</tr><tr role="row" class="even">
+								<td>40</td>
+								<td>Capacidad JSecure</td>
+							</tr><tr role="row" class="odd">
+								<td>41</td>
+								<td>Domiciliacion</td>
+							</tr><tr role="row" class="even">
+								<td>42</td>
+								<td>Transferencia</td>
+							</tr><tr role="row" class="odd">
+								<td>54</td>
+								<td>PayPal</td>
+							</tr><tr role="row" class="even">
+								<td>57</td>
+								<td>SafeKey</td>
+							</tr><tr role="row" class="odd">
+								<td>58</td>
+								<td>Capacidad SafeKey</td>
+							</tr><tr role="row" class="even">
+								<td>59</td>
+								<td>MasterPass Wallet</td>
+							</tr><tr role="row" class="odd">
+								<td>68</td>
+								<td>Bizum</td>
+							</tr><tr role="row" class="even">
+								<td>70</td>
+								<td>UPI ExpressPay</td>
+							</tr><tr role="row" class="odd">
+								<td>71</td>
+								<td>GooglePay</td>
+							</tr><tr role="row" class="even">
+								<td>72</td>
+								<td>ApplePay</td>
+							</tr><tr role="row" class="odd">
+								<td>73</td>
+								<td>UPI SecurePlus</td>
+							</tr><tr role="row" class="even">
+								<td>74</td>
+								<td>Capacidad Discover</td>
+							</tr><tr role="row" class="odd">
+								<td>75</td>
+								<td>Discover ProtectBuy</td>
+							</tr><tr role="row" class="even">
+								<td>76</td>
+								<td>Discover</td>
+							</tr><tr role="row" class="odd">
+								<td>77</td>
+								<td>Amazon Pay</td>
+							</tr><tr role="row" class="even">
+								<td>78</td>
+								<td>Challenge Visa</td>
+							</tr><tr role="row" class="odd">
+								<td>79</td>
+								<td>Challenge MasterCard</td>
+							</tr><tr role="row" class="even">
+								<td>80</td>
+								<td>Frictionless Visa</td>
+							</tr><tr role="row" class="odd">
+								<td>81</td>
+								<td>Frictionless MasterCard</td>
+							</tr><tr role="row" class="even">
+								<td>82</td>
+								<td>Attempt Visa</td>
+							</tr><tr role="row" class="odd">
+								<td>83</td>
+								<td>Attempt MasterCard</td>
+							</tr><tr role="row" class="even">
+								<td>85</td>
+								<td>Challenge Amex</td>
+							</tr><tr role="row" class="odd">
+								<td>86</td>
+								<td>Challenge Discover</td>
+							</tr><tr role="row" class="even">
+								<td>87</td>
+								<td>Frictionless Amex</td>
+							</tr><tr role="row" class="odd">
+								<td>88</td>
+								<td>Frictionless Discover</td>
+							</tr><tr role="row" class="even">
+								<td>89</td>
+								<td>Attempt Amex</td>
+							</tr><tr role="row" class="odd">
+								<td>90</td>
+								<td>Attempt Discover</td>
+							</tr><tr role="row" class="even">
+								<td>92</td>
+								<td>Pago DINERS ProtectBuy</td>
+							</tr><tr role="row" class="odd">
+								<td>93</td>
+								<td>Challenge Diners ProtectBuy</td>
+							</tr><tr role="row" class="even">
+								<td>94</td>
+								<td>Frictionless Diners ProtectBuy</td>
+							</tr><tr role="row" class="odd">
+								<td>95</td>
+								<td>Pago Attempt Diners ProtectBuy</td>
+							</tr><tr role="row" class="even">
+								<td>96</td>
+								<td>Challenge JCB</td>
+							</tr><tr role="row" class="odd">
+								<td>97</td>
+								<td>Frictionless JCB</td>
+							</tr><tr role="row" class="even">
+								<td>98</td>
+								<td>Attempt JCB</td>
+							</tr><tr role="row" class="odd">
+								<td>107</td>
+								<td>Pago con cuenta</td>
+							</tr></tbody>
+					</table></div>
+
+
+					<!-- 	*****************************
+        *****************************
+ 	           TABLA DE MONEDAS
+ 	    *****************************
+ 	    *****************************  -->
+
+
+
+					<div id="monedasTable_wrapper" class="dataTables_wrapper no-footer" style="height: 400px;"><table id="monedasTable" title="Tabla Monedas" class="table table-striped errores-sis dataTable no-footer fix-head" role="grid">
+						<thead>
+							<tr role="row"><th style="width: 100px;" class="sorting_disabled" rowspan="1" colspan="1"><input id="isoMonedaInput" class="errores filter" data-column-index="0" style="color: #555;" value="" placeholder="CÓDIGO ISO" type="text"></th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Moneda</th></tr>
+
+						</thead>
+						<tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						<tr role="row" class="odd">
+								<td>840</td>
+								<td>DOLAR U.S.A. USD</td>
+							</tr><tr role="row" class="even">
+								<td>826</td>
+								<td>POUND STERLING GBP</td>
+							</tr><tr role="row" class="odd">
+								<td>392</td>
+								<td>YEN JPY</td>
+							</tr><tr role="row" class="even">
+								<td>32</td>
+								<td>ARGENTINE AUSTRAL ARP</td>
+							</tr><tr role="row" class="odd">
+								<td>36</td>
+								<td>AUSTRALIAN DOLLAR AUD</td>
+							</tr><tr role="row" class="even">
+								<td>124</td>
+								<td>CANADIAN DOLLAR CAD</td>
+							</tr><tr role="row" class="odd">
+								<td>152</td>
+								<td>CHILEAN PESO CLP</td>
+							</tr><tr role="row" class="even">
+								<td>170</td>
+								<td>COLOMBIAN PESO COP</td>
+							</tr><tr role="row" class="odd">
+								<td>188</td>
+								<td>COSTA RICA COLON CRC</td>
+							</tr><tr role="row" class="even">
+								<td>356</td>
+								<td>INDIAN RUPEE INR</td>
+							</tr><tr role="row" class="odd">
+								<td>484</td>
+								<td>MEXICAN PESO MXP</td>
+							</tr><tr role="row" class="even">
+								<td>604</td>
+								<td>PERU INTI PEI</td>
+							</tr><tr role="row" class="odd">
+								<td>756</td>
+								<td>SWISS FRANC CHF</td>
+							</tr><tr role="row" class="even">
+								<td>858</td>
+								<td>URUGUAYAN PESO UYP</td>
+							</tr><tr role="row" class="odd">
+								<td>986</td>
+								<td>BRAZILIAN REAL BRL</td>
+							</tr><tr role="row" class="even">
+								<td>949</td>
+								<td>TURKISH LIRA TRY</td>
+							</tr><tr role="row" class="odd">
+								<td>8</td>
+								<td>LEK ALL</td>
+							</tr><tr role="row" class="even">
+								<td>12</td>
+								<td>ALGERIAN DINAR DZD</td>
+							</tr><tr role="row" class="odd">
+								<td>24</td>
+								<td>ANGOLA KWANZA AOK</td>
+							</tr><tr role="row" class="even">
+								<td>30</td>
+								<td>PROBANDO DESA MON</td>
+							</tr><tr role="row" class="odd">
+								<td>31</td>
+								<td>AZERBAIJANIAN MANAT AZM</td>
+							</tr><tr role="row" class="even">
+								<td>32</td>
+								<td>ARGENTINE AUSTRAL ARP</td>
+							</tr><tr role="row" class="odd">
+								<td>36</td>
+								<td>AUSTRALIAN DOLLAR AUD</td>
+							</tr><tr role="row" class="even">
+								<td>44</td>
+								<td>BAHAMIAN DOLLAR BSD</td>
+							</tr><tr role="row" class="odd">
+								<td>48</td>
+								<td>BAHRAINI DINAR BHD</td>
+							</tr><tr role="row" class="even">
+								<td>50</td>
+								<td>TAKA BDT</td>
+							</tr><tr role="row" class="odd">
+								<td>51</td>
+								<td>ARMENIAN DRAM AMD</td>
+							</tr><tr role="row" class="even">
+								<td>52</td>
+								<td>BARBADOS DOLLAR BBD</td>
+							</tr><tr role="row" class="odd">
+								<td>60</td>
+								<td>BERMUDAN DOLLAR BMD</td>
+							</tr><tr role="row" class="even">
+								<td>64</td>
+								<td>NGULTRUM BTN</td>
+							</tr><tr role="row" class="odd">
+								<td>68</td>
+								<td>BOLIVIAN PESO BOP</td>
+							</tr><tr role="row" class="even">
+								<td>70</td>
+								<td>DINAR BAD</td>
+							</tr><tr role="row" class="odd">
+								<td>72</td>
+								<td>PULA BWP</td>
+							</tr><tr role="row" class="even">
+								<td>76</td>
+								<td>CRUZEIRO BRC</td>
+							</tr><tr role="row" class="odd">
+								<td>84</td>
+								<td>BELIZE DOLLAR 084</td>
+							</tr><tr role="row" class="even">
+								<td>90</td>
+								<td>SOLOMON ISLANDS DOLL SBD</td>
+							</tr><tr role="row" class="odd">
+								<td>96</td>
+								<td>BRUNEI DOLLAR BND</td>
+							</tr><tr role="row" class="even">
+								<td>100</td>
+								<td>LEV BGL</td>
+							</tr><tr role="row" class="odd">
+								<td>104</td>
+								<td>KYAT BUK</td>
+							</tr><tr role="row" class="even">
+								<td>108</td>
+								<td>BURUNDI FRANC BIF</td>
+							</tr><tr role="row" class="odd">
+								<td>112</td>
+								<td>BELARUSSIAN RUBLE BYB</td>
+							</tr><tr role="row" class="even">
+								<td>116</td>
+								<td>RIEL KHR</td>
+							</tr><tr role="row" class="odd">
+								<td>124</td>
+								<td>CANADIAN DOLLAR CAD</td>
+							</tr><tr role="row" class="even">
+								<td>132</td>
+								<td>CAPE VERDE ESCUDO CVE</td>
+							</tr><tr role="row" class="odd">
+								<td>136</td>
+								<td>CAYMAN ISLANDS DOLLA KYD</td>
+							</tr><tr role="row" class="even">
+								<td>144</td>
+								<td>SRI LANKA RUPEE LKR</td>
+							</tr><tr role="row" class="odd">
+								<td>152</td>
+								<td>CHILEAN PESO CLP</td>
+							</tr><tr role="row" class="even">
+								<td>156</td>
+								<td>YUAN RENMINBI CNY</td>
+							</tr><tr role="row" class="odd">
+								<td>157</td>
+								<td>CHINESE RENMIMBI CNH</td>
+							</tr><tr role="row" class="even">
+								<td>158</td>
+								<td>CHINESE RENMINBI CNX</td>
+							</tr><tr role="row" class="odd">
+								<td>170</td>
+								<td>COLOMBIAN PESO COP</td>
+							</tr><tr role="row" class="even">
+								<td>174</td>
+								<td>COMOROS FRANC KMF</td>
+							</tr><tr role="row" class="odd">
+								<td>180</td>
+								<td>ZAIRE ZRZ</td>
+							</tr><tr role="row" class="even">
+								<td>188</td>
+								<td>COSTA RICA COLON CRC</td>
+							</tr><tr role="row" class="odd">
+								<td>191</td>
+								<td>CROATIAN KUNA HRK</td>
+							</tr><tr role="row" class="even">
+								<td>192</td>
+								<td>CUBAN PESO CUP</td>
+							</tr><tr role="row" class="odd">
+								<td>196</td>
+								<td>CYPRUS POUND CYP</td>
+							</tr><tr role="row" class="even">
+								<td>200</td>
+								<td>KORUNA CSK</td>
+							</tr><tr role="row" class="odd">
+								<td>203</td>
+								<td>CZECH KORUNA CZK</td>
+							</tr><tr role="row" class="even">
+								<td>208</td>
+								<td>DANISH KRONE DKK</td>
+							</tr><tr role="row" class="odd">
+								<td>214</td>
+								<td>DOMINICAN PESO DOP</td>
+							</tr><tr role="row" class="even">
+								<td>218</td>
+								<td>SUCRE ECS</td>
+							</tr><tr role="row" class="odd">
+								<td>222</td>
+								<td>EL SALVADOR COLON SVC</td>
+							</tr><tr role="row" class="even">
+								<td>226</td>
+								<td>EKWELE GQE</td>
+							</tr><tr role="row" class="odd">
+								<td>230</td>
+								<td>ETHIOPIAN BIRR ETB</td>
+							</tr><tr role="row" class="even">
+								<td>232</td>
+								<td>ERITREAN NAKTAN ERN</td>
+							</tr><tr role="row" class="odd">
+								<td>233</td>
+								<td>ESTONIAN KROON EEK</td>
+							</tr><tr role="row" class="even">
+								<td>238</td>
+								<td>FALKLAND ISLANDS FKP</td>
+							</tr><tr role="row" class="odd">
+								<td>242</td>
+								<td>FIJI DOLLAR FJD</td>
+							</tr><tr role="row" class="even">
+								<td>262</td>
+								<td>DJIBOUTI FRANC DJF</td>
+							</tr><tr role="row" class="odd">
+								<td>268</td>
+								<td>GEORGIAN LARI GEL</td>
+							</tr><tr role="row" class="even">
+								<td>270</td>
+								<td>DALASI GMD</td>
+							</tr><tr role="row" class="odd">
+								<td>278</td>
+								<td>MARK DER DDR DDM</td>
+							</tr><tr role="row" class="even">
+								<td>288</td>
+								<td>GHANA CEDI GHC</td>
+							</tr><tr role="row" class="odd">
+								<td>292</td>
+								<td>GIBRALTAR POUND GIP</td>
+							</tr><tr role="row" class="even">
+								<td>320</td>
+								<td>QUETZAL GTQ</td>
+							</tr><tr role="row" class="odd">
+								<td>324</td>
+								<td>SYLI GNS</td>
+							</tr><tr role="row" class="even">
+								<td>328</td>
+								<td>GUYANA DOLLAR GYD</td>
+							</tr><tr role="row" class="odd">
+								<td>332</td>
+								<td>GOURDE HTG</td>
+							</tr><tr role="row" class="even">
+								<td>340</td>
+								<td>LEMPIRA HNL</td>
+							</tr><tr role="row" class="odd">
+								<td>344</td>
+								<td>HONG KONG DOLLAR HKD</td>
+							</tr><tr role="row" class="even">
+								<td>348</td>
+								<td>FORINT HUF</td>
+							</tr><tr role="row" class="odd">
+								<td>352</td>
+								<td>ICELAND KRONA ISK</td>
+							</tr><tr role="row" class="even">
+								<td>356</td>
+								<td>INDIAN RUPEE INR</td>
+							</tr><tr role="row" class="odd">
+								<td>360</td>
+								<td>RUPIAH IDR</td>
+							</tr><tr role="row" class="even">
+								<td>364</td>
+								<td>IRANIAL RIAL IRR</td>
+							</tr><tr role="row" class="odd">
+								<td>365</td>
+								<td>IRANIAN AIRLINE RATE IRA</td>
+							</tr><tr role="row" class="even">
+								<td>368</td>
+								<td>IRAQI DINAR IQD</td>
+							</tr><tr role="row" class="odd">
+								<td>376</td>
+								<td>ISRAEL SHEKEL ILS</td>
+							</tr><tr role="row" class="even">
+								<td>388</td>
+								<td>JAMAICAN DOLLAR JMD</td>
+							</tr><tr role="row" class="odd">
+								<td>392</td>
+								<td>YEN JPY</td>
+							</tr><tr role="row" class="even">
+								<td>398</td>
+								<td>TENGE KZT</td>
+							</tr><tr role="row" class="odd">
+								<td>400</td>
+								<td>JORDANIAN DINAR JOD</td>
+							</tr><tr role="row" class="even">
+								<td>404</td>
+								<td>KENYAN SHILLING KES</td>
+							</tr><tr role="row" class="odd">
+								<td>408</td>
+								<td>NORTH KOREAN WON KPW</td>
+							</tr><tr role="row" class="even">
+								<td>410</td>
+								<td>KOREAN WON KRW</td>
+							</tr><tr role="row" class="odd">
+								<td>414</td>
+								<td>KUWAITI DINAR KWD</td>
+							</tr><tr role="row" class="even">
+								<td>417</td>
+								<td>KYRGYZSTAN SON KGS</td>
+							</tr><tr role="row" class="odd">
+								<td>418</td>
+								<td>KIP LAK</td>
+							</tr><tr role="row" class="even">
+								<td>422</td>
+								<td>LEBANESE POUND LBP</td>
+							</tr><tr role="row" class="odd">
+								<td>426</td>
+								<td>LESOTHO LOTI LSM</td>
+							</tr><tr role="row" class="even">
+								<td>428</td>
+								<td>LATVIAN LAT LVL</td>
+							</tr><tr role="row" class="odd">
+								<td>430</td>
+								<td>LIBERIAN DOLLAR LRD</td>
+							</tr><tr role="row" class="even">
+								<td>434</td>
+								<td>LIBYAN DINAR LYD</td>
+							</tr><tr role="row" class="odd">
+								<td>440</td>
+								<td>LITHUANIAN LITAS LTL</td>
+							</tr><tr role="row" class="even">
+								<td>446</td>
+								<td>PATACA MOP</td>
+							</tr><tr role="row" class="odd">
+								<td>450</td>
+								<td>MALAGASY FRANC MGF</td>
+							</tr><tr role="row" class="even">
+								<td>454</td>
+								<td>MALAWI KWACHA MWK</td>
+							</tr><tr role="row" class="odd">
+								<td>458</td>
+								<td>MALASYAN RINGGIT MYR</td>
+							</tr><tr role="row" class="even">
+								<td>462</td>
+								<td>MALDIVE RUPEE MVR</td>
+							</tr><tr role="row" class="odd">
+								<td>466</td>
+								<td>MALI MLF</td>
+							</tr><tr role="row" class="even">
+								<td>470</td>
+								<td>MALTESE LIRA MTL</td>
+							</tr><tr role="row" class="odd">
+								<td>478</td>
+								<td>OUGUIYA MRO</td>
+							</tr><tr role="row" class="even">
+								<td>480</td>
+								<td>MAURITIUS RUPEE MUR</td>
+							</tr><tr role="row" class="odd">
+								<td>484</td>
+								<td>MEXICAN PESO MXP</td>
+							</tr><tr role="row" class="even">
+								<td>496</td>
+								<td>TUGRIK MNT</td>
+							</tr><tr role="row" class="odd">
+								<td>498</td>
+								<td>MOLDOVIAN LEU MDL</td>
+							</tr><tr role="row" class="even">
+								<td>504</td>
+								<td>MORROCAN DIRHAM MAD</td>
+							</tr><tr role="row" class="odd">
+								<td>508</td>
+								<td>METICAL MZM</td>
+							</tr><tr role="row" class="even">
+								<td>512</td>
+								<td>RIAL OMANI OMR</td>
+							</tr><tr role="row" class="odd">
+								<td>516</td>
+								<td>NAMIBIAN DOLLAR NAD</td>
+							</tr><tr role="row" class="even">
+								<td>524</td>
+								<td>NEPALESE RUPEE NPR</td>
+							</tr><tr role="row" class="odd">
+								<td>532</td>
+								<td>NETHERLANDS ANTILLIA ANG</td>
+							</tr><tr role="row" class="even">
+								<td>533</td>
+								<td>ARUBA AWG</td>
+							</tr><tr role="row" class="odd">
+								<td>536</td>
+								<td>YUGOSLAVIAN NEW DIAN NTZ</td>
+							</tr><tr role="row" class="even">
+								<td>548</td>
+								<td>VANUATU VATU VUV</td>
+							</tr><tr role="row" class="odd">
+								<td>554</td>
+								<td>NEW ZEALAND DOLLAR NZD</td>
+							</tr><tr role="row" class="even">
+								<td>556</td>
+								<td>NAIRA 566</td>
+							</tr><tr role="row" class="odd">
+								<td>558</td>
+								<td>CORDOBA NIC</td>
+							</tr><tr role="row" class="even">
+								<td>566</td>
+								<td>NAIRA NGN</td>
+							</tr><tr role="row" class="odd">
+								<td>578</td>
+								<td>NORWEGIAN KRONE NOK</td>
+							</tr><tr role="row" class="even">
+								<td>582</td>
+								<td>PACIFIC ISLAND PCI</td>
+							</tr><tr role="row" class="odd">
+								<td>586</td>
+								<td>PAKISTAN RUPEE PKR</td>
+							</tr><tr role="row" class="even">
+								<td>590</td>
+								<td>BALBOA PAB</td>
+							</tr><tr role="row" class="odd">
+								<td>598</td>
+								<td>KINA PGK</td>
+							</tr><tr role="row" class="even">
+								<td>600</td>
+								<td>GUARANI PYG</td>
+							</tr><tr role="row" class="odd">
+								<td>604</td>
+								<td>PERU INTI PEI</td>
+							</tr><tr role="row" class="even">
+								<td>608</td>
+								<td>PHILIPPINE PESO PHP</td>
+							</tr><tr role="row" class="odd">
+								<td>616</td>
+								<td>ZLOTY PLZ</td>
+							</tr><tr role="row" class="even">
+								<td>624</td>
+								<td>GUINEA</td>
+							</tr><tr role="row" class="odd">
+								<td>626</td>
+								<td>TIMOR ESCUDO TPE</td>
+							</tr><tr role="row" class="even">
+								<td>634</td>
+								<td>QATARI RIAL QAR</td>
+							</tr><tr role="row" class="odd">
+								<td>642</td>
+								<td>LEU ROL</td>
+							</tr><tr role="row" class="even">
+								<td>643</td>
+								<td>RUSSIAN ROUBLE RUB</td>
+							</tr><tr role="row" class="odd">
+								<td>646</td>
+								<td>RWANDA FRANC RWF</td>
+							</tr><tr role="row" class="even">
+								<td>654</td>
+								<td>ST.HELENA POUND SHP</td>
+							</tr><tr role="row" class="odd">
+								<td>678</td>
+								<td>DOBRA STD</td>
+							</tr><tr role="row" class="even">
+								<td>682</td>
+								<td>SAUDI RIYAL SAR</td>
+							</tr><tr role="row" class="odd">
+								<td>690</td>
+								<td>SEYCHELLES RUPEE SCR</td>
+							</tr><tr role="row" class="even">
+								<td>694</td>
+								<td>LEONE SLL</td>
+							</tr><tr role="row" class="odd">
+								<td>702</td>
+								<td>SINGAPORE DOLLAR SGD</td>
+							</tr><tr role="row" class="even">
+								<td>703</td>
+								<td>SLOVAK KORUNA SKK</td>
+							</tr><tr role="row" class="odd">
+								<td>704</td>
+								<td>DONG VND</td>
+							</tr><tr role="row" class="even">
+								<td>705</td>
+								<td>SLOVENIAN TOLAR SIT</td>
+							</tr><tr role="row" class="odd">
+								<td>706</td>
+								<td>SOMALI SHILLING SOS</td>
+							</tr><tr role="row" class="even">
+								<td>710</td>
+								<td>RAND ZAR</td>
+							</tr><tr role="row" class="odd">
+								<td>716</td>
+								<td>ZIMBABWE DOLLAR ZWD</td>
+							</tr><tr role="row" class="even">
+								<td>720</td>
+								<td>YEMENI DINAR YDD</td>
+							</tr><tr role="row" class="odd">
+								<td>728</td>
+								<td>SOUTH SUDANESE POUND SSP</td>
+							</tr><tr role="row" class="even">
+								<td>736</td>
+								<td>SUDANESE POUND SDP</td>
+							</tr><tr role="row" class="odd">
+								<td>737</td>
+								<td>SUDAN AIRLINES SDA</td>
+							</tr><tr role="row" class="even">
+								<td>740</td>
+								<td>SURINAM GUILDER SRG</td>
+							</tr><tr role="row" class="odd">
+								<td>748</td>
+								<td>LILANGENI SZL</td>
+							</tr><tr role="row" class="even">
+								<td>752</td>
+								<td>SWEDISH KRONA SEK</td>
+							</tr><tr role="row" class="odd">
+								<td>756</td>
+								<td>SWISS FRANC CHF</td>
+							</tr><tr role="row" class="even">
+								<td>760</td>
+								<td>SYRIAN POUND SYP</td>
+							</tr><tr role="row" class="odd">
+								<td>762</td>
+								<td>TAJIK RUBLE TJR</td>
+							</tr><tr role="row" class="even">
+								<td>764</td>
+								<td>BAHT THB</td>
+							</tr><tr role="row" class="odd">
+								<td>776</td>
+								<td>PA'ANGA TOP</td>
+							</tr><tr role="row" class="even">
+								<td>780</td>
+								<td>TRINIDAD Y TOBAGO DO TTD</td>
+							</tr><tr role="row" class="odd">
+								<td>784</td>
+								<td>UAE DIRHAM AED</td>
+							</tr><tr role="row" class="even">
+								<td>788</td>
+								<td>TUNISIAN DINAR TND</td>
+							</tr><tr role="row" class="odd">
+								<td>792</td>
+								<td>TURKISH LIRA TRL</td>
+							</tr><tr role="row" class="even">
+								<td>793</td>
+								<td>PSEUDO TURKISH LIRA PTL</td>
+							</tr><tr role="row" class="odd">
+								<td>795</td>
+								<td>MANAT TMM</td>
+							</tr><tr role="row" class="even">
+								<td>800</td>
+								<td>UGANDA SHILLING UGS</td>
+							</tr><tr role="row" class="odd">
+								<td>804</td>
+								<td>KARBOVANET UAK</td>
+							</tr><tr role="row" class="even">
+								<td>807</td>
+								<td>MACEDONIAN DENAR MKD</td>
+							</tr><tr role="row" class="odd">
+								<td>810</td>
+								<td>RUSSIAN ROUBLE RUR</td>
+							</tr><tr role="row" class="even">
+								<td>818</td>
+								<td>EGYPTIAN POUND EGP</td>
+							</tr><tr role="row" class="odd">
+								<td>826</td>
+								<td>POUND STERLING GBP</td>
+							</tr><tr role="row" class="even">
+								<td>834</td>
+								<td>TANZANIAN SHILLING TZS</td>
+							</tr><tr role="row" class="odd">
+								<td>840</td>
+								<td>DOLAR U.S.A. USD</td>
+							</tr><tr role="row" class="even">
+								<td>858</td>
+								<td>URUGUAYAN PESO UYP</td>
+							</tr><tr role="row" class="odd">
+								<td>860</td>
+								<td>UZBEKISTAN SUM UZS</td>
+							</tr><tr role="row" class="even">
+								<td>862</td>
+								<td>BOLIVAR VEB</td>
+							</tr><tr role="row" class="odd">
+								<td>882</td>
+								<td>TALA WST</td>
+							</tr><tr role="row" class="even">
+								<td>886</td>
+								<td>YEMINI RIAL YER</td>
+							</tr><tr role="row" class="odd">
+								<td>890</td>
+								<td>NEW YUGOSLAVIAN DOLL YUD</td>
+							</tr><tr role="row" class="even">
+								<td>891</td>
+								<td>NEW DINAR YUG</td>
+							</tr><tr role="row" class="odd">
+								<td>894</td>
+								<td>KWACHA ZMK</td>
+							</tr><tr role="row" class="even">
+								<td>901</td>
+								<td>NEW TAIWAN DOLLAR TWD</td>
+							</tr><tr role="row" class="odd">
+								<td>934</td>
+								<td>NEW MANAT TMT</td>
+							</tr><tr role="row" class="even">
+								<td>936</td>
+								<td>GHANA CEDI GHS</td>
+							</tr><tr role="row" class="odd">
+								<td>941</td>
+								<td>DINAR SERBIO RSD</td>
+							</tr><tr role="row" class="even">
+								<td>943</td>
+								<td>MOZAMBIQUE METICAL MZN</td>
+							</tr><tr role="row" class="odd">
+								<td>944</td>
+								<td>AZERBAIJANIAN MANAT AZN</td>
+							</tr><tr role="row" class="even">
+								<td>946</td>
+								<td>NEW LEU RON</td>
+							</tr><tr role="row" class="odd">
+								<td>949</td>
+								<td>TURKISH LIRA TRY</td>
+							</tr><tr role="row" class="even">
+								<td>950</td>
+								<td>CFA FRANC BEAC XAF</td>
+							</tr><tr role="row" class="odd">
+								<td>951</td>
+								<td>EAST CARIBBEAN DOLLA XCD</td>
+							</tr><tr role="row" class="even">
+								<td>952</td>
+								<td>CFA FRANC BCEAO XOF</td>
+							</tr><tr role="row" class="odd">
+								<td>953</td>
+								<td>CFP FRANC XPF</td>
+							</tr><tr role="row" class="even">
+								<td>954</td>
+								<td>E.C.U. EUROPEAN CUR XEU</td>
+							</tr><tr role="row" class="odd">
+								<td>967</td>
+								<td>KWACHA ZMW</td>
+							</tr><tr role="row" class="even">
+								<td>968</td>
+								<td>SURINAME DOLLAR SRD</td>
+							</tr><tr role="row" class="odd">
+								<td>969</td>
+								<td>ARIARY MGA</td>
+							</tr><tr role="row" class="even">
+								<td>971</td>
+								<td>AFGHANISTAN AFGHANI AFN</td>
+							</tr><tr role="row" class="odd">
+								<td>972</td>
+								<td>TAJIKISTAN SOMONI TJS</td>
+							</tr><tr role="row" class="even">
+								<td>973</td>
+								<td>KWANZA ANGOLA AOA</td>
+							</tr><tr role="row" class="odd">
+								<td>974</td>
+								<td>BELARUSSIAN RUBLE BYR</td>
+							</tr><tr role="row" class="even">
+								<td>975</td>
+								<td>NEW LEV BGN</td>
+							</tr><tr role="row" class="odd">
+								<td>976</td>
+								<td>FRANCO DEL CONGO CDF</td>
+							</tr><tr role="row" class="even">
+								<td>977</td>
+								<td>BOSNIAN MARKA BAM</td>
+							</tr><tr role="row" class="odd">
+								<td>978</td>
+								<td>EURO EUR</td>
+							</tr><tr role="row" class="even">
+								<td>980</td>
+								<td>HRYVNIA UAH</td>
+							</tr><tr role="row" class="odd">
+								<td>981</td>
+								<td>GEORGIAN LARI GEL</td>
+							</tr><tr role="row" class="even">
+								<td>985</td>
+								<td>NEW POLISH ZLOTY PLN</td>
+							</tr><tr role="row" class="odd">
+								<td>986</td>
+								<td>BRAZILIAN REAL BRL</td>
+							</tr><tr role="row" class="even">
+								<td>991</td>
+								<td>RAND FINANCIER ZAL</td>
+							</tr></tbody>
+					</table></div>
+
+					<!-- 	*****************************
+        *****************************
+ 	            TABLA DE IDIOMAS
+ 	    *****************************
+ 	    *****************************  -->
+
+
+					<div id="idiomasTable_wrapper" class="dataTables_wrapper no-footer" style="height: 400px;"><table id="idiomasTable" title="Tabla Idiomas" class="table table-striped errores-sis dataTable no-footer fix-head" role="grid">
+						<thead>
+							<tr role="row"><th style="width: 100px;" class="sorting_disabled" rowspan="1" colspan="1"><input id="isoIdiomaInput" class="errores filter" data-column-index="0" style="color: #555;" value="" placeholder="CÓDIGO ISO" type="text"></th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Idioma</th></tr></thead>
+						<tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						<tr role="row" class="odd">
+								<td>0</td>
+								<td>Por defecto - Español</td>
+							</tr><tr role="row" class="even">
+								<td>1</td>
+								<td>Español</td>
+							</tr><tr role="row" class="odd">
+								<td>2</td>
+								<td>English - Ingles</td>
+							</tr><tr role="row" class="even">
+								<td>3</td>
+								<td>Català</td>
+							</tr><tr role="row" class="odd">
+								<td>4</td>
+								<td>Français - Frances</td>
+							</tr><tr role="row" class="even">
+								<td>5</td>
+								<td>Deutsch - Aleman</td>
+							</tr><tr role="row" class="odd">
+								<td>6</td>
+								<td>Nederlands - Holandes</td>
+							</tr><tr role="row" class="even">
+								<td>7</td>
+								<td>Italiano</td>
+							</tr><tr role="row" class="odd">
+								<td>8</td>
+								<td>Svenska - Sueco</td>
+							</tr><tr role="row" class="even">
+								<td>9</td>
+								<td>Português</td>
+							</tr><tr role="row" class="odd">
+								<td>10</td>
+								<td>Valencià</td>
+							</tr><tr role="row" class="even">
+								<td>11</td>
+								<td>Polski - Polaco</td>
+							</tr><tr role="row" class="odd">
+								<td>12</td>
+								<td>Galego</td>
+							</tr><tr role="row" class="even">
+								<td>13</td>
+								<td>Euskara</td>
+							</tr><tr role="row" class="odd">
+								<td>100</td>
+								<td>български език - Bulgaro</td>
+							</tr><tr role="row" class="even">
+								<td>156</td>
+								<td>Chino</td>
+							</tr><tr role="row" class="odd">
+								<td>191</td>
+								<td>Hrvatski - Croata</td>
+							</tr><tr role="row" class="even">
+								<td>203</td>
+								<td>Čeština - Checo</td>
+							</tr><tr role="row" class="odd">
+								<td>208</td>
+								<td>Dansk - Danes</td>
+							</tr><tr role="row" class="even">
+								<td>233</td>
+								<td>Eesti keel - Estonio</td>
+							</tr><tr role="row" class="odd">
+								<td>246</td>
+								<td>Suomi - Finlandes</td>
+							</tr><tr role="row" class="even">
+								<td>300</td>
+								<td>ελληνικά - Griego</td>
+							</tr><tr role="row" class="odd">
+								<td>348</td>
+								<td>Magyar - Hungaro</td>
+							</tr><tr role="row" class="even">
+								<td>392</td>
+								<td>Japonés</td>
+							</tr><tr role="row" class="odd">
+								<td>428</td>
+								<td>Latviešu valoda - Leton</td>
+							</tr><tr role="row" class="even">
+								<td>440</td>
+								<td>Lietuvių kalba - Lituano</td>
+							</tr><tr role="row" class="odd">
+								<td>470</td>
+								<td>Malti - Maltés</td>
+							</tr><tr role="row" class="even">
+								<td>642</td>
+								<td>Română - Rumano</td>
+							</tr><tr role="row" class="odd">
+								<td>643</td>
+								<td>ру́сский язы́к - Ruso</td>
+							</tr><tr role="row" class="even">
+								<td>703</td>
+								<td>Slovenský jazyk - Eslovaco</td>
+							</tr><tr role="row" class="odd">
+								<td>705</td>
+								<td>Slovenski jezik - Esloveno</td>
+							</tr><tr role="row" class="even">
+								<td>792</td>
+								<td>Türkçe - Turco</td>
+							</tr></tbody>
+					</table></div>
+
+					<!-- 	*****************************
+        *****************************
+ 	          TABLA DS_RESPONSE
+ 	    *****************************
+ 	    *****************************  -->
+
+
+					<div id="dsresponseTable_wrapper" class="dataTables_wrapper no-footer" style="height: 400px;"><table id="dsresponseTable" title="Tabla DS_RESPONSE" class="table table-striped errores-sis dataTable no-footer fix-head" role="grid">
+						<thead>
+							<tr role="row"><th style="width: 100px;" class="sorting_disabled" rowspan="1" colspan="1"><input id="codigoDSresponseInput" class="errores filter" data-column-index="0" style="color: #555;" value="" placeholder="Código" type="text"></th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Significado</th></tr></thead>
+						<tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						<tr role="row" class="odd">
+								<td>0000 a 0099</td>
+								<td>Transacción autorizada para pagos y preautorizaciones</td>
+							</tr><tr role="row" class="even">
+								<td>900</td>
+								<td>Transacción autorizada para devoluciones y
+									confirmaciones</td>
+							</tr><tr role="row" class="odd">
+								<td>400</td>
+								<td>Transacción autorizada para anulaciones</td>
+							</tr><tr role="row" class="even">
+								<td>101</td>
+								<td>Tarjeta caducada</td>
+							</tr><tr role="row" class="odd">
+								<td>102</td>
+								<td>Tarjeta en excepción transitoria o bajo sospecha de
+									fraude</td>
+							</tr><tr role="row" class="even">
+								<td>106</td>
+								<td>Intentos de PIN excedidos</td>
+							</tr><tr role="row" class="odd">
+								<td>125</td>
+								<td>Tarjeta no efectiva</td>
+							</tr><tr role="row" class="even">
+								<td>129</td>
+								<td>Código de seguridad (CVV2/CVC2) incorrecto</td>
+							</tr><tr role="row" class="odd">
+								<td>172</td>
+								<td>Denegada, no repetir.</td>
+							</tr><tr role="row" class="even">
+								<td>173</td>
+								<td>Denegada, no repetir sin actualizar datos de tarjeta.</td>
+							</tr><tr role="row" class="odd">
+								<td>174</td>
+								<td>Denegada, no repetir antes de 72 horas.</td>
+							</tr><tr role="row" class="even">
+								<td>180</td>
+								<td>Tarjeta ajena al servicio</td>
+							</tr><tr role="row" class="odd">
+								<td>184</td>
+								<td>Error en la autenticación del titular</td>
+							</tr><tr role="row" class="even">
+								<td>190</td>
+								<td>Denegación del emisor sin especificar motivo</td>
+							</tr><tr role="row" class="odd">
+								<td>191</td>
+								<td>Fecha de caducidad errónea</td>
+							</tr><tr role="row" class="even">
+								<td>202</td>
+								<td>Tarjeta en excepción transitoria o bajo sospecha de
+									fraude con retirada de tarjeta</td>
+							</tr><tr role="row" class="odd">
+								<td>904</td>
+								<td>Comercio no registrado en FUC</td>
+							</tr><tr role="row" class="even">
+								<td>909</td>
+								<td>Error de sistema</td>
+							</tr><tr role="row" class="odd">
+								<td>913</td>
+								<td>Pedido repetido</td>
+							</tr><tr role="row" class="even">
+								<td>944</td>
+								<td>Sesión Incorrecta</td>
+							</tr><tr role="row" class="odd">
+								<td>950</td>
+								<td>Operación de devolución no permitida</td>
+							</tr><tr role="row" class="even">
+								<td>9912/912</td>
+								<td>Emisor no disponible</td>
+							</tr><tr role="row" class="odd">
+								<td>9064</td>
+								<td>Número de posiciones de la tarjeta incorrecto</td>
+							</tr><tr role="row" class="even">
+								<td>9078</td>
+								<td>Tipo de operación no permitida para esa tarjeta</td>
+							</tr><tr role="row" class="odd">
+								<td>9093</td>
+								<td>Tarjeta no existente</td>
+							</tr><tr role="row" class="even">
+								<td>9094</td>
+								<td>Rechazo servidores internacionales</td>
+							</tr><tr role="row" class="odd">
+								<td>9104</td>
+								<td>Comercio con "titular seguro" y titular sin clave de
+									compra segura</td>
+							</tr><tr role="row" class="even">
+								<td>9218</td>
+								<td>El comercio no permite op. seguras por entrada
+									/operaciones</td>
+							</tr><tr role="row" class="odd">
+								<td>9253</td>
+								<td>Tarjeta no cumple el check-digit</td>
+							</tr><tr role="row" class="even">
+								<td>9256</td>
+								<td>El comercio no puede realizar preautorizaciones</td>
+							</tr><tr role="row" class="odd">
+								<td>9257</td>
+								<td>Esta tarjeta no permite operativa de preautorizaciones</td>
+							</tr><tr role="row" class="even">
+								<td>9261</td>
+								<td>Operación detenida por superar el control de
+									restricciones en la entrada al SIS</td>
+							</tr><tr role="row" class="odd">
+								<td>9915</td>
+								<td>A petición del usuario se ha cancelado el pago</td>
+							</tr><tr role="row" class="even">
+								<td>9997</td>
+								<td>Se está procesando otra transacción en SIS con la misma
+									tarjeta</td>
+							</tr><tr role="row" class="odd">
+								<td>9998</td>
+								<td>Operación en proceso de solicitud de datos de tarjeta</td>
+							</tr><tr role="row" class="even">
+								<td>9999</td>
+								<td>Operación que ha sido redirigida al emisor a autenticar</td>
+							</tr></tbody>
+					</table></div>
+
+					<!-- 	*****************************
+        *****************************
+ 	       TABLA TRANSACTION TYPE
+ 	    *****************************
+ 	    *****************************  -->
+					<div id="dstransactiontypeTable_wrapper" class="dataTables_wrapper no-footer" style="height: 400px;"><table id="dstransactiontypeTable" title="Tabla
+								DS_MERCHANT_TRANSACTIONTYPE" class="table table-striped errores-sis dataTable no-footer fix-head" role="grid">
+						<thead>
+							<tr role="row"><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">TIPO DE OPERACIÓN</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">DS_MERCHANT_TRANSACTIONSTYPE</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">ENTRADAS</th></tr></thead>
+						<tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						<tr role="row" class="odd">
+								<td>Autorización</td>
+								<td>0</td>
+								<td><ul>
+										<li>Redirección</li>
+										<li>REST/SOAP</li>
+									</ul></td>
+							</tr><tr role="row" class="even">
+								<td>Preautorización</td>
+								<td>1</td>
+								<td><ul>
+										<li>Redirección</li>
+										<li>REST/SOAP</li>
+									</ul></td>
+							</tr><tr role="row" class="odd">
+								<td>Preautorización de reemplazo</td>
+								<td>11</td>
+								<td><ul>
+										<li>Redirección</li>
+										<li>REST/SOAP</li>
+									</ul></td>
+							</tr><tr role="row" class="even">
+								<td>Confirmación</td>
+								<td>2</td>
+								<td><ul>
+										<li>Redirección</li>
+										<li>REST/SOAP</li>
+									</ul></td>
+							</tr><tr role="row" class="odd">
+								<td>Devolución</td>
+								<td>3</td>
+								<td><ul>
+										<li>Redirección</li>
+										<li>REST/SOAP</li>
+									</ul></td>
+							</tr><tr role="row" class="even">
+								<td>Preautorización Separada</td>
+								<td>7</td>
+								<td><ul>
+										<li>Redirección</li>
+										<li>REST/SOAP</li>
+									</ul></td>
+							</tr><tr role="row" class="odd">
+								<td>Confirmación Separada</td>
+								<td>8</td>
+								<td><ul>
+										<li>Redirección</li>
+										<li>REST/SOAP</li>
+									</ul></td>
+							</tr><tr role="row" class="even">
+								<td>Anulación</td>
+								<td>9</td>
+								<td><ul>
+										<li>Redirección</li>
+										<li>REST/SOAP</li>
+									</ul></td>
+							</tr><tr role="row" class="odd">
+								<td>Paygold</td>
+								<td>15</td>
+								<td><ul>
+										<li>Redirección</li>
+										<li>REST/SOAP</li>
+									</ul></td>
+							</tr><tr role="row" class="even">
+								<td>Autenticación Puce</td>
+								<td>17</td>
+								<td><ul>
+										<li>REST/SOAP</li>
+									</ul></td>
+							</tr><tr role="row" class="odd">
+								<td>Devolución sin original</td>
+								<td>34</td>
+								<td><ul>
+										<li>Redirección</li>
+										<li>REST/SOAP</li>
+									</ul></td>
+							</tr><tr role="row" class="even">
+								<td>Premio de apuestas</td>
+								<td>37</td>
+								<td><ul>
+										<li>REST/SOAP</li>
+									</ul></td>
+							</tr><tr role="row" class="odd">
+								<td>Anulación de pago</td>
+								<td>45</td>
+								<td><ul>
+										<li>Redirección</li>
+										<li>REST/SOAP</li>
+									</ul></td>
+							</tr><tr role="row" class="even">
+								<td>Anulación de devolución</td>
+								<td>46</td>
+								<td><ul>
+										<li>Redirección</li>
+										<li>REST/SOAP</li>
+									</ul></td>
+							</tr><tr role="row" class="odd">
+								<td>Anulación de confirmación separada</td>
+								<td>47</td>
+								<td><ul>
+										<li>Redirección</li>
+										<li>REST/SOAP</li>
+									</ul></td>
+							</tr><tr role="row" class="even">
+								<td>Modificación de caducidad del enlace (Paygold)</td>
+								<td>51</td>
+								<td><ul>
+										<li>Redirección</li>
+										<li>REST/SOAP</li>
+									</ul></td>
+							</tr></tbody>
+					</table></div>
+					<!-- 	*****************************
+        *****************************
+ 	             TABLA EMV3DS
+ 	    *****************************
+ 	    *****************************  -->
+
+					<div id="dsemv3dsTable_wrapper" class="dataTables_wrapper no-footer" style="height: 400px;"><table id="dsemv3dsTable" title="Tabla DS_MERCHANT_EMV3DS" class="table table-striped errores-sis dataTable no-footer fix-head" role="grid">
+
+
+						<thead id="tableHeader">
+							<tr id="pp" role="row"><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">DATO</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;"><input id="datoDSemv3dInput" class="errores filter" data-column-index="1" style="color: #555;" value="" placeholder="NOMBRE DEL DATO" type="text"></th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Long. / Tipo</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">OPCION DEL PARÁMETRO<br> <select id="opcionDSemv3dInput" class="errores filter" data-column-index="3" style="color: #555;" value="">
+										<option value=""></option>
+										<option value="OBLIGATORIO">OBLIGATORIO</option>
+										<option value="OPCIONAL">OPCIONAL</option>
+										<option value="CONDICIONAL">CONDICIONAL</option>
+										<option value="RECOMENDABLE">RECOMENDABLE</option>
+								</select></th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">COMENTARIOS</th></tr>
+						</thead>
+						<tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						<tr role="row" class="odd">
+								<td>Información adicional de la cuenta del cliene</td>
+								<td>acctID</td>
+								<td>Variable, máximo 64 / A-N</td>
+								<td>OPCIONAL</td>
+								<td>Información adicional sobre la cuenta</td>
+							</tr><tr role="row" class="even">
+								<td>Información de la cuenta del titular</td>
+								<td>acctInfo</td>
+								<td>JSON Data Type Object</td>
+								<td>RECOMENDABLE</td>
+								<td>Información adicional de la cuenta de usuario en
+									el establecimiento.
+									<br><br><b>***Se recomienda enviar este parámetro para mejorar la
+									experiencia del usuario en el proceso de autenticación.</b>.<br><br>
+									 Ver tabla <a class="table-link" style="color: #dc7c26;" table-target="acctInfoTable">acctInfo</a>
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Indicador de coincidencia de dirección</td>
+								<td>addrMatch</td>
+								<td>1/A-N</td>
+								<td>OPCIONAL</td>
+								<td>Indica si la dirección de envío es la misma que la
+									dirección de facturación
+									<ul>
+										<li>Y= La dirección de envío es la misma que la de
+											facturación</li>
+										<li>N= Las direcciones de envío y facturación son
+											diferentes</li>
+									</ul>
+								</td>
+							</tr><tr role="row" class="even">
+								<td>Ciudad de la dirección de facturación</td>
+								<td>billAddrCity</td>
+								<td>Variable, máximo 50 / A-N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Definido como Conditional por el estándar EMV 3DS, podría ser
+									requerido según el
+									emisor de la
+									tarjeta. Altamente recomendado para permitir autenticaciones
+									basadas en análisis del
+									riesgo (Risk
+									Based Analisys) y facilitar una experiencia de compra sin
+									fricción (frictionless).
+									Igualmente
+									recomendable si se solicita la aplicación de exenciones SCA
+									(PSD2). " data-original-title="" title="">OPCIONAL</a>
+								</td>
+								<td>La ciudad de la dirección de facturación del titular de
+									la tarjeta asociada a la compra</td>
+							</tr><tr role="row" class="odd">
+								<td>País de la dirección de facturación</td>
+								<td>billAddrCountry</td>
+								<td>3 / N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio si se envía el billAddrState. " data-original-title="" title="">
+										CONDICIONAL</a></td>
+								<td>Corresponde al código numérico (ISO 3166-1) del país de
+									la dirección de facturación del titular de la tarjeta asociada
+									asociado a la compra</td>
+							</tr><tr role="row" class="even">
+								<td>Dirección de facturación (línea 1)</td>
+								<td>billAddrLine1</td>
+								<td>Variable, máximo 50 / A-N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Definido como Conditional por el estándar EMV 3DS, podría ser
+									requerido según el
+									emisor de la
+									tarjeta. Altamente recomendado para permitir autenticaciones
+									basadas en análisis del
+									riesgo (Risk
+									Based Analisys) y facilitar una experiencia de compra sin
+									fricción (frictionless).
+									Igualmente
+									recomendable si se solicita la aplicación de exenciones SCA
+									(PSD2). " data-original-title="" title="">
+										OPCIONAL</a></td>
+								<td>Primera línea de la dirección de facturación del
+									titular de la tarjeta asociada a la compra</td>
+							</tr><tr role="row" class="odd">
+								<td>Dirección de facturación (línea 2)</td>
+								<td>billAddrLine2</td>
+								<td>Variable, máximo 50 / A-N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Definido como Conditional por el estándar EMV 3DS, podría ser
+									requerido según el
+									emisor de la
+									tarjeta. Altamente recomendado para permitir autenticaciones
+									basadas en análisis del
+									riesgo (Risk
+									Based Analisys) y facilitar una experiencia de compra sin
+									fricción (frictionless).
+									Igualmente
+									recomendable si se solicita la aplicación de exenciones SCA
+									(PSD2)." data-original-title="" title="">
+										OPCIONAL</a></td>
+								<td>Segunda línea de la dirección de facturación del
+									titular de la tarjeta asociada a la compra.</td>
+							</tr><tr role="row" class="even">
+								<td>Dirección de facturación (línea 3)</td>
+								<td>billAddrLine3</td>
+								<td>Longitud: Variable, máximo 50 / A-N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Definido como Conditional por el estándar EMV 3DS, podría ser
+									requerido según el
+									emisor de la
+									tarjeta. Altamente recomendado para permitir autenticaciones
+									basadas en análisis del
+									riesgo (Risk
+									Based Analisys) y facilitar una experiencia de compra sin
+									fricción (frictionless).
+									Igualmente
+									recomendable si se solicita la aplicación de exenciones SCA
+									(PSD2)." data-original-title="" title="">
+										OPCIONAL</a></td>
+								<td>Tercera línea de la dirección de facturación del
+									titular de la tarjeta asociada a la compra.</td>
+							</tr><tr role="row" class="odd">
+								<td>Código postal de la dirección de facturación</td>
+								<td>billAddrPostCode</td>
+								<td>Variable, máximo 16 / A-N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Definido como Conditional por el estándar EMV 3DS, podría ser
+									requerido según el
+									emisor de la
+									tarjeta. Altamente recomendado para permitir autenticaciones
+									basadas en análisis del
+									riesgo (Risk
+									Based Analisys) y facilitar una experiencia de compra sin
+									fricción (frictionless).
+									Igualmente
+									recomendable si se solicita la aplicación de exenciones SCA
+									(PSD2)." data-original-title="" title="">
+										OPCIONAL</a></td>
+								<td>Código postal de la dirección de facturación del
+									titular de la tarjeta asociada a la compra.</td>
+							</tr><tr role="row" class="even">
+								<td>Estado o provincia de la dirección de facturación</td>
+								<td>billAddrState</td>
+								<td>Variable, máximo 3 / A-N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Definido como Conditional por el estándar EMV 3DS, podría ser
+									requerido según el
+									emisor de la
+									tarjeta. Altamente recomendado para permitir autenticaciones
+									basadas en análisis del
+									riesgo (Risk
+									Based Analisys) y facilitar una experiencia de compra sin
+									fricción (frictionless).
+									Igualmente
+									recomendable si se solicita la aplicación de exenciones SCA
+									(PSD2)." data-original-title="" title="">
+										OPCIONAL</a></td>
+								<td>El estado o provincia de la dirección de facturación
+									del titular de la tarjeta asociada a esta compra.<br>Corresponde
+									al código de subdivisión ISO 3166-2
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Browser Accept Headers</td>
+								<td>browserAcceptHeader</td>
+								<td>Variable, máximo 2048 / A-N</td>
+								<td>OBLIGATORIO</td>
+								<td>HTTP accept headers enviado desde el navegador .</td>
+							</tr><tr role="row" class="even">
+								<td>Browser Screen Color Depth</td>
+								<td>browserColorDepth</td>
+								<td>1-2 /A-N</td>
+								<td>OBLIGATORIO</td>
+								<td>Valor que representa la profundidad de bits de la
+									paleta de colores para mostrar imágenes, en bits por píxel.<br>Obtenido
+									desde el navegador del titular de la tarjeta utilizando la
+									propiedad screen.colorDepth.<br>Valores aceptados:<br>1
+									= 1 bit<br>4 = 4 bits<br>8 = 8 bits<br>15 = 15
+									bits<br>16 = 16 bit<br>24 = 24 bits<br>32 = 32
+									bits<br>48 = 48 bits<br>Enviar 1 en el caso que no
+									tenga habilitado javascript (versión 3DS2.1.0)
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Browser IP Address</td>
+								<td>browserIP</td>
+								<td>Variable, máximo 45 / A-N</td>
+								<td>OBLIGATORIO</td>
+								<td>IP del navegador. Value accepted: IPv4 address Ejemplo:
+									1.12.123.255 IPv6 address.
+									Ejemplo:2011:0db8:85a3:0101:0101:8a2e:0370:7334</td>
+							</tr><tr role="row" class="even">
+								<td>Browser Java Enabled</td>
+								<td>browserJavaEnabled</td>
+								<td>Boolean</td>
+								<td>OBLIGATORIO</td>
+								<td>Indicador de capacidad del navegador de ejecutar Java
+									Valores aceptados:
+									<ul>
+										<li>true</li>
+										<li>false</li>
+									</ul> Si no tiene habilitado javascript enviar false (versión
+									3DS2.1.0)
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Browser JavaScript Enabled</td>
+								<td>browserJavascriptEnabled</td>
+								<td>Boolean</td>
+								<td>CONDICIONAL</td>
+								<td>Indicador de capacidad del navegador de ejecutar
+									Javascript Valores aceptados:
+									<ul>
+										<li>true</li>
+										<li>false</li>
+									</ul>.Si no tiene habilitado javascript enviar false (versión
+									3DS2.1.0)
+								</td>
+							</tr><tr role="row" class="even">
+								<td>Browser Language</td>
+								<td>browserLanguage</td>
+								<td>Variable, 1-8 / A-N</td>
+								<td>OBLIGATORIO</td>
+								<td>Idioma del navegador definido en IETF BCP47 . Es el
+									valor retornado por la propiedad navigator.language</td>
+							</tr><tr role="row" class="odd">
+								<td>Browser Screen Height</td>
+								<td>browserScreenHeight</td>
+								<td>Variable, 1-6 / A-N</td>
+								<td>OBLIGATORIO</td>
+								<td>Altura total de la pantalla en píxeles<br>El valor
+									se devuelve de la propiedad screen.height<br>Enviar 0 en
+									el caso que no tenga habilitado javascript (versión 3Ds2.1.0)
+								</td>
+							</tr><tr role="row" class="even">
+								<td>Browser Screen Width</td>
+								<td>browserScreenWidth</td>
+								<td>Variable, 1-6 / A-N</td>
+								<td>OBLIGATORIO</td>
+								<td>Ancho total de la pantalla en píxeles.<br>El valor
+									se devuelve de la propiedad screen.width<br>Enviar 0 en el
+									caso que no tenga habilitado javascript (version 3DS2.1.0)
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Browser Time Zone</td>
+								<td>browserTZ</td>
+								<td>1-5 / A-N</td>
+								<td>OBLIGATORIO</td>
+								<td>Diferencia horaria entre la hora UTC y la hora local
+									del navegador, en minutos<br>Value accepted:<br>Value
+									is returned from the getTimezoneOffset() method<br>Enviar
+									0 en el caso que no tenga habilitado javascript (version
+									3DS2.1.0)
+								</td>
+							</tr><tr role="row" class="even">
+								<td>Browser User-Agent</td>
+								<td>browserUserAgent</td>
+								<td>Variable, máximo 2048 / A-N</td>
+								<td>OBLIGATORIO</td>
+								<td>Http user-agent header<br>Si la longitud total del
+									User-Agent enviado por el navegador supera los 2048 caracteres,
+									el valor será truncado
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Nombre del titular</td>
+								<td>cardholderName</td>
+								<td>Variable, 2-45 / A-N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Definido como Conditional por el estándar EMV 3DS, podría ser
+									requerido según el
+									emisor de la
+									tarjeta. Altamente recomendado para permitir autenticaciones
+									basadas en análisis del
+									riesgo (Risk
+									Based Analisys) y facilitar una experiencia de compra sin
+									fricción (frictionless).
+									Igualmente
+									recomendable si se solicita la aplicación de exenciones SCA
+									(PSD2)." data-original-title="" title="">
+										OPCIONAL</a></td>
+								<td>Nombre del titular</td>
+							</tr><tr role="row" class="even">
+								<td>Tamaño de ventana del challenge</td>
+								<td>challengeWindowSize</td>
+								<td>2 / A-N</td>
+								<td>OPCIONAL</td>
+								<td>"Dimensión de ventana de challenge que el banco emisor
+									presentará al cliente para realizar la autenticación<br>Valores
+									posibles (tamaño en píxeles):<br>01 = 250 x 400<br>02
+									= 390 x 400<br>03 = 500 x 600<br>04 = 600 x 400<br>05
+									= Full screen (Valor por defecto<br>El tamaño
+									precondigurado es el ancho x alto en píxeles de la ventana del
+									navegador
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Cres de respuesta del ACS al Challenge</td>
+								<td>cres</td>
+								<td>Variable length / JSON Data Type: String</td>
+								<td>OPCIONAL</td>
+								<td>Cres de respuesta del ACS, se deberá enviar de
+									respuesta de la autenticación. <br>cres codificado
+									Base64url<br>
+								</td>
+							</tr><tr role="row" class="even">
+								<td>Dirección de correo electrónico del titular</td>
+								<td>Email</td>
+								<td>Variable, máximo 254 / A-N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Definido como Conditional por el estándar EMV 3DS, podría ser
+									requerido según el
+									emisor de la
+									tarjeta. Altamente recomendado para permitir autenticaciones
+									basadas en análisis del
+									riesgo (Risk
+									Based Analisys) y facilitar una experiencia de compra sin
+									fricción (frictionless).
+									Igualmente
+									recomendable si se solicita la aplicación de exenciones SCA
+									(PSD2)." data-original-title="" title="">
+										RECOMENDABLE</a></td>
+								<td>La dirección de correo electrónico asociada con la
+									cuenta del titular de la tarjeta.
+									<br><br><b>***Se recomienda enviar este parámetro para mejorar la
+									experiencia del usuario en el proceso de autenticación.</b></td>
+							</tr><tr role="row" class="odd">
+								<td>Número de teléfono del domicilio</td>
+								<td>homePhone</td>
+								<td>JSON Data Type: Object</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Definido como Conditional por el estándar EMV 3DS, podría ser
+									requerido según el
+									emisor de la
+									tarjeta. Altamente recomendado para permitir autenticaciones
+									basadas en análisis del
+									riesgo (Risk
+									Based Analisys) y facilitar una experiencia de compra sin
+									fricción (frictionless).
+									Igualmente
+									recomendable si se solicita la aplicación de exenciones SCA
+									(PSD2)." data-original-title="" title="">
+										RECOMENDABLE</a></td>
+								<td>Número de teléfono del domicilio del titular.
+								<br><br><b>***Se recomienda enviar este parámetro para mejorar la
+									experiencia del usuario en el proceso de autenticación.</b><br><br> Ver <a class="table-link" style="color: #dc7c26;" table-target="phoneTable">tabla Phone</a></td>
+							</tr><tr role="row" class="even">
+								<td>Indicador de riesgo del comerciante</td>
+								<td>merchantRiskIndicator</td>
+								<td>JSON Data Type: Object</td>
+								<td>OPCIONAL</td>
+								<td>Altamente recomendable el envío de esta información.
+									Información adicional del comercio que representa la evaluación
+									del nivel de riesgo de fraude para la autenticación. Ver tabla
+									<a class="table-link" style="color: #dc7c26;" table-target="riskTable">merchantRiskIndicator</a>
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Número de móvil del titular</td>
+								<td>mobilePhone</td>
+								<td>JSON Data Type: Object</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Definido como Conditional por el estándar EMV 3DS, podría ser
+									requerido según el
+									emisor de la
+									tarjeta. Altamente recomendado para permitir autenticaciones
+									basadas en análisis del
+									riesgo (Risk
+									Based Analisys) y facilitar una experiencia de compra sin
+									fricción (frictionless).
+									Igualmente
+									recomendable si se solicita la aplicación de exenciones SCA
+									(PSD2)." data-original-title="" title="">
+										OPCIONAL</a></td>
+								<td>Número de teléfono móvil del titular. Ver tabla <a class="table-link" style="color: #dc7c26;" table-target="phoneTable">tabla Phone</a></td>
+							</tr><tr role="row" class="even">
+								<td>URL de notificación de respuesta del challenge</td>
+								<td>notificationURL</td>
+								<td>Variable, máximo 256 / A-N</td>
+								<td>OBLIGATORIO</td>
+								<td>Url del comercio que recibirá la notificación con el
+									mensaje CRes al finaliza el challenge</td>
+							</tr><tr role="row" class="odd">
+								<td>Versión del protocolo 3DSecure</td>
+								<td>protocolVersion</td>
+								<td>Variable 5-8 / A-N</td>
+								<td>OBLIGATORIO</td>
+								<td>Versión de protocolo 3DSecure Valores posibles:
+									<ul>
+										<li>1.0.2</li>
+										<li>2.1.0</li>
+										<li>2.2.0</li>
+									</ul>
+
+								</td>
+							</tr><tr role="row" class="even">
+								<td>Datos de pago aplazado</td>
+								<td>purchaseInstalData</td>
+								<td>Variable, máximo 3 / N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio para operaciones Instalment." data-original-title="" title="">
+										CONDICIONAL</a></td>
+								<td>Indica el número máximo de autorizaciones en pago
+									aplazado Valores aceptados: El valor debe ser mayor que 1</td>
+							</tr><tr role="row" class="odd">
+								<td>Finalización de pago recurrente</td>
+								<td>recurringExpiry</td>
+								<td>8 / A-N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio para operaciones Recurring e Instalment." data-original-title="" title="">
+										CONDICIONAL</a></td>
+								<td>La fecha a partir de la cual no se harán más
+									autorizaciones Formato aceptado: YYYYMMDD</td>
+							</tr><tr role="row" class="even">
+								<td>Frecuencia de pagos recurrentes</td>
+								<td>recurringFrequency</td>
+								<td>Variable, máximo 4 / A-N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio para operaciones Recurring e Instalment." data-original-title="" title="">
+										CONDICIONAL</a></td>
+								<td>Indica el mínimo número de días entre autorizaciones</td>
+							</tr><tr role="row" class="odd">
+								<td>Ciudad de la dirección de envío</td>
+								<td>shipAddrCity</td>
+								<td>Variable, máximo 50 / A-N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Definido como Conditional por el estándar EMV 3DS, podría ser
+									requerido según el
+									emisor de la
+									tarjeta. Altamente recomendado para permitir autenticaciones
+									basadas en análisis del
+									riesgo (Risk
+									Based Analisys) y facilitar una experiencia de compra sin
+									fricción (frictionless).
+									Igualmente
+									recomendable si se solicita la aplicación de exenciones SCA
+									(PSD2). " data-original-title="" title="">
+										OPCIONAL</a></td>
+								<td>Ciudad de la dirección de envío solicitada por el
+									titular de la tarjeta</td>
+							</tr><tr role="row" class="even">
+								<td>País de la dirección de envío</td>
+								<td>shipAddrCountry</td>
+								<td>3 / N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Obligatorio si se envía el shipAddrState . " data-original-title="" title="">
+										CONDICIONAL</a></td>
+								<td>Corresponde al código numérico (ISO 3166-1) del país de
+									la dirección de envío solicitada por el titular de la tarjeta</td>
+							</tr><tr role="row" class="odd">
+								<td>Dirección de envío (línea 1)</td>
+								<td>shipAddrLine1</td>
+								<td>Variable, máximo 50 / A-N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Definido como Conditional por el estándar EMV 3DS, podría ser
+									requerido según el
+									emisor de la
+									tarjeta. Altamente recomendado para permitir autenticaciones
+									basadas en análisis del
+									riesgo (Risk
+									Based Analisys) y facilitar una experiencia de compra sin
+									fricción (frictionless).
+									Igualmente
+									recomendable si se solicita la aplicación de exenciones SCA
+									(PSD2). " data-original-title="" title="">
+										RECOMENDABLE</a></td>
+								<td>Primera línea de la dirección de envío solicitada por
+									el titular de la tarjeta.
+									<br><br><b>***Se recomienda enviar este parámetro para mejorar la
+									experiencia del usuario en el proceso de autenticación.</b></td>
+							</tr><tr role="row" class="even">
+								<td>Dirección de envío (línea 2)</td>
+								<td>shipAddrLine2</td>
+								<td>Variable, máximo 50 / A-N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Definido como Conditional por el estándar EMV 3DS, podría ser
+									requerido según el
+									emisor de la
+									tarjeta. Altamente recomendado para permitir autenticaciones
+									basadas en análisis del
+									riesgo (Risk
+									Based Analisys) y facilitar una experiencia de compra sin
+									fricción (frictionless).
+									Igualmente
+									recomendable si se solicita la aplicación de exenciones SCA
+									(PSD2). " data-original-title="" title="">
+										OPCIONAL</a></td>
+								<td>Segunda línea de la dirección de envío solicitada por
+									el titular de la tarjeta.</td>
+							</tr><tr role="row" class="odd">
+								<td>Dirección de envío (línea 3)</td>
+								<td>shipAddrLine3</td>
+								<td>Variable, máximo 50 / A-N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Definido como Conditional por el estándar EMV 3DS, podría ser
+									requerido según el
+									emisor de la
+									tarjeta. Altamente recomendado para permitir autenticaciones
+									basadas en análisis del
+									riesgo (Risk
+									Based Analisys) y facilitar una experiencia de compra sin
+									fricción (frictionless).
+									Igualmente
+									recomendable si se solicita la aplicación de exenciones SCA
+									(PSD2). " data-original-title="" title="">
+										OPCIONAL</a></td>
+								<td>Tercera línea de la dirección de envío solicitada por
+									el titular de la tarjeta</td>
+							</tr><tr role="row" class="even">
+								<td>Código postal de la dirección de envío</td>
+								<td>shipAddrPostCode</td>
+								<td>Variable, máximo 16 / A-N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Definido como Conditional por el estándar EMV 3DS, podría ser
+									requerido según el
+									emisor de la
+									tarjeta. Altamente recomendado para permitir autenticaciones
+									basadas en análisis del
+									riesgo (Risk
+									Based Analisys) y facilitar una experiencia de compra sin
+									fricción (frictionless).
+									Igualmente
+									recomendable si se solicita la aplicación de exenciones SCA
+									(PSD2). " data-original-title="" title="">
+										OPCIONAL</a></td>
+								<td>El código postal de la dirección de envío solicitada
+									por el titular de la tarjeta.</td>
+							</tr><tr role="row" class="odd">
+								<td>Estado o provincia de la dirección de envío</td>
+								<td>shipAddrState</td>
+								<td>Variable, máximo 3 / A-N</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Definido como Conditional por el estándar EMV 3DS, podría ser
+									requerido según el
+									emisor de la
+									tarjeta. Altamente recomendado para permitir autenticaciones
+									basadas en análisis del
+									riesgo (Risk
+									Based Analisys) y facilitar una experiencia de compra sin
+									fricción (frictionless).
+									Igualmente
+									recomendable si se solicita la aplicación de exenciones SCA
+									(PSD2). " data-original-title="" title="">
+										OPCIONAL</a></td>
+								<td>El estado o provincia de la dirección de envío asociada
+									con la tarjeta utilizada para esta compra. Corresponde al
+									código de subdivisión ISO 3166-2</td>
+							</tr><tr role="row" class="even">
+								<td>Indicador del resultado del 3DSMethod</td>
+								<td>threeDSCompInd</td>
+								<td>1 / Y,N,U</td>
+								<td>OBLIGATORIO</td>
+								<td>Indica si el 3DSMethod se ha ejecutado<br>Values
+									accepted:<br>
+									<ul>
+										<li>Y= Completado correctamente</li>
+										<li>N =Completado con errores</li>
+										<li>U = 3DSMethod no ejecutado</li>
+									</ul>
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Tipo de información 3dSecure enviada</td>
+								<td>threeDSInfo</td>
+								<td>Variable, máximo 32/A-N</td>
+								<td>OBLIGATORIO</td>
+								<td>Tipo de solicitud. Valores posibles:
+									<ul>
+										<li>CardData</li>
+										<li>AuthenticationData</li>
+										<li>ChallengeResponse</li>
+									</ul>
+							</td></tr><tr role="row" class="even">
+								<td>Información de inicio de sesión en el establecimiento</td>
+								<td>threeDSRequestorAuthenticationInfo</td>
+								<td>JSON Data Type: Object</td>
+								<td>OPCIONAL</td>
+								<td>Información adicional sobre como el cliente se
+									autenticó en el inicio de sesión en la cuenta del comercio. Ver
+									tabla <a class="table-link" style="color: #dc7c26;" table-target="dsauthenticationTable">threeDSRequestorAuthenticationInfo</a>
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Preferencia del comercio para la autenticación</td>
+								<td>threeDSRequestorChallengeInd</td>
+								<td>2/JSON Data Type: String</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="CONDICIONAL para conexiones host to host (webservice soap o rest)
+								Para conexiones host to host, en el caso de operaciones rechazadas con código 195 (soft decline) el
+								comercio deberá reenviar la operación con el parámetro threDSRequestorChallengeInd= 4, indicando así la necesidad de que
+								al cliente se le aplique autenticación reforzada (a petición del emisor)
+								OPCIONAL para conexiones por Redirección " data-original-title="" title="">
+										CONDICIONAL</a></td>
+								<td>Indica la preferencia del comercio para que se aplique
+									autenticación reforzada (SCA) a su cliente en esta operación.
+									Valores posibles: 03: indica que el comercio desea que se
+									aplique autenticación reforzada (SCA) a su cliente 04: indica
+									que hay un mandato que obliga al cliente a la autenticación
+									reforzada (SCA) En caso de no enviarse este parámetro no se
+									indicará preferencia alguna al emisor y la operación puede ser
+									exencionada, autenticada con SCA o autenticada sin SCA
+									(frictionless).</td>
+							</tr><tr role="row" class="even">
+								<td>Identificador de transacción 3DSecure</td>
+								<td>threeDSServerTransID</td>
+								<td>36 / A-N</td>
+								<td>OBLIGATORIO</td>
+								<td>El mismo valor devuelto en la consutla de tarjeta</td>
+							</tr><tr role="row" class="odd">
+								<td>Teléfono del trabajo</td>
+								<td>workPhone</td>
+								<td>JSON Data Type: Object</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Definido como Conditional por el estándar EMV 3DS, podría ser
+									requerido según el
+									emisor de la
+									tarjeta. Altamente recomendado para permitir autenticaciones
+									basadas en análisis del
+									riesgo (Risk
+									Based Analisys) y facilitar una experiencia de compra sin
+									fricción (frictionless).
+									Igualmente
+									recomendable si se solicita la aplicación de exenciones SCA
+									(PSD2). " data-original-title="" title="">
+										OPCIONAL</a></td>
+								<td>Número de teléfono del trabajo.Ver tabla <a class="table-link" style="color: #dc7c26;" table-target="phoneTable">tabla Phone</a></td>
+							</tr><tr role="row" class="even">
+								<td>Información de la autenticación previa</td>
+								<td>threeDSRequestorPriorAuthenticationInfo</td>
+								<td>JSON Data Type: Object</td>
+								<td>OPCIONAL</td>
+								<td>Datos de la autenticación previa. Estos datos pueden
+									ser requeridos en determinadas operativas. Por ejemplo, en
+									recurrentes EMV 3DS subsiguientes deberá enviarse en este campo
+									el json Object threeDSRequestorPriorAuthenticationInfo de la
+									recurrente inicial, es decir, lo mismo que se devolvió en el
+									threeDSRequestorPriorAuthenticationInfo (DS_EMV3DS) en la
+									recurrente inicial. Para más información consultar el apartado
+									Funcionalidades Avanzadas EMV3DS en las guías de integración</td>
+							</tr><tr role="row" class="odd">
+								<td>Preferencia del comercio para la autenticación</td>
+								<td>threeDSRequestorChallengeInd</td>
+								<td>2/JSON Data Type: String</td>
+								<td>CONDICIONAL</td>
+								<td>Indica la preferencia del comercio para que se aplique autenticación
+									reforzada (SCA) a su cliente en esta operación. Valores posibles:
+									<br><br>
+									<ul>
+									<li>03: indica que el comercio desea que se aplique autenticación reforzada (SCA) a su cliente</li>
+									<li>04: indica que hay un mandato que obliga al cliente a la autenticación reforzada (SCA) </li>
+									</ul>
+
+									En caso de no enviarse este parámetro no se indicará preferencia alguna al emisor y la operación puede
+									ser exencionada, autenticada con SCA o autenticada sin SCA (frictionless).</td>
+							</tr></tbody>
+					</table></div>
+					<!-- 	*****************************
+        *****************************
+ 	             TABLA PHONE
+ 	    *****************************
+ 	    *****************************  -->
+
+
+
+					<div id="phoneTable_wrapper" class="dataTables_wrapper no-footer" style="height: 400px;"><table id="phoneTable" title="Tabla Phone" class="table table-striped errores-sis dataTable no-footer fix-head" role="grid">
+
+						<thead>
+						<tr role="row"><td colspan="4" rowspan="1"><i><b>NOTA:</b>Los números de teléfono enviados en estos parámetros deben ir estructurados
+								indicando en campos independientes el prefijo del país (campo <b>"cc"</b>) y el número de
+								teléfono del abonado (campo <b>"subscriber"</b>) de forma obligatoria.</i><br>
+
+								Por ejemplo:<br>
+
+ 											 <code>"mobilePhone": {<br>
+ 										     "cc": "34",<br>
+                                             "subscriber": "699999999"<br>
+                                             }</code><br>
+
+                                <i><b>NOTA-1:</b> En ningún caso se debe omitir alguno de los campos o enviarlo vacío.</i><br>
+                                Los siguientes ejemplos serían incorrectos:<br>
+
+                                            <code> "mobilePhone": {<br>
+                                             "subscriber": "699999999"<br>
+                                             }</code><br>
+
+                                            <code> "mobilePhone": {<br>
+                                             "cc": "",<br>
+                                             "subscriber": "699999999"<br>
+                                             }</code><br>
+
+                                            <code>"mobilePhone": {"699999999"}</code><br>
+
+                                           <code> "mobilePhone": {""}</code><br>
+
+                                <i><b>NOTA-2:</b> En el caso de no disponer de los datos completos deberá omitirse el
+                                				parámero <b>"mobilePhone"</b> / <b>"workPhone"</b> / <b>"homePhone"</b>.</i>
+                                </td></tr>
+
+							<tr role="row"><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">DATO</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">NOMBRE DEL DATO</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Long./Tipo</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">COMENTARIOS</th></tr>
+						</thead>
+							<tbody>
+
+
+
+					<tr role="row" class="odd">
+								<td>Prefijo</td>
+								<td>cc</td>
+								<td>1 -3 / N</td>
+								<td>Indicativo del país correspondiente al número de teléfono.</td>
+
+							</tr><tr role="row" class="even">
+								<td>Numeración</td>
+								<td>Subscriber</td>
+								<td>Máximo 15 / N</td>
+								<td>Numeración correspondiente al número de teléfono.</td>
+
+							</tr></tbody></table></div>
+
+
+
+					<!-- 	*****************************
+        *****************************
+ 	      TABLA DS_AUTHENTICATION
+ 	    *****************************
+ 	    *****************************  -->
+
+					<div id="dsauthenticationTable_wrapper" class="dataTables_wrapper no-footer" style="height: 400px;"><table id="dsauthenticationTable" title="Tabla
+										threeDSRequestorAuthenticationI" class="table table-striped errores-sis dataTable no-footer fix-head" role="grid">
+						<thead>
+							<tr role="row"><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">DATO</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">NOMBRE DEL DATO</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">long/Tipo</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">COMENTARIOS</th></tr></thead>
+						<tbody>
+
+
+
+						<tr role="row" class="odd">
+								<td>Datos de inicio de sesión</td>
+								<td>threeDSReqAuthData</td>
+								<td>Máximo 2048 / A-N</td>
+								<td>Datos que documentan y soportan un proceso de
+									autenticación especifico. No está especificado el contenido en
+									la versión actual del protocolo</td>
+							</tr><tr role="row" class="even">
+								<td>Método de autenticación en el inicio de sesión</td>
+								<td>threeDSReqAuthMethod</td>
+								<td>2 / A-N</td>
+								<td>Mecanismo utilizado por el titular para autenticarse en
+									el comercio. Valores aceptados:<br>01 = No 3DS Requestor
+									authentication occurred (i.e. cardholder “logged in” as guest)<br>02
+									= Login to the cardholder account at the 3DS Requestor system
+									using 3DS Requestor’s own credentials<br>03 = Login to the
+									cardholder account at the 3DS Requestor system using federated
+									ID<br>04 = Login to the cardholder account at the 3DS
+									Requestor system using issuer credentials<br>05 = Login to
+									the cardholder account at the 3DS Requestor system using
+									third-party authentication<br>06 = Login to the cardholder
+									account at the 3DS Requestor system using FIDO Authenticator<br>07–79
+									= Reserved<br>80–99 = Reserved
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Fecha Hora de autenticación (inicio de sesión)</td>
+								<td>threeDSReqAuth Timestamp</td>
+								<td>12 / N</td>
+								<td>Fecha y hora UTC de la autenticación Date format =
+									YYYYMMDDHHMM</td>
+							</tr></tbody>
+					</table></div>
+
+					<!-- 	*****************************
+        *****************************
+ 				TABLA RISK
+ 	    *****************************
+ 	    *****************************  -->
+
+
+					<div id="riskTable_wrapper" class="dataTables_wrapper no-footer" style="height: 400px;"><table id="riskTable" title="Tabla merchantRiskIndicator" class="table table-striped errores-sis dataTable no-footer fix-head" role="grid">
+						<thead>
+							<tr role="row"><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">DATO</th><th style="width: 130px;" class="sorting_disabled" rowspan="1" colspan="1"><input id="datoRiskInput" class="errores filter" data-column-index="1" style="color: #555;" value="" placeholder="NOMBRE DEL DATO" type="text"></th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">long/Tipo</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">COMENTARIOS</th></tr></thead>
+						<tbody>
+
+
+
+
+
+
+
+
+
+						<tr role="row" class="odd">
+								<td>Dirección de entrega electrónica</td>
+								<td>deliveryEmailAddress</td>
+								<td>Máximo 254 / A-N</td>
+								<td>Para la entrega electrónica, la dirección de correo
+									electrónico a la que se entregó la mercancía</td>
+							</tr><tr role="row" class="even">
+								<td>Plazo de entrega</td>
+								<td>deliveryTimeframe</td>
+								<td>2 / A-N</td>
+								<td>Indica el plazo de entrega de la mercancía. Valores
+									aceptados:<br>01 = Electronic Delivery<br>02 = Same
+									day shipping<br>03 = Overmight shipping<br>04 =
+									Two-day or more shipping
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Importe en compras de tarjetas prepago / regalo</td>
+								<td>giftCardAmount</td>
+								<td>máximo 15 / A-N</td>
+								<td>Para compras de tarjetas prepago o tarjetas regalo, el
+									importe total de la compra en unidades principales (por
+									ejemplo, USD 123,.45 es 123)</td>
+							</tr><tr role="row" class="even">
+								<td>Recuento de tarjetas preapago/regalo</td>
+								<td>giftCardCount</td>
+								<td>2 / N</td>
+								<td>Para la compra de tarjeta prepago o tarjetas regalo,
+									recuento toal de tarjetas prepago o tarjetas/códigosregalo
+									comprados.</td>
+							</tr><tr role="row" class="odd">
+								<td>Código de moneda de tajeta prepago/regalo</td>
+								<td>giftCardCurr</td>
+								<td>3 / N</td>
+								<td>Para la compra de tarjeta prepago / regalo, el código
+									ISO-4217 de moneda de la tarjeta</td>
+							</tr><tr role="row" class="even">
+								<td>Fecha prevista de compra preordenada</td>
+								<td>preOrderDate</td>
+								<td>8 / N</td>
+								<td>Para una compra preordenada, la fecha prevista de
+									disponibilidad de la mercancía. Date format = YYYYMMDD</td>
+							</tr><tr role="row" class="odd">
+								<td>Indicador de disponibilidad del pedido</td>
+								<td>preOrderPurchaseInd</td>
+								<td>2 / A-N</td>
+								<td>"Indica si el titular de la tarjeta realiza un pedido
+									con disponibilidad o fecha de lanzamiento futuros. Valores
+									aceptados:<br>01 = Merchandise available<br>02 =
+									Future availability
+								</td>
+							</tr><tr role="row" class="even">
+								<td>Indicador de recompra</td>
+								<td>reorderItemsInd</td>
+								<td>2 / A-N</td>
+								<td>"Indica si el titular de la tarjeta está reordenando
+									mercancía comprada previamente. Valores aceptados:<br>01 =
+									First time ordered<br>01 = Reordered
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Método de envío</td>
+								<td>shipIndicator</td>
+								<td>2 / A-N</td>
+								<td>"Indica el método de envío elegido para la transacción.
+									Los comercios deben elegir el código del indicador de envío que
+									describa con mayor precisión la transacción específica del
+									titular de la tarjeta, no su actividad comercial en general.<br>Si
+									se incluyen uno o más artículos en la venta, utilice el código
+									del Indicador de envío para los bienes físicos, o si todos los
+									productos son digitales, utilice el código del Indicador de
+									envío que describe el artículo más caro.<br>Valores
+									aceptados:<br>01 = Ship to cardholder's billing address<br>02
+									= Ship to another verified address on file with merchant<br>03
+									= Ship to address that is different than the cardholder's
+									billing address<br>04 = "Ship to Store" / Pick-up at local
+									store (Store address shall be populated in shipping address
+									fields)<br>05 = Digital goods (includes online services,
+									electronic gift cards and redemption codes)<br>06 = Travel
+									and Event tickets, not shipped<br>06 = Travel and Event
+									tickets, not shipped<br>07 = Other (for example, Gaming,
+									digital services not shipped, emedia subscriptions, etc.)
+								</td>
+							</tr></tbody>
+					</table></div>
+
+
+					<!-- 	*****************************
+        *****************************
+ 				TABLA TRA (acctInfo)
+ 	    *****************************
+ 	    *****************************  -->
+
+					<div id="acctInfoTable_wrapper" class="dataTables_wrapper no-footer" style="height: 400px;"><table id="acctInfoTable" title="Tabla AcctInfo" class="table table-striped errores-sis dataTable no-footer fix-head" role="grid">
+						<thead>
+							<tr role="row"><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">DATO</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;"><input id="datoAcctInput" class="errores filter" data-column-index="1" style="color: #555; width: 140px" value="" placeholder="NOMBRE
+																DEL DATO" type="text"></th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Long/Tipo</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">COMENTARIOS</th></tr>
+						</thead>
+						<tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						<tr role="row" class="odd">
+								<td>Indicador de permanencia de la cuenta</td>
+								<td>chAccAgeInd</td>
+								<td>2 / A-N</td>
+								<td>"Periodo de tiempo que el titular de la tarjeta ha
+									tenido la cuenta en el comercio. Valores posibles:<br> 01
+									= No account (guest check-out) <br> 02 = Created during
+									this transaction <br> 03 = Less than 30 days <br> 04
+									= 30-60 days <br> 05 = More than 60 days <br>
+								</td>
+							</tr><tr role="row" class="even">
+								<td>Fecha de modificación de la cuenta</td>
+								<td>chAccChange</td>
+								<td>8 / N</td>
+								<td>Fecha en que se modificó por última vez la cuenta del
+									titular de la tarjeta en el comercio, incluida la dirección de
+									facturación o de envío, la nueva cuenta de pago o los nuevos
+									usuarios agregados.<br><br><b>***Se recomienda enviar este parámetro para mejorar la
+									experiencia del usuario en el proceso de autenticación.</b>
+									<br>Date format = YYYYMMDD</td>
+							</tr><tr role="row" class="odd">
+								<td>Indicador de modificación de la cuenta</td>
+								<td>chAccChangeInd</td>
+								<td>2 / A-N</td>
+								<td>"Período de tiempo transcurrido desde que se modificó
+									por última vez la información de la cuenta del titular de la
+									tarjeta en el comercio, incluida la dirección de facturación o
+									de envío, la nueva cuenta de pago o los nuevos usuarios
+									agregados. Valores aceptados:<br>01 = Modificado en esta
+									transacción <br>02 = Menos de 30 días<br>03 = 30-60
+									días <br>04 = Más de 60 días <br>
+								</td>
+							</tr><tr role="row" class="even">
+								<td>Fecha de alta</td>
+								<td>chAccDate</td>
+								<td>9 / N</td>
+								<td>Fecha en que el titular de la tarjeta abrió la cuenta
+									en el comercio.
+									<br><br><b>***Se recomienda enviar este parámetro para mejorar la
+									experiencia del usuario en el proceso de autenticación.</b><br>
+									 Date format = YYYYMMDD</td>
+							</tr><tr role="row" class="odd">
+								<td>Fecha de cambio de contraseña</td>
+								<td>chAccPwChange</td>
+								<td>8 / N</td>
+								<td>Fecha en que el titular tuvo un cambio de contraseña en
+									la cuenta del comercio o un restablecimiento de la cuenta. Date
+									format = YYYYMMDD</td>
+							</tr><tr role="row" class="even">
+								<td>Indicador de cambio de contraseña</td>
+								<td>chAccPwChangeInd</td>
+								<td>2 / A-N</td>
+								<td>"Indica el período de tiempo desde que la cuenta del
+									titular de la tarjeta en el comercio tuvo un cambio de
+									contraseña o restablecimiento de cuenta. Valores aceptados: <br>01
+									= No change <br>02 = Changed during this transaction <br>03
+									= Less than 30 days <br>04 = 30-60 days <br>05 = More
+									than 60 days <br>
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Número de compras 6 meses</td>
+								<td>nbPurchaseAccount</td>
+								<td>máximo 4 / N</td>
+								<td>Númerco de compras con esta cuenta durante los últimos
+									seis meses</td>
+							</tr><tr role="row" class="even">
+								<td>Intentos de agregar tarjeta 24 h</td>
+								<td>provisionAttemptsDay</td>
+								<td>máximo 3 / N</td>
+								<td>Número de intentos de agregar tarjeta en las últimas 24
+									horas</td>
+							</tr><tr role="row" class="odd">
+								<td>Número de transacciones 24 h</td>
+								<td>txnActivityDay</td>
+								<td>máximo 3 / N</td>
+								<td>Número de transacciones (exitosas y abandonadas) para
+									esta cuenta del titular de la tarjeta en el comercio en todas
+									las cuentas de pago en las últimas 24 horas.</td>
+							</tr><tr role="row" class="even">
+								<td>Número de transacciones año anterior</td>
+								<td>txnActivityYear</td>
+								<td>máximo 3 / N</td>
+								<td>Número de transacciones (exitosas y abandonadas) para
+									esta cuenta del titular de la tarjeta en el comercio en todas
+									las cuentas de pago del año anterior.
+									<br><br><b>***Se recomienda enviar este parámetro para mejorar la
+									experiencia del usuario en el proceso de autenticación.</b></td>
+							</tr><tr role="row" class="odd">
+								<td>Alta de cuenta de pago</td>
+								<td>paymentAccAge</td>
+								<td>8 / N</td>
+								<td>Fecha en que la cuenta de pago se inscribió en la
+									cuenta del titular de la tarjeta en el comercio. Date format =
+									YYYYMMDD</td>
+							</tr><tr role="row" class="even">
+								<td>Indicador de creación de cuenta de pago</td>
+								<td>paymentAccInd</td>
+								<td>2 / A-N</td>
+								<td>"Indica el período de tiempo que la cuenta de pago se
+									inscribió en la cuenta del titular de la tarjeta en el
+									comercio. Valores aceptados: <br>01 = No account (guest
+									check-out) <br>02 = During this transaction <br>03 =
+									Less than 30 days <br>04 = 30-60 days <br>05 = More
+									than 60 days
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Fecha de primer uso de dirección de envío</td>
+								<td>shipAddressUsage</td>
+								<td>8 / N</td>
+								<td>Fecha en que la dirección de envío utilizada para esta
+									transacción se utilizó por primera vez con el comercio. Date
+									format = YYYYMMDD</td>
+							</tr><tr role="row" class="even">
+								<td>Indicador de primer uso de dirección de envío</td>
+								<td>shipAddressUsageInd</td>
+								<td>2 / A-N</td>
+								<td>"Indica cuándo la dirección de envío utilizada para
+									esta transacción se utilizó por primera vez con el comercio.
+									Valores aceptados: <br>01 = This transaction <br>02 =
+									Less than 30 days <br>03 = 30-60 days<br>04 = More
+									than 60 days
+								</td>
+							</tr><tr role="row" class="odd">
+								<td>Indicador de nombre de titular</td>
+								<td>shipNameIndicator</td>
+								<td>2 / A-N</td>
+								<td>"Indica si el Nombre del titular de la tarjeta en la
+									cuenta es idéntico al Nombre de envío utilizado para esta
+									transacción. Valores aceptados: <br>01 = Account Name
+									identical to shipping Name <br>02 = Account Name different
+									than shipping Name
+								</td>
+							</tr><tr role="row" class="even">
+								<td>Indicador de actividad sospechosa</td>
+								<td>suspiciousAccActivity</td>
+								<td>2 / A-N</td>
+								<td>"Indica si el comercio ha experimentado actividad
+									sospechosa (incluido fraude anterior) en la cuenta del titular
+									de la tarjeta. Valores aceptados: <br>01 = No suspicious
+									activity has been observed <br>02 = Suspicious activity
+									has been observed
+								</td>
+							</tr></tbody>
+					</table></div>
+
+					<!-- 	*****************************
+        *****************************
+ 				TABLA DCC
+ 	    *****************************
+ 	    *****************************  -->
+
+					<div id="dsmerchantdccTable_wrapper" class="dataTables_wrapper no-footer" style="height: 400px;"><table id="dsmerchantdccTable" title="Tabla DS_MERCHANT_DCC" class="table table-striped errores-sis dataTable no-footer fix-head" role="grid">
+						<thead>
+							<tr role="row"><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">DATO</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">NOMBRE DEL DATO</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Long./Tipo</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">COMENTARIOS</th></tr></thead>
+						<tbody>
+
+
+						<tr role="row" class="odd">
+								<td>Moneda DCC</td>
+								<td>MonedaDCC</td>
+								<td>4 / Núm.</td>
+								<td>Se debe enviar el código numérico de la moneda según el
+									ISO-4217, ver tabla <a class="table-link" style="color: #dc7c26;" table-target="monedasTable">Monedas</a>.
+								</td>
+							</tr><tr role="row" class="even">
+								<td>Importe DCC</td>
+								<td>ImporteDCC</td>
+								<td>12 / N</td>
+								<td>Las últimas posiciones hacen referencia a los decimales
+									de la moneda. Ejemplo:<br>En el caso de EURO43,45 Euros
+									habría que indicar 4345
+								</td>
+							</tr></tbody>
+					</table></div>
+
+
+					<!-- 	*****************************
+        *****************************
+ 			TABLA FORMAS DE PAGO
+ 	    *****************************
+ 	    *****************************  -->
+
+					<div id="dspaymethodsTable_wrapper" class="dataTables_wrapper no-footer" style="height: 400px;"><table id="dspaymethodsTable" title="Tabla
+													DS_MERCHANT_PAYMETHODS" class="table table-striped errores-sis dataTable no-footer fix-head" role="grid">
+						<thead>
+							<tr role="row"><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">FORMA DE PAGO</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">DS_MERCHANT_PAYMETHODS</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">DS_MERCHANT_TRANSACTIONTYPE</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">COMENTARIOS</th></tr></thead>
+						<tbody>
+
+
+
+
+
+						<tr role="row" class="odd">
+								<td>BIZUM</td>
+								<td>z</td>
+								<td>0,7,8</td>
+								<td>Se requiere activación por parte de la entidad.</td>
+								<!-- 								<td>Documentación: <a href="documents\TPV-Virtual-BIZUM.pdf" -->
+								<!-- 										target="_blank" rel="noopener">TPV-Virtual-BIZUM.pdf</a></td> -->
+							</tr><tr role="row" class="even">
+								<td>PAYPAL</td>
+								<td>p</td>
+								<td>0,1,15</td>
+								<td>Se requiere activación por parte de la entidad.</td>
+								<!-- 								<td>Documentación: <a href="documents\TPV-Virtual-Manual-PayPal.pdf" -->
+								<!-- 										target="_blank" rel="noopener">TPV-Virtual-Manual-PayPal.pdf</a></td> -->
+							</tr><tr role="row" class="odd">
+								<td>Transferencia</td>
+								<td>R</td>
+								<td>0,15,</td>
+								<td>Se requiere activación por parte de la entidad.</td>
+								<!-- 								<td>Documentación: <a href="documents\TPV-Virtual-Transferencia.pdf -->
+								<!-- 										target="_blank" rel="noopener">TPV-Virtual-Transferencia.pdf</a></td> -->
+							</tr><tr role="row" class="even">
+								<td>Masterpass</td>
+								<td>N</td>
+								<td>0,7,15,</td>
+								<td>Se requiere activación por parte de la entidad.</td>
+								<!-- 								<td>Documentación: <a href="documents\TPV-Virtual-Masterpass.pdf -->
+								<!-- 										target="_blank" rel="noopener">TPV-Virtual-Masterpass.pdf</a></td> -->
+							</tr><tr role="row" class="odd">
+								<td>Con Tarjeta</td>
+								<td>C</td>
+								<td>TODAS</td>
+								<td></td>
+								<!-- 								<td></td> -->
+							</tr></tbody>
+					</table></div>
+
+
+					<!-- 	*****************************
+        *****************************
+ 		     TABLA MPI EXTERNO
+ 	    *****************************
+ 	    *****************************  -->
+
+					<div id="dsmpiexternalTable_wrapper" class="dataTables_wrapper no-footer" style="height: 400px;"><table id="dsmpiexternalTable" title="Tabla
+														DS_MERCHANT_MPIEXTERNAL" class="table table-striped errores-sis dataTable no-footer fix-head" role="grid">
+						<thead>
+							<tr role="row"><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">NOMBRE DEL DATO</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Long. /Tipo</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">VERSIÓN</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">CONDICIÓN DEL PARÁMETRO</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">COMENTARIOS</th></tr></thead>
+						<tbody>
+
+
+
+
+
+
+
+
+
+
+
+						<tr role="row" class="odd">
+								<td>TXID</td>
+								<td>28 / A-N</td>
+								<td>1.0.2</td>
+								<td>OBLIGATORIO</td>
+								<td>Identificador que devuelve al autenticador. Valor en
+									Base 64</td>
+							</tr><tr role="row" class="even">
+								<td>CAVV</td>
+								<td>28 / A-N</td>
+								<td>1.0.2</td>
+								<td>OBLIGATORIO</td>
+								<td>Valor CAVV de campo autenticado. Valor en Base 64</td>
+							</tr><tr role="row" class="odd">
+								<td>ECI</td>
+								<td>2/N</td>
+								<td>1.0.2</td>
+								<td>OBLIGATORIO</td>
+								<td>Valor de ECI. Valores posibles: 05, 06 o 07.</td>
+							</tr><tr role="row" class="even">
+								<td>threeDSServerTransID</td>
+								<td>36 / A-N</td>
+								<td>2.1.0</td>
+								<td>OBLIGATORIO</td>
+								<td>Identificador de la transacción</td>
+							</tr><tr role="row" class="odd">
+								<td>dsTransID</td>
+								<td>36 / A-N</td>
+								<td>2.1.0</td>
+								<td>OBLIGATORIO</td>
+								<td>Identificador del DS</td>
+							</tr><tr role="row" class="even">
+								<td>authenticationValue</td>
+								<td>28 / A-N</td>
+								<td>2.1.0</td>
+								<td>OBLIGATORIO</td>
+								<td>Valor CAVV de campo autenticado. Valor en Base 64</td>
+							</tr><tr role="row" class="odd">
+								<td>ProtocolVersion</td>
+								<td>Variable 5-8 / A-N</td>
+								<td>2.1.0</td>
+								<td>OBLIGATORIO</td>
+								<td>Version de protocolo 3DSecure 2 con la que se ha
+									autenticado la operación.<br>Valores permitidos:<br>2.1.0
+								</td>
+							</tr><tr role="row" class="even">
+								<td>Eci</td>
+								<td>2 / A-N</td>
+								<td>2.1.0</td>
+								<td>OBLIGATORIO</td>
+								<td>Valores a determinar por las marcas. Valores posibles:
+									05, 06, o 07</td>
+							</tr><tr role="row" class="odd">
+								<td>authenticationMethod</td>
+								<td>2 / A-N</td>
+								<td>2.1.0</td>
+								<td>OPCIONAL</td>
+								<td>Valores posibles<br>01 = Static Passcode<br>02
+									= SMS OTP<br>03 = Key fob or EMV card reader OTP<br>04
+									= App OTP<br>05 = OTP Other<br>06 = KBA<br>07 =
+									OOB Biometrics<br>08 = OOB Login<br>09 = OOB Other<br>10
+									= Other
+								</td>
+							</tr><tr role="row" class="even">
+								<td>authentication Type</td>
+								<td>2 / A-N</td>
+								<td>2.1.0</td>
+								<td>OPCIONAL</td>
+								<td></td>
+							</tr><tr role="row" class="odd">
+								<td>authentication Flow</td>
+								<td>1 / A-N</td>
+								<td>2.1.0</td>
+								<td>OPCIONAL</td>
+								<td>Valores posibles:<br>F = Frictionless<br>C =
+									Challenge
+								</td>
+							</tr></tbody>
+					</table></div>
+
+					<!-- 	*****************************
+        *****************************
+ 				TABLA DCC
+ 	    *****************************
+ 	    *****************************  -->
+					<div id="dsdccTable_wrapper" class="dataTables_wrapper no-footer" style="height: 400px;"><table id="dsdccTable" title="Tabla DS_DCC" class="table table-striped errores-sis dataTable no-footer fix-head" role="grid">
+						<thead>
+							<tr role="row"><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">DATO</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">NOMBRE DEL DATO</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Long./Tipo</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">COMENTARIOS</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">PARÁMETROS DEL JSON</th></tr>
+
+						</thead>
+						<tbody>
+
+
+						<tr role="row" class="odd">
+								<td>Información de la moneda de la tarjeta</td>
+								<td>InfoMoneda Tarjeta</td>
+								<td>JSON</td>
+								<td>Información adicional sobre la moneda de la tarjeta</td>
+								<td><ul>
+										<li>MonedaDCC</li>
+										<li>litMonedaDCC</li>
+										<li>importeDCC</li>
+										<li>cambioDCC</li>
+										<li>fechaCambioDCC</li>
+										<li>markUp</li>
+									</ul></td>
+							</tr><tr role="row" class="even">
+								<td>Información de la moneda del titular</td>
+								<td>InfoMoneda Titular</td>
+								<td>JSON</td>
+								<td>Información adicional sobre la moneda del titular</td>
+								<td><ul>
+										<li>monedaCome</li>
+										<li>litMonedaCome</li>
+										<li>importeCome</li>
+									</ul></td>
+							</tr></tbody>
+					</table></div>
+
+
+				<!-- 	*****************************
+        *****************************
+ 	             TABLA DS_XPAYDECODEDDATA
+ 	    *****************************
+ 	    *****************************  -->
+
+					<div id="dsXpayCodeDataTable_wrapper" class="dataTables_wrapper no-footer" style="height: 400px;"><table id="dsXpayCodeDataTable" title="Tabla DS_XPAYDECODEDDATA" class="table table-striped errores-sis dataTable no-footer fix-head" role="grid">
+
+
+						<thead id="tableHeader">
+							<tr id="pp" role="row"><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">DATO</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;"><input id="datoXpayCodeDataImput" class="errores filter" data-column-index="1" style="color: #555;" value="" placeholder="NOMBRE DEL DATO" type="text"></th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Long. / Tipo</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">OPCION DEL PARÁMETRO<br> <select id="opcionXpayCodeDataImput" class="errores filter" data-column-index="3" style="color: #555;" value="">
+										<option value=""></option>
+										<option value="OBLIGATORIO">OBLIGATORIO</option>
+										<option value="CONDICIONAL">CONDICIONAL</option>
+								</select></th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">COMENTARIOS</th></tr>
+						</thead>
+						<tbody>
+
+
+
+
+
+
+						<tr role="row" class="odd">
+								<td>Criptograma descifrado</td>
+								<td>cryptogram</td>
+								<td>Variable/ String</td>
+								<td>OBLIGATORIO</td>
+								<td></td>
+							</tr><tr role="row" class="even">
+								<td>Indicador de ECI</td>
+								<td>eciInd</td>
+								<td>2 / String</td>
+								<td>OBLIGATORIO</td>
+								<td></td>
+							</tr><tr role="row" class="odd">
+								<td>Fecha de caducidad</td>
+								<td>expirationDate</td>
+								<td>4 / String</td>
+								<td>OBLIGATORIO</td>
+								<td></td>
+							</tr><tr role="row" class="even">
+								<td>Regerencia de la tarjeta</td>
+								<td>token</td>
+								<td>19/ String</td>
+								<td>OBLIGATORIO</td>
+								<td></td>
+							</tr><tr role="row" class="odd">
+								<td>Forma de Pago</td>
+								<td>paymentMethod</td>
+								<td>Variable / String</td>
+								<td><a data-toggle="popover" data-placement="top" data-content="Unicamente será necesario cuando el pago sea de Google Pay" data-original-title="" title="">CONDICIONAL</a>
+								</td>
+								<td>Unicamente será necesario cuando el pago sea de Google Pay</td>
+							</tr></tbody>
+					</table></div>
+
+
+
