@@ -628,6 +628,7 @@ class Tpv
      *      z = Bizum
      *      p = PayPal
      *      N = Masterpass
+     *      xpay = GooglePay y ApplePay
      * ]
      *
      * @return $this
@@ -639,7 +640,7 @@ class Tpv
             throw new TpvException('Add pay method');
         }
 
-        if (!in_array($method, ['T', 'C', 'R', 'D', 'z', 'p', 'N'])) {
+        if (!in_array($method, ['T', 'C', 'R', 'D', 'z', 'p', 'N', 'xpay'])) {
             throw new TpvException('Pay method is not valid');
         }
 

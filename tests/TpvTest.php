@@ -32,7 +32,7 @@ class TpvTest extends PHPUnitTestCase
         $redsys = new Tpv();
         $redsys->setMerchantDirectPayment($boolean);
         $ds = $redsys->getParameters();
-        $this->assertIsBool( $ds['DS_MERCHANT_DIRECTPAYMENT']);
+        $this->assertIsBool($ds['DS_MERCHANT_DIRECTPAYMENT']);
     }
 
     public function amountProvider()
@@ -58,7 +58,6 @@ class TpvTest extends PHPUnitTestCase
         $redsys->setAmount($amount);
         $ds = $redsys->getParameters();
         $this->assertEquals($correctAmount, $ds['DS_MERCHANT_AMOUNT']);
-
     }
 
 
@@ -72,7 +71,6 @@ class TpvTest extends PHPUnitTestCase
         $redsys->setSumTotal($amount);
         $ds = $redsys->getParameters();
         $this->assertEquals($correctAmount, $ds['DS_MERCHANT_SUMTOTAL']);
-
     }
 
     /**
@@ -196,7 +194,6 @@ class TpvTest extends PHPUnitTestCase
         $this->expectException(\Sermepa\Tpv\TpvException::class);
         $redsys = new Tpv();
         $redsys->setOrder($orderNumber);
-
     }
 
     public function orderNumberProvider()
@@ -280,8 +277,6 @@ class TpvTest extends PHPUnitTestCase
         $this->expectException(\Sermepa\Tpv\TpvException::class);
         $redsys = new Tpv();
         $redsys->setEnvironment('production');
-
-
     }
 
     public function SearchingFormProvider()
@@ -292,7 +287,6 @@ class TpvTest extends PHPUnitTestCase
             ['Ds_SignatureVersion'],
             ['btn_submit'],
         ];
-
     }
 
     /**
@@ -303,7 +297,7 @@ class TpvTest extends PHPUnitTestCase
     {
         $redsys = new Tpv();
         $form = $redsys->createForm();
-        $this->assertStringContainsString($search,$form);
+        $this->assertStringContainsString($search, $form);
     }
 
     /**
@@ -314,7 +308,7 @@ class TpvTest extends PHPUnitTestCase
     {
         $redsys = new Tpv();
         $redsys->setEnvironment('test')
-            ->setAmount(rand(10,600))
+            ->setAmount(rand(10, 600))
             ->setOrder(time())
             ->setMerchantcode('999008881')
             ->setCurrency('978')
@@ -338,7 +332,6 @@ class TpvTest extends PHPUnitTestCase
         $this->assertArrayHasKey('DS_MERCHANT_MERCHANTURL', $parameters);
         $this->assertArrayHasKey('DS_MERCHANT_URLOK', $parameters);
         $this->assertArrayHasKey('DS_MERCHANT_URLKO', $parameters);
-
     }
 
     /**
@@ -383,8 +376,8 @@ class TpvTest extends PHPUnitTestCase
     public function force_to_send_the_form_with_javascript()
     {
         $redsys = new Tpv();
-        $redsys->setNameForm('custom_form_'.date('His'));
-        $js = 'document.forms["'.$redsys->getNameForm().'"].submit();';
+        $redsys->setNameForm('custom_form_' . date('His'));
+        $js = 'document.forms["' . $redsys->getNameForm() . '"].submit();';
 
         $redirect = $redsys->executeRedirection(true);
 
@@ -458,7 +451,6 @@ class TpvTest extends PHPUnitTestCase
             ['am'],
             ['236'],
         ];
-
     }
 
     /**
@@ -503,11 +495,10 @@ class TpvTest extends PHPUnitTestCase
             [45],
             [666],
             [
-                [100,'R'],
+                [100, 'R'],
                 ['Ds_store' => 233]
             ]
         ];
-
     }
 
     /**
@@ -522,24 +513,22 @@ class TpvTest extends PHPUnitTestCase
         $this->expectException(\Sermepa\Tpv\TpvException::class);
         $redsys = new Tpv();
 
-       $redsys->setParameters($parameters);
-
+        $redsys->setParameters($parameters);
     }
 
     /**
      * @test
      */
 
-     public function set_new_parameters()
-     {
+    public function set_new_parameters()
+    {
         $parameters = ['DS_MERCHANT_COF_INI' => 'S', 'DS_MERCHANT_COF_TYPE' => 'R'];
         $redsys = new Tpv();
         $redsys->setParameters($parameters);
 
         $this->assertArrayHasKey('DS_MERCHANT_COF_INI', $parameters);
         $this->assertArrayHasKey('DS_MERCHANT_COF_TYPE', $parameters);
-
-     }
+    }
 
     public function invalidSetMethod()
     {
@@ -549,6 +538,7 @@ class TpvTest extends PHPUnitTestCase
             ['X'],
             ['AA'],
             ['Np'],
+            ['Xpay']
         ];
     }
 
@@ -573,7 +563,8 @@ class TpvTest extends PHPUnitTestCase
             ['D'],
             ['z'],
             ['p'],
-            ['N']
+            ['N'],
+            ['xpay']
         ];
     }
 
@@ -639,5 +630,4 @@ class TpvTest extends PHPUnitTestCase
         $redsys = new Tpv();
         $redsys->getJsPath($environment, $version);
     }
-
 }
