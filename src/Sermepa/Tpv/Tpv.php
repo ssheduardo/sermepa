@@ -943,12 +943,19 @@ class Tpv
      * “S”: It is first COF transaction (store credentials)
      * “N”: It is not the first COF transaction
      *
+     * @param $value
+     *
      * @return $this
      * @throws Exception
      */
-    public function setMerchantCofIni($isFirstTransaction)
+    public function setMerchantCofIni($value)
     {
-        $this->_setParameters['DS_MERCHANT_COF_INI'] = $isFirstTransaction ? 'S' : 'N';
+        $validOptions = ['S', 'N'];
+        $value = strtoupper($value);
+        if (!in_array($value, $validOptions, true)) {
+            throw new TpvException('Set Merchant COF INI valid options');
+        }
+        $this->_setParameters['DS_MERCHANT_COF_INI'] = $value;
 
         return $this;
     }

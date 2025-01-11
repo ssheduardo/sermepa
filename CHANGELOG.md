@@ -2,6 +2,17 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.4.9 (2025-01-11)
+### Added
+- None
+
+### Changed
+- None
+
+### Fixed
+- I have just fixed an error in the setMerchantCofIni method. It always returns the value 'S'.
+
+
 ## Version 1.4.8 (2024-03-05)
 ### Added
 - Implementation of the `xpay` method within the `setMethod` functionality to support GooglePay and ApplePay.

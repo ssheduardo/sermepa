@@ -630,4 +630,50 @@ class TpvTest extends PHPUnitTestCase
         $redsys = new Tpv();
         $redsys->getJsPath($environment, $version);
     }
+
+    public function cofIniProvider()
+    {
+        return [
+            ['S'],
+            ['N'],
+        ];
+    }
+
+    /**
+     *
+     * @dataProvider cofIniProvider
+     */
+    public function test_should_validate_a_merchant_cof_ini($cofIni)
+    {
+        $redsys = new Tpv();
+        $redsys->setMerchantCofIni($cofIni);
+        $parameters = $redsys->getParameters();
+        $this->assertArrayHasKey('DS_MERCHANT_COF_INI', $parameters);
+        $this->assertContains($parameters['DS_MERCHANT_COF_INI'], [$cofIni]);
+
+    }
+
+    public function invalidSetMerchantCofIni()
+    {
+        return [
+            [''],
+            ['B'],
+            ['-1'],
+            ['G'],
+            [0],
+            ['Del']
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider invalidSetMerchantCofIni
+     */
+    public function throw_when_set_method_merchnant_cof_ini_is_invalid($cofIni)
+    {
+        $this->expectExceptionMessage("Set Merchant COF INI valid options");
+        $this->expectException(\Sermepa\Tpv\TpvException::class);
+        $redsys = new Tpv();
+        $redsys->setMerchantCofIni($cofIni);
+    }
 }
