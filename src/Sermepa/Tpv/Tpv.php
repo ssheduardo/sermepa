@@ -1076,7 +1076,11 @@ class Tpv
      */
     protected function isEmpty($value)
     {
-        return '' === trim($value);
+        if ($value === null) {
+            return true;
+        }
+
+        return is_string($value) && '' === trim($value);
     }
 
     /**

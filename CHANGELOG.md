@@ -2,6 +2,17 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.5.0 (2025-01-16)
+### Added
+- None
+
+### Changed
+- Updated isEmpty method to properly handle non-string values
+
+### Fixed
+- Fixed deprecated warning in isEmpty method when passing null values to trim().
+- Fixed incorrect validation of boolean values in isEmpty method
+
 ## Version 1.4.9 (2025-01-11)
 ### Added
 - None
