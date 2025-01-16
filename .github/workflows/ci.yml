@@ -11,7 +11,7 @@ jobs:
 
         strategy:
             matrix:
-                php-versions: ["8.4", "8.3","8.2","8.1","8.0", "7.4", "7.3"]
+                php-versions: ["8.4","8.3","8.2","8.1","8.0", "7.4", "7.3"]
                 dependency-stability: ["prefer-stable"]
 
         name: P${{ matrix.php-versions }} - ${{ matrix.dependency-stability }} - ${{ matrix.operating-system }}
@@ -22,12 +22,12 @@ jobs:
             - name: Get Composer Cache Directory
               id: composer-cache
               run: |
-                echo "::set-output name=dir::$(composer config cache-files-dir)"
+                echo "dir=$(composer config cache-files-dir)" >> $GITHUB_ENV
 
             - name: Cache Composer Dependencies
               uses: actions/cache@v3
               with:
-                path: ${{ steps.composer-cache.outputs.dir }}
+                path: ${{ env.dir }}
                 key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
                 restore-keys: ${{ runner.os }}-composer-
 
