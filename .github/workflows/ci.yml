@@ -11,14 +11,26 @@ jobs:
 
         strategy:
             matrix:
-                operating-system: [ubuntu-latest]
-                php-versions: ["8.2","8.1","8.0", "7.4", "7.3"]
+                php-versions: ["8.4", "8.3","8.2","8.1","8.0", "7.4", "7.3"]
                 dependency-stability: ["prefer-stable"]
 
-        name: P${{ matrix.php-versions }} - L${{ matrix.laravel }} - ${{ matrix.dependency-stability }} - ${{ matrix.operating-system}}
+        name: P${{ matrix.php-versions }} - ${{ matrix.dependency-stability }} - ${{ matrix.operating-system }}
 
         steps:
             - uses: actions/checkout@v3
+
+            - name: Get Composer Cache Directory
+              id: composer-cache
+              run: |
+                echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            - name: Cache Composer Dependencies
+              uses: actions/cache@v2
+              with:
+                path: ${{ steps.composer-cache.outputs.dir }}
+                key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                restore-keys: ${{ runner.os }}-composer-
+
             - name: Install PHP versions
               uses: shivammathur/setup-php@v2
               with:
@@ -27,12 +39,13 @@ jobs:
               if: steps.vendor-cache.outputs.cache-hit != 'true'
               run: composer update -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-            - name: Update Dependencies with latest stable
-              if: matrix.dependency-stability == 'prefer-stable'
-              run: composer update --prefer-stable
-            - name: Update Dependencies with lowest stable
-              if: matrix.dependency-stability == 'prefer-lowest'
-              run: composer update --prefer-stable --prefer-lowest
+            - name: Update Dependencies
+              run: |
+                if [ "${{ matrix.dependency-stability }}" = "prefer-stable" ]; then
+                  composer update --prefer-stable
+                elif [ "${{ matrix.dependency-stability }}" = "prefer-lowest" ]; then
+                  composer update --prefer-stable --prefer-lowest
+                fi
 
             - name: Show dir
               run: pwd
