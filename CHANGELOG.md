@@ -4,7 +4,7 @@ All Notable changes to `Redsys` will be documented in this file
 
 ## Version 1.5.1 (2025-01-23)
 ### Added
-- Added a new test to handle successful responses from the Redsys payment gateway.
+- Added a new test to handle successful or error responses from the Redsys payment gateway.
 - Updated README with additional information about errorCode verification and the usage of the MIT parameter.
 
 ### Changed
