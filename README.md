@@ -236,6 +236,14 @@ Si no queremos que nos muestre ninguna pantalla y directamente realice el pago d
 $redsys->setMerchantDirectPayment(true);
 ```
 También podemos hacer los cobros recurrentes a traves de Rest.
+
+_Nota: En algunos casos dependiendo del Banco, debemos enviar el parámetro MIT_
+
+```php
+$parameters = ['DS_MERCHANT_EXCEP_SCA' => 'MIT'];
+$redsys->setParameters($parameters);
+```
+
 ```php
 try{
     //Key de ejemplo
@@ -262,9 +270,18 @@ try{
 
     $response = json_decode($redsys->send(), true);
 
+    // Verifica si hay un error en la respuesta
+    if (array_key_exists('errorCode', $response)) {
+        // Si en el response nos retorna un error, aquí podemos gestionarlo.
+        throw new Exception("Error en la respuesta: " . $response['errorCode']);
+    }
+
+    // Obtiene los parámetros del comerciante
     $parameters = $redsys->getMerchantParameters($response['Ds_MerchantParameters']);
     $DsResponse = $parameters["Ds_Response"];
     $DsResponse += 0;
+
+    // Verifica la respuesta y la clave
     if ($redsys->check($key, $response) && $DsResponse <= 99) {
         //Si es todo correcto ya podemos hacer lo que necesitamos, para este ejemplo solo mostramos los datos.
         print_r($parameters);
@@ -273,7 +290,9 @@ try{
     }
 
 } catch (\Sermepa\Tpv\TpvException $e) {
-    echo $e->getMessage();
+    echo "Error de TPV: " . $e->getMessage();
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
 }
 
 ```
