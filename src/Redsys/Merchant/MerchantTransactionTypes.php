@@ -18,6 +18,25 @@
 		public const AUTENTICACION_PUCE                           = 17; // Autenticación Puce
 		public const DEVOLUCION_SIN_ORIGINAL                      = 34; // Devolución sin original
 		public const PREMIO_DE_APUESTAS                           = 37; // Abono de Apuestas
+
+		/**
+		 * Borrar referencia
+		 *
+		 * Si se desea borrar una referencia creada, se debe enviar el parámetro
+		 * Ds_Merchant_Identifier con el valor de la referencia a borrar y el valor
+		 * Ds_Merchant_TransactionType con el valor "44":
+		 * ```json
+		 * {
+		 *   "DS_MERCHANT_MERCHANTCODE": "999008881",
+		 *   "DS_MERCHANT_IDENTIFIER": "a091f0f9f0aaf0506930dda4a6974f1df4a0d9c1",
+		 *   "DS_MERCHANT_ORDER": "0281WjRq",
+		 *   "DS_MERCHANT_TERMINAL": "1",
+		 *   "DS_MERCHANT_TRANSACTIONTYPE": "44"
+		 * }
+		 * ```
+		 */
+		public const ANULACION_DE_REFERENCIA                      = 44; // Anulación de referencia
+
 		public const ANULACION_DE_PAGO                            = 45; // Anulación de pago
 		public const ANULACION_DE_DEVOLUCION                      = 46; // Anulación de devolución
 		public const ANULACION_DE_CONFIRMACION_SEPARADA           = 47; // Anulación de confirmación separada
