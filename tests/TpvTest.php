@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Sermepa\Tpv;
@@ -740,5 +741,75 @@ class TpvTest extends PHPUnitTestCase
         $this->expectException(\Sermepa\Tpv\TpvException::class);
         $redsys = new Tpv();
         $redsys->setMerchantCofIni($cofIni);
+    }
+
+    /**
+     * Data provider for the createOrderNumber method
+     *
+     * @return array Array of different lengths for order numbers
+     */
+    public function orderNumberLengthsProvider()
+    {
+        return [
+            'length 12' => [12],
+            'length 10' => [10],
+            'length 8' => [8],
+            'length 6' => [6],
+            'length 4' => [4],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider orderNumberLengthsProvider
+     */
+    public function createOrderNumber_generates_valid_order_number($length)
+    {
+        $orderNumber = $this->redsys->createOrderNumber($length);
+
+        // Verify that the order number has the correct length
+        $this->assertEquals($length, strlen($orderNumber));
+
+        // Verify that the first 4 characters are numeric
+        $this->assertMatchesRegularExpression('/^[0-9]{4}/', $orderNumber);
+
+        // Verify that the remaining characters are alphanumeric
+        $this->assertMatchesRegularExpression('/^[0-9A-Za-z]*$/', substr($orderNumber, 4));
+    }
+
+    /**
+     * Data provider for the createOrderNumber method with invalid inputs
+     *
+     * @return array Array of different invalid inputs for order numbers
+     */
+    public function invalidOrderNumberInputsProvider()
+    {
+        return [
+            'length 20' => [20],
+            'length 100' => [100],
+            'length 23' => [23],
+            'length 1' => [1],
+            'length 3' => [3],
+            'null value' => [null],
+            'string "5"' => ['5'],
+            'string "xxx"' => ['xxx'],
+            'float value' => [5.5],
+            'boolean true' => [true],
+            'boolean false' => [false],
+        ];
+    }
+
+    /**
+     * Test that createOrderNumber throws an exception for invalid inputs
+     *
+     * @test
+     * @dataProvider invalidOrderNumberInputsProvider
+     */
+    public function createOrderNumber_throws_exception_for_invalid_input($input)
+    {
+        $this->expectException(\Sermepa\Tpv\TpvException::class);
+
+        // Call the createOrderNumber method with an invalid input
+        $this->redsys->createOrderNumber($input);
     }
 }
