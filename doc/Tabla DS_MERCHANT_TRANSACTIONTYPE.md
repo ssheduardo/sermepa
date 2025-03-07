@@ -13,6 +13,7 @@
 | Autenticación Puce                             | 17 | REST/SOAP |
 | Devolución sin original                        | 34 | Redirección <br> REST/SOAP |
 | Premio de apuestas                             | 37 | REST/SOAP |
+| Anulación de referencia                        | 44 | REST/SOAP |
 | Anulación de pago                              | 45 | Redirección <br> REST/SOAP |
 | Anulación de devolución                        | 46 | Redirección <br> REST/SOAP |
 | Anulación de confirmación separada             | 47 | Redirección <br> REST/SOAP |
