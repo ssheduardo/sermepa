@@ -1,6 +1,7 @@
 # Redsys - Biblioteca PHP para Pasarela de Pagos
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
+[![PHP Version][ico-php]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Run Tests](https://github.com/ssheduardo/sermepa/actions/workflows/ci.yml/badge.svg)][link-workflows]
@@ -9,7 +10,7 @@ Biblioteca PHP para integrar la pasarela de pagos Redsys/Sermepa (Santander, Sab
 
 ## Requisitos
 
-- PHP 7.1.3+ a 8.2
+- PHP 7.1.3+ a 8.5
 - ext-curl
 - ext-openssl
 - ext-json
@@ -71,17 +72,27 @@ echo $redsys->createForm();
 
 ## Tipos de Transacción
 
-| Código | Descripción |
-|--------|-------------|
-| `0` | Autorización |
-| `1` | Preautorización |
-| `2` | Confirmación de preautorización |
-| `3` | Anulación de preautorización |
-| `4` | Devolución |
-| `5` | Cancelación |
-| `7` | Preautorización extendida |
-| `8` | Confirmación preautorización extendida |
-| `9` | Baja de preautorización extendida |
+| Código | Descripción | Canal |
+|--------|-------------|-------|
+| `0` | Autorización | Redirección / REST / SOAP |
+| `1` | Preautorización | Redirección / REST / SOAP |
+| `2` | Confirmación de preautorización | Redirección / REST / SOAP |
+| `3` | Devolución | Redirección / REST / SOAP |
+| `7` | Preautorización separada (autenticación) | Redirección / REST / SOAP |
+| `8` | Confirmación de autenticación | Redirección / REST / SOAP |
+| `9` | Anulación de preautorización o autorización | Redirección / REST / SOAP |
+| `11` | Preautorización de reemplazo | Redirección / REST / SOAP |
+| `15` | PayGold (solicitud de pago) | REST / SOAP |
+| `17` | Autenticación PUCE | REST / SOAP |
+| `34` | Devolución sin original | Redirección / REST / SOAP |
+| `37` | Premio de apuestas / abono | REST / SOAP |
+| `38` | PayGold - autorización del titular | — |
+| `44` | Anulación de referencia (borrar token) | REST |
+| `45` | Anulación de pago | Redirección / REST / SOAP |
+| `46` | Anulación de devolución | Redirección / REST / SOAP |
+| `47` | Anulación de confirmación separada | Redirección / REST / SOAP |
+| `48` | Confirmación parcial | REST / SOAP |
+| `51` | Modificación de caducidad del enlace (PayGold) | Redirección / REST / SOAP |
 
 ## Códigos de Respuesta
 
@@ -177,6 +188,29 @@ $redsys->setIdentifier();  // Sin parámetros - indica "REQUIRED"
 // 2. Usar referencia (pagos recurrentes)
 $redsys->setIdentifier('IDENTIFICADOR_GUARDADO');
 $redsys->setMerchantDirectPayment(true);  // Pago directo sin autenticación 3D Secure
+```
+
+### Borrar una referencia (token)
+
+Para eliminar una referencia almacenada en Redsys, usa el tipo de transacción `44`:
+
+```php
+use Redsys\Merchant\MerchantTransactionTypes;
+
+$redsys = new Tpv();
+$redsys->setAmount(0)
+    ->setOrder('1234AB')
+    ->setMerchantcode('999008881')
+    ->setCurrency('978')
+    ->setTransactiontype(MerchantTransactionTypes::ANULACION_DE_REFERENCIA)  // 44
+    ->setTerminal('1')
+    ->setIdentifier('IDENTIFICADOR_A_BORRAR')  // Referencia que se quiere eliminar
+    ->setEnvironment('restTest');
+
+$signature = $redsys->generateMerchantSignature('TU_CLAVE_SECRETA');
+$redsys->setMerchantSignature($signature);
+
+$response = json_decode($redsys->send(), true);
 ```
 
 ## Enviar Datos de Tarjeta Directamente
@@ -416,7 +450,6 @@ try {
         // Pago aprobado
     } else {
         // Pago denegado
-    }
     }
 
 } catch (TpvException $e) {
@@ -721,6 +754,18 @@ try {
 
 Ver [CHANGELOG.md](CHANGELOG.md) para más detalles.
 
+## Troubleshooting
+
+| Problema | Solución |
+|----------|----------|
+| **Error SIS0042 / Error de firma** | Verifica que la clave secreta (SHA-256) sea la correcta para el entorno (test vs live). |
+| **Error SIS0019 / Número de pedido repetido** | Redsys no permite reutilizar un `Ds_Order` en las siguientes 24h. Genera uno único por transacción. |
+| **Error SIS0078 / Terminal no habilitado** | Contacta con tu banco para activar el terminal en el entorno que usas (test o live). |
+| **Error SIS0051 / Comercio no operativo** | El comercio no está activo en Redsys. Revisa la configuración en el Portal de Administración. |
+| **Error SIS0218 / Operación no permitida** | El tipo de transacción no está habilitado para tu comercio. Solicita la activación al banco. |
+| **El formulario no redirige** | Asegúrate de llamar a `createForm()` después de `setMerchantSignature()`. |
+| **Notificación (callback) no llega** | Verifica que la URL de notificación sea pública, use HTTPS en producción y esté registrada en Redsys. |
+
 ## Licencia
 
 MIT - Ver [LICENSE.md](LICENSE.md)
@@ -729,9 +774,14 @@ MIT - Ver [LICENSE.md](LICENSE.md)
 
 ## Contribuidores
 
-- [Eduardo D](mailto:ssh.eduardo@gmail.com) - Autor original
-- [jaumecornado](https://github.com/jaumecornado) - Redirección automática
-- [markitosgv](https://github.com/markitosgv) - Validación de respuesta
+Gracias a todos los que han mejorado esta biblioteca:
+
+- [Eduardo D](mailto:ssh.eduardo@gmail.com) — Autor original y mantenedor
+- [jaumecornado](https://github.com/jaumecornado) — Redirección automática
+- [markitosgv](https://github.com/markitosgv) — Validación de respuesta
+- [HecFranco](https://github.com/HecFranco) — Fix TpvException en `send()` (PR #110)
+- [alphp](https://github.com/alphp) — Tipo de transacción `ANULACION_DE_REFERENCIA` (PR #105)
+- ... y [todos los contribuidores](https://github.com/ssheduardo/sermepa/graphs/contributors)
 
 ## Donación
 
@@ -744,6 +794,7 @@ MIT - Ver [LICENSE.md](LICENSE.md)
 ¿Necesitas ayuda? [Abre un issue](https://github.com/ssheduardo/sermepa/issues)
 
 [ico-version]: https://img.shields.io/packagist/v/sermepa/sermepa.svg?style=flat-square
+[ico-php]: https://img.shields.io/badge/PHP-7.1%20to%208.5-777bb4.svg?style=flat-square&logo=php
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/sermepa/sermepa.svg?style=flat-square
 
