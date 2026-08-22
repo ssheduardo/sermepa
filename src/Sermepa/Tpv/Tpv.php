@@ -853,6 +853,8 @@ class Tpv
 
     /**
      * Send data
+     *
+     * @throws TpvException When the HTTP request fails or returns a non-200 status
      */
     public function send()
     {
@@ -877,17 +879,17 @@ class Tpv
         $tmp = curl_exec ( $rest );
         $httpCode=curl_getinfo($rest,CURLINFO_HTTP_CODE);
 
-        if($tmp !== false && $httpCode==200){
-            $result=$tmp;
-        }
-        else{
-            $strError="Request failure ".(($httpCode!=200)?"[HttpCode: '".$httpCode."']":"").((curl_error($rest))?" [Error: '".curl_error($rest)."']":"");
-            exit($strError);
+        if ($tmp !== false && $httpCode == 200) {
+            $result = $tmp;
+            curl_close($rest);
+
+            return $result;
         }
 
-        curl_close( $rest );
+        curl_close($rest);
+        $strError = "Request failure ".(($httpCode != 200) ? "[HttpCode: '".$httpCode."']" : "").((curl_error($rest)) ? " [Error: '".	curl_error($rest)."']" : "");
 
-        return $result;
+        throw new TpvException($strError);
     }
 
     /**
