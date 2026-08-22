@@ -2,6 +2,12 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.6.1 (2026-08-22)
+
+### Fixed
+
+- `Tpv::send()` now throws `TpvException` instead of calling `exit()` on REST request failures. This prevents worker process crashes in long-lived PHP runtimes (FrankenPHP, php-fpm) and ensures `curl_close()` is always executed. Thanks to [@HecFranco](https://github.com/HecFranco) for the fix! ([#110](https://github.com/ssheduardo/sermepa/pull/110))
+
 ## Version 1.6.0 (2026-03-08)
 
 ### Added
