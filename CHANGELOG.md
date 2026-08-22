@@ -2,6 +2,13 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
+## Version 1.7.0 (2026-08-22)
+
+### Added
+
+- Added `ANULACION_DE_REFERENCIA = 44` transaction type constant to `MerchantTransactionTypes` for deleting tokenized card references via REST API. Includes PHPDoc with usage example. Thanks to [@alphp](https://github.com/alphp) for the contribution! ([#105](https://github.com/ssheduardo/sermepa/pull/105))
+- Updated transaction type documentation table to include code 44.
+
 ## Version 1.6.1 (2026-08-22)
 
 ### Fixed
