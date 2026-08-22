@@ -2,7 +2,7 @@
 
 All Notable changes to `Redsys` will be documented in this file
 
-## Version 1.7.0 (2026-08-22)
+## Version 1.6.2 (2026-08-22)
 
 ### Added
 
