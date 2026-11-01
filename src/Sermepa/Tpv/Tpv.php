@@ -29,6 +29,13 @@ class Tpv
     protected $_setInSiteMode = false;
     protected $_setInSiteJsUrl = '';
 
+    // Custom TLS CA configuration (optional)
+    protected $_setCaInfo = null;
+    protected $_setCaPath = null;
+
+    // Explicit opt-out of TLS verification (insecure, see allowInsecureTls())
+    protected $_setAllowInsecureTls = false;
+
     /**
      * Constructor
      */
@@ -45,6 +52,10 @@ class Tpv
         $this->_setValueSubmit = 'Send';
         $this->_setStyleSubmit = '';
         $this->_setClassSubmit = '';
+
+        $this->_setCaInfo = null;
+        $this->_setCaPath = null;
+        $this->_setAllowInsecureTls = false;
 
     }
 
@@ -397,12 +408,31 @@ class Tpv
      */
     public function generateMerchantSignatureNotification($key, $data)
     {
+        if (!is_string($data) || $data === '') {
+            throw new TpvException("Invalid notification parameters");
+        }
+
         $key = $this->decodeBase64($key);
+        if ($key === false || $key === '') {
+            throw new TpvException("Invalid key");
+        }
+
         // Decode data base64
         $decode = $this->base64_url_decode($data);
+        if ($decode === false || $decode === '') {
+            throw new TpvException("Invalid notification parameters: malformed Base64");
+        }
+
         // Los datos decodificados se pasan al array de datos
         $parameters = $this->JsonToArray($decode);
+        if (!is_array($parameters)) {
+            throw new TpvException("Invalid notification parameters: malformed JSON");
+        }
+
         $order = $this->getOrderNotification($parameters);
+        if ($order === '') {
+            throw new TpvException("Invalid notification parameters: missing order");
+        }
 
         $key = $this->encrypt_3DES($order, $key);
         // Generated Hmac256 of Merchant Parameter
@@ -821,7 +851,7 @@ class Tpv
     public function executeRedirection($return = false)
     {
         $html = $this->createForm();
-        $html .= '<script>document.forms["'.$this->_setNameForm.'"].submit();</script>';
+        $html .= '<script>document.forms["'.$this->escapeJsStringDoubleQuoted($this->_setNameForm).'"].submit();</script>';
 
         if (!$return) {
             echo $html;
@@ -840,11 +870,11 @@ class Tpv
     public function createForm()
     {
         $form = '
-            <form action="'.$this->_setEnvironment.'" method="post" id="'.$this->_setIdForm.'" name="'.$this->_setNameForm.'" >
-                <input type="hidden" name="Ds_MerchantParameters" value="'.$this->generateMerchantParameters().'"/>
-                <input type="hidden" name="Ds_Signature" value="'.$this->_setSignature.'"/>
-                <input type="hidden" name="Ds_SignatureVersion" value="'.$this->_setVersion.'"/>
-                <input type="submit" name="'.$this->_setNameSubmit.'" id="'.$this->_setIdSubmit.'" value="'.$this->_setValueSubmit.'" '.($this->_setStyleSubmit != '' ? ' style="'.$this->_setStyleSubmit.'"' : '').' '.($this->_setClassSubmit != '' ? ' class="'.$this->_setClassSubmit.'"' : '').'>
+            <form action="'.$this->escapeHtmlAttribute($this->_setEnvironment).'" method="post" id="'.$this->escapeHtmlAttribute($this->_setIdForm).'" name="'.$this->escapeHtmlAttribute($this->_setNameForm).'" >
+                <input type="hidden" name="Ds_MerchantParameters" value="'.$this->escapeHtmlAttribute($this->generateMerchantParameters()).'"/>
+                <input type="hidden" name="Ds_Signature" value="'.$this->escapeHtmlAttribute($this->_setSignature).'"/>
+                <input type="hidden" name="Ds_SignatureVersion" value="'.$this->escapeHtmlAttribute($this->_setVersion).'"/>
+                <input type="submit" name="'.$this->escapeHtmlAttribute($this->_setNameSubmit).'" id="'.$this->escapeHtmlAttribute($this->_setIdSubmit).'" value="'.$this->escapeHtmlAttribute($this->_setValueSubmit).'" '.($this->_setStyleSubmit != '' ? ' style="'.$this->escapeHtmlAttribute($this->_setStyleSubmit).'"' : '').' '.($this->_setClassSubmit != '' ? ' class="'.$this->escapeHtmlAttribute($this->_setClassSubmit).'"' : '').'>
             </form>
         ';
 
@@ -852,8 +882,79 @@ class Tpv
     }
 
     /**
+     * Set the path to a custom CA bundle for TLS peer verification.
+     *
+     * The file must contain one or more PEM-encoded CA certificates.
+     * Passing null restores the system default CA bundle.
+     *
+     * @param string|null $caInfo Path to a CA bundle file, or null.
+     *
+     * @return $this
+     */
+    public function setCaInfo(?string $caInfo = null)
+    {
+        $this->_setCaInfo = $caInfo;
+
+        return $this;
+    }
+
+    /**
+     * Set the path to a directory of CA certificates for TLS peer verification.
+     *
+     * The directory must contain PEM-encoded CA certificates named by their
+     * subject hash (OpenSSL c_rehash format). Passing null restores the system
+     * default CA bundle lookup.
+     *
+     * @param string|null $caPath Path to a CA certificate directory, or null.
+     *
+     * @return $this
+     */
+    public function setCaPath(?string $caPath = null)
+    {
+        $this->_setCaPath = $caPath;
+
+        return $this;
+    }
+
+    /**
+     * Disable TLS certificate and hostname verification.
+     *
+     * WARNING: with verification disabled, HTTPS is no longer authenticated and
+     * an attacker able to intercept the connection can read and modify the
+     * request. send() and sendInSite() may carry card data (setPan()/setCVV2()),
+     * so this MUST NOT be used in production or with real card data, and it is
+     * not PCI DSS compliant.
+     *
+     * Prefer setCaInfo()/setCaPath() with the CA that signs your endpoint, or
+     * install a CA bundle (see README > "TLS y Certificados").
+     *
+     * Enabling it emits an E_USER_WARNING so the misuse is visible in logs.
+     *
+     * @param bool $allow True to disable verification, false to restore it.
+     *
+     * @return $this
+     */
+    public function allowInsecureTls(bool $allow = true)
+    {
+        $this->_setAllowInsecureTls = $allow;
+
+        if ($allow) {
+            trigger_error(
+                'Tpv: TLS certificate and hostname verification disabled. '
+                . 'The payment gateway is no longer authenticated and card data can be intercepted. '
+                . 'Do not use this in production or with real card data. '
+                . 'Prefer setCaInfo()/setCaPath() with your CA.',
+                E_USER_WARNING
+            );
+        }
+
+        return $this;
+    }
+
+    /**
      * Send data
      *
+     * @return string Response body on HTTP 200
      * @throws TpvException When the HTTP request fails or returns a non-200 status
      */
     public function send()
@@ -862,34 +963,114 @@ class Tpv
         $data['Ds_Signature'] = $this->_setSignature;
         $data['Ds_SignatureVersion'] = $this->_setVersion;
 
-        $jsonCode = json_encode($data);
-
-        $rest = curl_init ();
-        curl_setopt ($rest, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-        curl_setopt ( $rest, CURLOPT_URL, $this->_setEnvironment );
-        curl_setopt ( $rest, CURLOPT_CONNECTTIMEOUT, self::TIMEOUT );
-        curl_setopt ( $rest, CURLOPT_TIMEOUT, self::READ_TIMEOUT );
-        curl_setopt ( $rest, CURLOPT_RETURNTRANSFER, true );
-        curl_setopt ( $rest, CURLOPT_SSL_VERIFYHOST, 0 );
-        curl_setopt ( $rest, CURLOPT_SSL_VERIFYPEER, 0 );
-        curl_setopt ( $rest, CURLOPT_SSLVERSION, self::SSLVERSION_TLSv1_2 );
-        curl_setopt ( $rest, CURLOPT_POST, true );
-        curl_setopt ( $rest, CURLOPT_POSTFIELDS, $jsonCode );
-
-        $tmp = curl_exec ( $rest );
-        $httpCode=curl_getinfo($rest,CURLINFO_HTTP_CODE);
-
-        if ($tmp !== false && $httpCode == 200) {
-            $result = $tmp;
-            curl_close($rest);
-
-            return $result;
+        $jsonCode = $this->encodeRequestData($data);
+        if ($jsonCode === false) {
+            throw new TpvException('Failed to encode request data to JSON');
         }
 
+        $rest = $this->initCurlHandle();
+        if ($rest === false) {
+            throw new TpvException('Failed to initialize cURL request');
+        }
+
+        $this->configureCurlHandle($rest, $this->_setEnvironment, $jsonCode);
+
+        list($tmp, $httpCode, $curlError) = $this->executeCurlRequest($rest);
+
         curl_close($rest);
-        $strError = "Request failure ".(($httpCode != 200) ? "[HttpCode: '".$httpCode."']" : "").((curl_error($rest)) ? " [Error: '".	curl_error($rest)."']" : "");
+
+        if ($tmp !== false && $httpCode == 200) {
+            return $tmp;
+        }
+
+        $strError = "Request failure " . (($httpCode != 200) ? "[HttpCode: '" . $httpCode . "']" : "") . (($curlError) ? " [Error: '" . $curlError . "']" : "");
 
         throw new TpvException($strError);
+    }
+
+    /**
+     * Encode request data as JSON.
+     *
+     * @param array $data Request data
+     *
+     * @return string|false JSON string or false on failure
+     */
+    protected function encodeRequestData(array $data)
+    {
+        return json_encode($data);
+    }
+
+    /**
+     * Initialize a cURL handle.
+     *
+     * @return resource|\CurlHandle|false cURL handle or false on failure
+     */
+    protected function initCurlHandle()
+    {
+        return curl_init();
+    }
+
+    /**
+     * Configure the cURL handle for the REST request.
+     *
+     * @param resource|\CurlHandle $rest cURL handle
+     * @param string $url Request URL
+     * @param string $jsonCode JSON-encoded request body
+     */
+    protected function configureCurlHandle($rest, $url, $jsonCode)
+    {
+        $this->setCurlOption($rest, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        $this->setCurlOption($rest, CURLOPT_URL, $url);
+        $this->setCurlOption($rest, CURLOPT_CONNECTTIMEOUT, self::TIMEOUT);
+        $this->setCurlOption($rest, CURLOPT_TIMEOUT, self::READ_TIMEOUT);
+        $this->setCurlOption($rest, CURLOPT_RETURNTRANSFER, true);
+        $this->setCurlOption($rest, CURLOPT_SSL_VERIFYHOST, $this->_setAllowInsecureTls ? 0 : 2);
+        $this->setCurlOption($rest, CURLOPT_SSL_VERIFYPEER, !$this->_setAllowInsecureTls);
+        $this->setCurlOption($rest, CURLOPT_SSLVERSION, self::SSLVERSION_TLSv1_2);
+
+        if ($this->_setCaInfo !== null) {
+            $this->setCurlOption($rest, CURLOPT_CAINFO, $this->_setCaInfo);
+        }
+
+        if ($this->_setCaPath !== null) {
+            $this->setCurlOption($rest, CURLOPT_CAPATH, $this->_setCaPath);
+        }
+
+        $this->setCurlOption($rest, CURLOPT_POST, true);
+        $this->setCurlOption($rest, CURLOPT_POSTFIELDS, $jsonCode);
+    }
+
+    /**
+     * Set a cURL option.
+     *
+     * @param resource|\CurlHandle $rest cURL handle
+     * @param int $option cURL option
+     * @param mixed $value Option value
+     *
+     * @return bool
+     */
+    protected function setCurlOption($rest, $option, $value)
+    {
+        return curl_setopt($rest, $option, $value);
+    }
+
+    /**
+     * Execute the configured cURL request and capture response metadata.
+     *
+     * The cURL error is captured before the handle is closed so the failure
+     * message is not lost.
+     *
+     * @param resource|\CurlHandle $rest Configured cURL handle
+     *
+     * @return array Tuple of response body, HTTP code and cURL error string
+     */
+    protected function executeCurlRequest($rest)
+    {
+        $tmp = curl_exec($rest);
+        $httpCode = curl_getinfo($rest, CURLINFO_HTTP_CODE);
+        $curlError = curl_error($rest);
+
+        return [$tmp, $httpCode, $curlError];
     }
 
     /**
@@ -903,12 +1084,25 @@ class Tpv
      */
     public function check($key, $postData)
     {
-        if (!isset($postData)) {
+        if (!is_array($postData)) {
             throw new TpvException("Add data return of bank");
+        }
+
+        if (!array_key_exists('Ds_MerchantParameters', $postData) || !array_key_exists('Ds_Signature', $postData)) {
+            throw new TpvException("Missing required notification fields");
         }
 
         $parameters = $postData["Ds_MerchantParameters"];
         $signatureReceived = $postData["Ds_Signature"];
+
+        if (!is_string($parameters) || $parameters === '') {
+            throw new TpvException("Invalid notification parameters");
+        }
+
+        if (!is_string($signatureReceived) || $signatureReceived === '') {
+            throw new TpvException("Invalid notification signature");
+        }
+
         $signature = $this->generateMerchantSignatureNotification($key, $parameters);
 
         return hash_equals($signature, $signatureReceived);
@@ -920,12 +1114,27 @@ class Tpv
      * @param $parameters
      *
      * @return array with parameters of bank
+     * @throws TpvException
      */
     public function getMerchantParameters($parameters)
     {
+        if (!is_string($parameters) || $parameters === '') {
+            throw new TpvException("Invalid parameters");
+        }
+
         $decoded = $this->decodeParameters($parameters);
 
-        return $this->JsonToArray($decoded);
+        if ($decoded === false || $decoded === '') {
+            throw new TpvException("Invalid parameters: malformed Base64");
+        }
+
+        $array = $this->JsonToArray($decoded);
+
+        if (!is_array($array)) {
+            throw new TpvException("Invalid parameters: malformed JSON");
+        }
+
+        return $array;
     }
 
     /**
@@ -1130,7 +1339,7 @@ class Tpv
      */
     protected function decodeParameters($data)
     {
-        return base64_decode(strtr($data, '-_', '+/'));
+        return base64_decode(strtr($data, '-_', '+/'), true);
     }
 
     /**
@@ -1215,7 +1424,7 @@ class Tpv
      */
     protected function base64_url_decode($input)
     {
-        return base64_decode(strtr($input, '-_', '+/'));
+        return base64_decode(strtr($input, '-_', '+/'), true);
     }
 
     /**
@@ -1226,6 +1435,68 @@ class Tpv
     protected function decodeBase64($data)
     {
         return base64_decode($data);
+    }
+
+    /**
+     * Escape a value for use in an HTML attribute.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    protected function escapeHtmlAttribute($value)
+    {
+        return htmlspecialchars((string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    }
+
+    /**
+     * Escape a value for use inside a JavaScript string delimited by single quotes.
+     *
+     * Backslashes and single quotes are escaped so the string cannot break out of
+     * its quotes. Closing script tags are neutralised to avoid HTML parser quirks,
+     * and newline characters are escaped to keep the generated script valid.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    protected function escapeJsString($value)
+    {
+        return $this->escapeJsStringValue($value, "'");
+    }
+
+    /**
+     * Escape a value for use inside a JavaScript string delimited by double quotes.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    protected function escapeJsStringDoubleQuoted($value)
+    {
+        return $this->escapeJsStringValue($value, '"');
+    }
+
+    /**
+     * Escape a value for use inside a JavaScript string literal.
+     *
+     * Backslashes are escaped first so the escaping added for the string
+     * delimiter is not escaped twice. Closing script tags are neutralised so the
+     * value cannot break out of the surrounding script element.
+     *
+     * @param mixed $value Value to escape
+     * @param string $quote String delimiter that must be escaped
+     *
+     * @return string
+     */
+    protected function escapeJsStringValue($value, $quote)
+    {
+        $value = str_replace('\\', '\\\\', (string) $value);
+        $value = str_replace($quote, '\\' . $quote, $value);
+        $value = str_replace(["\n", "\r"], ['\\n', '\\r'], $value);
+        $value = str_ireplace('</script>', '<\\/script>', $value);
+
+        return $value;
     }
 
     // ******** END UTILS ********
@@ -1322,8 +1593,8 @@ class Tpv
         $reducedStyleJs = $reducedStyle ? 'true' : 'false';
         $insiteStyleJs = in_array($insiteStyle, ['inline', 'twoRows']) ? $insiteStyle : 'inline';
 
-        $form = '<script src="' . $jsUrl . '"></script>
-<div id="' . $containerId . '"></div>
+        $form = '<script src="' . $this->escapeHtmlAttribute($jsUrl) . '"></script>
+<div id="' . $this->escapeHtmlAttribute($containerId) . '"></div>
 <form name="datos" id="datos" method="post" target="_self">
     <input type="hidden" id="token" name="token" value="">
     <input type="hidden" id="errorCode" name="errorCode" value="">
@@ -1335,19 +1606,19 @@ function merchantValidation(){
 }
 function loadRedsysForm(){
     getInSiteForm(
-        \'' . $containerId . '\',
-        \'' . $buttonStyle . '\',
-        \'' . $bodyStyle . '\',
-        \'' . $boxStyle . '\',
-        \'' . $inputStyle . '\',
-        \'' . $buttonText . '\',
-        \'' . $fuc . '\',
-        \'' . $terminal . '\',
-        \'' . $order . '\',
-        \'' . $language . '\',
+        \'' . $this->escapeJsString($containerId) . '\',
+        \'' . $this->escapeJsString($buttonStyle) . '\',
+        \'' . $this->escapeJsString($bodyStyle) . '\',
+        \'' . $this->escapeJsString($boxStyle) . '\',
+        \'' . $this->escapeJsString($inputStyle) . '\',
+        \'' . $this->escapeJsString($buttonText) . '\',
+        \'' . $this->escapeJsString($fuc) . '\',
+        \'' . $this->escapeJsString($terminal) . '\',
+        \'' . $this->escapeJsString($order) . '\',
+        \'' . $this->escapeJsString($language) . '\',
         ' . $showLogoJs . ',
         ' . $reducedStyleJs . ',
-        \'' . $insiteStyleJs . '\'
+        \'' . $this->escapeJsString($insiteStyleJs) . '\'
     );
 }
 window.addEventListener("message", function receiveMessage(event) {
@@ -1440,10 +1711,17 @@ window.onload = loadRedsysForm;
             $config['estiloInsite'] = $options['estiloInsite'];
         }
 
-        $jsonConfig = json_encode($config);
+        $jsonConfig = json_encode(
+            $config,
+            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+        );
 
-        $form = '<script src="' . $jsUrl . '"></script>
-<div id="' . $options['id'] . '"></div>
+        if ($jsonConfig === false) {
+            throw new TpvException('Failed to encode InSite configuration');
+        }
+
+        $form = '<script src="' . $this->escapeHtmlAttribute($jsUrl) . '"></script>
+<div id="' . $this->escapeHtmlAttribute($options['id']) . '"></div>
 <form name="datos" id="datos" method="post" target="_self">
     <input type="hidden" id="token" name="token" value="">
     <input type="hidden" id="errorCode" name="errorCode" value="">
@@ -1483,8 +1761,8 @@ window.onload = loadRedsysForm;
         // Set the operation ID instead of card data
         $this->_setParameters['DS_MERCHANT_IDOPER'] = $idOper;
 
-        // Generate signature for the request
-        $this->generateMerchantSignature($key);
+        // Generate and store signature for the request
+        $this->setMerchantSignature($this->generateMerchantSignature($key));
 
         return $this->send();
     }
