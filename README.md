@@ -271,6 +271,67 @@ try {
 }
 ```
 
+## TLS y Certificados
+
+Las llamadas HTTP de la biblioteca (`send()` y `sendInSite()`) **verifican por defecto** el certificado del servidor y el nombre del host (`CURLOPT_SSL_VERIFYPEER = true`, `CURLOPT_SSL_VERIFYHOST = 2`).
+
+Los endpoints de Redsys usan certificados públicos, así que en un servidor con el store de CAs al día **no hay nada que configurar**. Solo necesitas indicar una CA propia si llamas a `send()` contra un endpoint cuyo certificado no está en el store del sistema:
+
+- Un **servidor de pruebas local** con certificado autofirmado.
+- Un **proxy corporativo** que inspecciona TLS con una CA interna.
+- Un **PHP sin bundle de CAs actualizado** (habitual en Windows, donde PHP no usa el store del sistema).
+
+```php
+// CA en archivo PEM (recomendado)
+$redsys->setCaInfo('/ruta/a/ca-bundle.pem');
+
+// O directorio de CAs en formato c_rehash (openssl rehash)
+$redsys->setCaPath('/etc/ssl/certs');
+```
+
+Ambos métodos aceptan `null` para volver al comportamiento por defecto y son encadenables:
+
+```php
+$redsys->setCaInfo('/etc/ssl/certs/corporate-root.pem')
+       ->setEnvironment('restTest')
+       ->send();
+```
+
+Si la verificación falla, `send()` lanza `TpvException` con el error de cURL incluido:
+
+```text
+Request failure [HttpCode: '0'] [Error: 'SSL certificate problem: self-signed certificate']
+Request failure [HttpCode: '0'] [Error: 'error setting certificate file: /ruta/inexistente.pem']
+```
+
+En Windows, la solución más simple es definir `curl.cainfo` en `php.ini` apuntando a un `cacert.pem` actualizado y reiniciar PHP.
+
+> **Importante:** en versiones anteriores a la 2.0.0 la verificación TLS estaba desactivada, por lo que estas llamadas nunca fallaban. Si tu entorno usa una CA no pública, configura `setCaInfo()`/`setCaPath()` o actualiza el bundle de CAs del sistema.
+
+### Desactivar la verificación (último recurso, no recomendado)
+
+Si no puedes resolver el certificado con `setCaInfo()`/`setCaPath()` ni instalando un bundle de CAs, existe una salida explícita:
+
+```php
+$redsys->allowInsecureTls();        // equivale a VERIFYHOST=0 + VERIFYPEER=false
+$redsys->allowInsecureTls(false);   // vuelve a la verificación estricta
+```
+
+Al activarlo emite un `E_USER_WARNING` que queda en el log:
+
+```text
+Warning: Tpv: TLS certificate and hostname verification disabled. The payment gateway is no
+longer authenticated and card data can be intercepted. Do not use this in production or with
+real card data. Prefer setCaInfo()/setCaPath() with your CA.
+```
+
+Qué implica, sin vueltas:
+
+- La conexión queda cifrada pero **sin autenticar al servidor**: cualquiera que pueda interceptar la red (WiFi, proxy, DNS) puede leer y modificar la petición.
+- `send()` con `setPan()`/`setCVV2()` transporta **el número de tarjeta y el CVV** en el cuerpo. Con verificación desactivada, esos datos quedan expuestos.
+- **No es compatible con PCI DSS** (requiere TLS autenticado para datos de tarjeta). Un comercio auditado no puede usarlo.
+- Pensado para pruebas en local o entornos de desarrollo cerrados, nunca para producción ni con tarjetas reales.
+
 ## InSite (Pago Embebido)
 
 InSite permite incrustar el formulario de pago directamente en tu página web mediante un **iframe**, sin redirigir al usuario a la pasarela de Redsys. Los datos de tarjeta nunca pasan por tu servidor (cumplimiento PCI DSS).
@@ -582,6 +643,9 @@ Los códigos ISO 4217. Los más comunes:
 | `setTradeName(string)` | Nombre del comercio | No |
 | `setTitular(string)` | Titular del pago | No |
 | `setProductDescription(string)` | Descripción del producto | No |
+| `setCaInfo(?string)` | CA bundle PEM para verificar TLS (por defecto: store del sistema) | No |
+| `setCaPath(?string)` | Directorio de CAs para verificar TLS | No |
+| `allowInsecureTls(bool)` | Desactiva la verificación TLS (**inseguro**, emite `E_USER_WARNING`) | No |
 
 ### Métodos de Firma y Envío
 
@@ -765,6 +829,7 @@ Ver [CHANGELOG.md](CHANGELOG.md) para más detalles.
 | **Error SIS0218 / Operación no permitida** | El tipo de transacción no está habilitado para tu comercio. Solicita la activación al banco. |
 | **El formulario no redirige** | Asegúrate de llamar a `createForm()` después de `setMerchantSignature()`. |
 | **Notificación (callback) no llega** | Verifica que la URL de notificación sea pública, use HTTPS en producción y esté registrada en Redsys. |
+| **`SSL certificate problem` en `send()`** | El endpoint no está en el store de CAs del sistema. Usa `setCaInfo()` con tu CA, o actualiza `curl.cainfo` (Windows) / `ca-certificates` (Linux). Ver [TLS y Certificados](#tls-y-certificados). Solo como último recurso: `allowInsecureTls()` (inseguro, no PCI DSS). |
 
 ## Licencia
 

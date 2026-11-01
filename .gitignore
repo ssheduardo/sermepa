@@ -13,6 +13,7 @@ Thumbs.db
 # PHPUnit
 /.phpunit.cache
 .phpunit.result.cache
+.phpunit.cache/
 
 phpunit.xml
 vendor
@@ -23,3 +24,10 @@ docker-compose.yml
 # Development scripts
 AGENTS.md
 test-docker.sh
+
+# Local tooling / runtime state
+.atl/
+.codegraph/
+
+# Feature tracking documents (internal, not shipped)
+/odd/
