@@ -255,12 +255,12 @@ class Tpv
     /**
      * Set currency
      *
-     * @param int $currency Algunos ejemplos: 978 para Euros, 840 para Dólares, 826 para libras esterlinas y 392 para Yenes.
+     * @param string $currency Algunos ejemplos: '978' para Euros, '840' para Dólares, '826' para libras esterlinas y '392' para Yenes.
      *
      * @return $this
      * @throws TpvException
      */
-    public function setCurrency($currency = 978)
+    public function setCurrency($currency = '978')
     {
         if (!preg_match('/^[0-9]{3}$/', $currency)) {
             throw new TpvException('Currency is not valid');
